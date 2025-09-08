@@ -8,7 +8,8 @@ import {
   CheckSquare, 
   BarChart3,
   Settings,
-  Bell
+  Bell,
+  Shield
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -41,6 +42,11 @@ const navigationItems = [
     icon: Target,
     path: "/opportunities",
     badge: "8",
+  },
+  {
+    title: "Battle Cards",
+    icon: Shield,
+    path: "/battle-cards",
   },
   {
     title: "Accounts",
