@@ -11,6 +11,7 @@ import {
   Bell
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavigationProps {
   className?: string;
@@ -54,7 +55,9 @@ const navigationItems = [
 ];
 
 export function Navigation({ className }: NavigationProps) {
-  const [activeItem, setActiveItem] = useState("/");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const activeItem = location.pathname;
 
   return (
     <div className={cn("flex flex-col h-screen bg-card border-r border-border shadow-soft", className)}>
@@ -85,7 +88,7 @@ export function Navigation({ className }: NavigationProps) {
                 "w-full justify-start space-x-3 h-10 px-3",
                 isActive && "bg-primary/10 text-primary border-primary/20"
               )}
-              onClick={() => setActiveItem(item.path)}
+              onClick={() => navigate(item.path)}
             >
               <Icon className="w-4 h-4" />
               <span className="flex-1 text-left">{item.title}</span>
