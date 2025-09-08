@@ -3,6 +3,9 @@ import { OverviewStats } from "@/components/dashboard/overview-stats";
 import { RecentActivities } from "@/components/dashboard/recent-activities";
 import { TopLeads } from "@/components/dashboard/top-leads";
 import { AIInsights } from "@/components/dashboard/ai-insights";
+import { MeetingInsightsModal } from "@/components/dashboard/meeting-insights-modal";
+import { Button } from "@/components/ui/button";
+import { Phone } from "lucide-react";
 
 const Index = () => {
   return (
@@ -23,10 +26,18 @@ const Index = () => {
                 AI-powered insights for your sales pipeline
               </p>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString()}
-              </p>
+            <div className="flex items-center gap-4">
+              <MeetingInsightsModal>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  Meeting Insights
+                </Button>
+              </MeetingInsightsModal>
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">
+                  Last updated: {new Date().toLocaleDateString()}
+                </p>
+              </div>
             </div>
           </div>
         </div>
