@@ -67,7 +67,7 @@ export function Navigation({ className }: NavigationProps) {
   const activeItem = location.pathname;
 
   return (
-    <div className={cn("flex flex-col h-screen bg-card border-r border-border shadow-soft", className)}>
+    <div className={cn("flex flex-col h-screen w-64 bg-card border-r border-border shadow-soft", className)}>
       {/* Header */}
       <div className="p-6 border-b border-border">
         <div className="flex items-center space-x-3">
