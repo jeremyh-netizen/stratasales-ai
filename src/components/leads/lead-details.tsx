@@ -155,10 +155,11 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
       {/* Content */}
       <div className="flex-1 overflow-auto">
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 m-4">
+          <TabsList className="grid w-full grid-cols-5 m-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="activity">Activity</TabsTrigger>
             <TabsTrigger value="emails">Emails</TabsTrigger>
+            <TabsTrigger value="campaign">Campaign</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
           </TabsList>
 
@@ -266,6 +267,122 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
                 </Card>
               ))}
             </div>
+          </TabsContent>
+
+          <TabsContent value="campaign" className="p-4 space-y-4">
+            {/* Campaign Overview */}
+            <Card className="p-4">
+              <h3 className="font-semibold mb-3 flex items-center">
+                <Target className="w-4 h-4 mr-2 text-primary" />
+                Campaign Overview
+              </h3>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-primary">5</div>
+                  <div className="text-xs text-muted-foreground">Touchpoints</div>
+                </div>
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-warning">3</div>
+                  <div className="text-xs text-muted-foreground">Pending</div>
+                </div>
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-success">2</div>
+                  <div className="text-xs text-muted-foreground">Completed</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Campaign Timeline */}
+            <Card className="p-4">
+              <h3 className="font-semibold mb-3 flex items-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                Outreach Timeline
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3 p-3 bg-success/5 border border-success/20 rounded-lg">
+                  <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center mt-1">
+                    <Mail className="w-4 h-4 text-success" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-foreground">Initial Introduction Email</h4>
+                      <span className="text-xs text-success font-medium">Completed</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Personalized intro highlighting AI solutions</p>
+                    <span className="text-xs text-muted-foreground">Jan 15, 2024</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-success/5 border border-success/20 rounded-lg">
+                  <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center mt-1">
+                    <Download className="w-4 h-4 text-success" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-foreground">Resource Share</h4>
+                      <span className="text-xs text-success font-medium">Completed</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">AI Implementation Guide sent</p>
+                    <span className="text-xs text-muted-foreground">Jan 12, 2024</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-warning/5 border border-warning/20 rounded-lg">
+                  <div className="w-8 h-8 bg-warning/10 rounded-full flex items-center justify-center mt-1">
+                    <Phone className="w-4 h-4 text-warning" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-foreground">Discovery Call</h4>
+                      <span className="text-xs text-warning font-medium">Scheduled</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">45-min call to discuss needs and budget</p>
+                    <span className="text-xs text-muted-foreground">Jan 18, 2024 - 2:00 PM</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-muted/30 border border-border rounded-lg">
+                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center mt-1">
+                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-muted-foreground">Product Demo</h4>
+                      <span className="text-xs text-muted-foreground">Pending</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Live demo of AI platform features</p>
+                    <span className="text-xs text-muted-foreground">Scheduled after discovery call</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-muted/30 border border-border rounded-lg">
+                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center mt-1">
+                    <MessageSquare className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-muted-foreground">Follow-up & Proposal</h4>
+                      <span className="text-xs text-muted-foreground">Pending</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Custom proposal based on requirements</p>
+                    <span className="text-xs text-muted-foreground">After demo completion</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Next Campaign Actions */}
+            <Card className="p-4 border-primary/20 bg-primary/5">
+              <h3 className="font-semibold mb-2 flex items-center text-primary">
+                <Clock className="w-4 h-4 mr-2" />
+                Next Campaign Actions
+              </h3>
+              <ul className="space-y-1 text-sm">
+                <li>• Prepare discovery call agenda and questions</li>
+                <li>• Send calendar reminder 24h before call</li>
+                <li>• Prepare demo environment with relevant use cases</li>
+              </ul>
+            </Card>
           </TabsContent>
 
           <TabsContent value="insights" className="p-4 space-y-4">
