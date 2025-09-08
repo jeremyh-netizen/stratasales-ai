@@ -27,9 +27,18 @@ interface Task {
   status: "pending" | "in-progress" | "completed";
   dueDate: string;
   contact: {
+    id: string;
     name: string;
     avatar: string;
     company: string;
+  };
+  account: {
+    id: string;
+    name: string;
+  };
+  campaign?: {
+    id: string;
+    name: string;
   };
   predictiveScore: number;
   aiInsights?: string[];
@@ -46,11 +55,20 @@ const mockTasks: Task[] = [
     status: "pending",
     dueDate: "2024-01-15",
     contact: {
+      id: "c1",
       name: "Sarah Chen",
       avatar: "https://i.pravatar.cc/40?img=1",
       company: "TechCorp"
     },
-    predictiveScore: 87,
+    account: {
+      id: "a1",
+      name: "TechCorp"
+    },
+    campaign: {
+      id: "cam1",
+      name: "Enterprise Q1 Outreach"
+    },
+    predictiveScore: 92,
     aiInsights: [
       "Competitor 'HubSpot' mentioned 3x in last call",
       "Price sensitivity detected - suggest 20% pilot discount",
@@ -67,11 +85,16 @@ const mockTasks: Task[] = [
     status: "pending",
     dueDate: "2024-01-15",
     contact: {
+      id: "c2",
       name: "Michael Rodriguez",
       avatar: "https://i.pravatar.cc/40?img=2",
       company: "DataFlow Inc"
     },
-    predictiveScore: 92,
+    account: {
+      id: "a2",
+      name: "DataFlow Inc"
+    },
+    predictiveScore: 89,
     aiInsights: [
       "Technical buyer confirmed - high influence",
       "Integration concerns about API rate limits",
@@ -88,11 +111,20 @@ const mockTasks: Task[] = [
     status: "in-progress",
     dueDate: "2024-01-16",
     contact: {
+      id: "c3",
       name: "Emma Thompson",
       avatar: "https://i.pravatar.cc/40?img=3",
       company: "ManufacturingPro"
     },
-    predictiveScore: 73,
+    account: {
+      id: "a3",
+      name: "ManufacturingPro"
+    },
+    campaign: {
+      id: "cam2",
+      name: "Manufacturing Vertical Campaign"
+    },
+    predictiveScore: 87,
     aiInsights: [
       "Similar company size and industry match found",
       "ROI case study shows 340% return",
@@ -109,28 +141,69 @@ const mockTasks: Task[] = [
     status: "pending",
     dueDate: "2024-01-14",
     contact: {
+      id: "c4",
       name: "James Wilson",
       avatar: "https://i.pravatar.cc/40?img=4",
       company: "SecureBank"
     },
-    predictiveScore: 68,
+    account: {
+      id: "a4",
+      name: "SecureBank"
+    },
+    predictiveScore: 85,
     aiInsights: [
       "Compliance blocker - must resolve for deal progress",
       "Similar questions resolved for 3 other financial clients",
       "Legal approval required before procurement"
     ],
     tags: ["compliance", "security", "legal", "blocker"]
+  },
+  {
+    id: "5",
+    title: "LinkedIn connection follow-up",
+    description: "Connected but no response to initial message - try different approach",
+    type: "follow-up",
+    priority: "medium",
+    status: "pending",
+    dueDate: "2024-01-16",
+    contact: {
+      id: "c5",
+      name: "Lisa Park",
+      avatar: "https://i.pravatar.cc/40?img=5",
+      company: "TechCorp"
+    },
+    account: {
+      id: "a1",
+      name: "TechCorp"
+    },
+    campaign: {
+      id: "cam1",
+      name: "Enterprise Q1 Outreach"
+    },
+    predictiveScore: 73,
+    aiInsights: [
+      "Active on LinkedIn but slow email responder",
+      "Shared article about automation - good conversation starter",
+      "Connected to current customer advocate"
+    ],
+    tags: ["linkedin", "social-selling", "follow-up"]
   }
 ];
 
+export { type Task, mockTasks };
+
 interface TasksListProps {
+  viewType?: "all" | "account" | "contact" | "campaign";
   filterType?: "outreach" | "calls" | "all";
 }
 
-export function TasksList({ filterType = "all" }: TasksListProps) {
+export function TasksList({ viewType = "all", filterType = "all" }: TasksListProps) {
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
 
-  const filteredTasks = mockTasks.filter(task => {
+  // Sort by AI score (predictiveScore) first, then apply filters
+  const sortedTasks = [...mockTasks].sort((a, b) => b.predictiveScore - a.predictiveScore);
+  
+  const filteredTasks = sortedTasks.filter(task => {
     if (filterType === "outreach") return task.type === "email" || task.type === "follow-up";
     if (filterType === "calls") return task.type === "call";
     return true;
