@@ -655,6 +655,12 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
                           </div>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xs text-muted-foreground">{transcript.contact.company}</span>
+                            {transcript.campaign && (
+                              <>
+                                <span className="text-xs text-muted-foreground">•</span>
+                                <span className="text-xs text-muted-foreground">Campaign: {transcript.campaign.name}</span>
+                              </>
+                            )}
                             <span className="text-xs text-muted-foreground">•</span>
                             <Clock className="w-3 h-3 text-muted-foreground" />
                             <span className="text-xs text-muted-foreground">{transcript.duration}</span>
@@ -704,6 +710,9 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
                     </Badge>
                   </div>
                   <p className="text-xs text-muted-foreground">{transcript.contact.company}</p>
+                  {transcript.campaign && (
+                    <p className="text-xs text-muted-foreground">Campaign: {transcript.campaign.name}</p>
+                  )}
                   <div className="flex items-center gap-2 mt-1">
                     <Clock className="w-3 h-3 text-muted-foreground" />
                     <span className="text-xs text-muted-foreground">{transcript.duration}</span>
@@ -779,6 +788,9 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
                     {selectedTranscript.contact.name}
                   </h2>
                   <p className="text-muted-foreground">{selectedTranscript.contact.company}</p>
+                  {selectedTranscript.campaign && (
+                    <p className="text-xs text-muted-foreground">Campaign: {selectedTranscript.campaign.name}</p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-2">
