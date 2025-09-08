@@ -18,8 +18,10 @@ import {
   Pause,
   Download,
   MessageSquare,
-  Lightbulb
+  Lightbulb,
+  Plus
 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { FilterState } from "@/pages/Tasks";
 
 interface CallTranscript {
@@ -277,6 +279,42 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
                     </CardContent>
                   </Card>
                 </div>
+                
+                {/* Full Width Next Steps Section */}
+                <Card className="mt-6">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Lightbulb className="w-5 h-5 text-primary" />
+                        Next Steps
+                      </CardTitle>
+                      <Button variant="outline" size="sm" className="gap-2">
+                        <Plus className="w-4 h-4" />
+                        Add action item
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {selectedTranscript.aiInsights.nextSteps.map((step, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
+                          <Checkbox 
+                            id={`step-${idx}`}
+                            className="mt-1"
+                          />
+                          <div className="flex-1">
+                            <label 
+                              htmlFor={`step-${idx}`}
+                              className="text-sm text-foreground cursor-pointer leading-relaxed"
+                            >
+                              {step}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
               
               <TabsContent value="insights" className="space-y-4 mt-6">
