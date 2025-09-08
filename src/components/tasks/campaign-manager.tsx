@@ -21,6 +21,7 @@ import {
   MousePointer,
   Reply
 } from "lucide-react";
+import type { FilterState } from "@/pages/Tasks";
 
 interface Campaign {
   id: string;
@@ -91,7 +92,14 @@ const campaignTemplates = [
   }
 ];
 
-export function CampaignManager() {
+interface CampaignManagerProps {
+  organizationType?: string;
+  filters?: FilterState;
+  updateFilter?: (key: keyof FilterState, value: any) => void;
+  clearAllFilters?: () => void;
+}
+
+export function CampaignManager({ organizationType, filters }: CampaignManagerProps) {
   const [selectedCampaign, setSelectedCampaign] = useState(mockCampaigns[0]);
 
   const getStatusColor = (status: Campaign["status"]) => {

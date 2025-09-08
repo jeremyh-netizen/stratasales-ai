@@ -2,58 +2,151 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Search, Filter, SortAsc } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search, Filter, SortAsc, CheckSquare, Phone, Target, BarChart3 } from "lucide-react";
+import type { FilterState } from "@/pages/Tasks";
 
-export function TasksFilters() {
+interface TasksFiltersProps {
+  filters: FilterState;
+  onFilterChange: (key: keyof FilterState, value: any) => void;
+  onClearAll: () => void;
+}
+
+export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFiltersProps) {
+  const getActiveFilterCount = () => {
+    let count = 0;
+    if (filters.searchTerm) count++;
+    if (filters.priority !== "all") count++;
+    if (filters.type !== "all") count++;
+    if (filters.dateRange !== "all") count++;
+    if (filters.secondaryFilter !== "all-tasks") count++;
+    return count;
+  };
+
+  const activeFilterCount = getActiveFilterCount();
+
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-      <div className="flex flex-col sm:flex-row gap-4 flex-1">
-        <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-          <Input
-            placeholder="Search tasks..."
-            className="pl-10"
-          />
+    <div className="space-y-4">
+      {/* Main Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="flex flex-col sm:flex-row gap-4 flex-1">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Input
+              placeholder="Search tasks..."
+              className="pl-10"
+              value={filters.searchTerm}
+              onChange={(e) => onFilterChange("searchTerm", e.target.value)}
+            />
+          </div>
+          
+          <Select value={filters.type} onValueChange={(value) => onFilterChange("type", value)}>
+            <SelectTrigger className="w-40">
+              <Filter className="w-4 h-4 mr-2" />
+              <SelectValue placeholder="Filter by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="calls">Calls</SelectItem>
+              <SelectItem value="emails">Emails</SelectItem>
+              <SelectItem value="follow-ups">Follow-ups</SelectItem>
+              <SelectItem value="ai-generated">AI Generated</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Select value={filters.priority} onValueChange={(value) => onFilterChange("priority", value)}>
+            <SelectTrigger className="w-40">
+              <Filter className="w-4 h-4 mr-2" />
+              <SelectValue placeholder="Priority" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Priorities</SelectItem>
+              <SelectItem value="high">High Priority</SelectItem>
+              <SelectItem value="medium">Medium Priority</SelectItem>
+              <SelectItem value="low">Low Priority</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Select value={filters.dateRange} onValueChange={(value) => onFilterChange("dateRange", value)}>
+            <SelectTrigger className="w-40">
+              <Filter className="w-4 h-4 mr-2" />
+              <SelectValue placeholder="Due Date" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Dates</SelectItem>
+              <SelectItem value="overdue">Overdue</SelectItem>
+              <SelectItem value="due-today">Due Today</SelectItem>
+              <SelectItem value="this-week">This Week</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Select value={filters.sortBy} onValueChange={(value) => onFilterChange("sortBy", value)}>
+            <SelectTrigger className="w-40">
+              <SortAsc className="w-4 h-4 mr-2" />
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="predictive-score">AI Score</SelectItem>
+              <SelectItem value="due-date">Due Date</SelectItem>
+              <SelectItem value="priority">Priority</SelectItem>
+              <SelectItem value="contact">Contact</SelectItem>
+              <SelectItem value="created">Created</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         
-        <Select>
-          <SelectTrigger className="w-40">
-            <Filter className="w-4 h-4 mr-2" />
-            <SelectValue placeholder="Filter by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Tasks</SelectItem>
-            <SelectItem value="high-priority">High Priority</SelectItem>
-            <SelectItem value="due-today">Due Today</SelectItem>
-            <SelectItem value="overdue">Overdue</SelectItem>
-            <SelectItem value="ai-generated">AI Generated</SelectItem>
-            <SelectItem value="calls">Calls</SelectItem>
-            <SelectItem value="emails">Emails</SelectItem>
-            <SelectItem value="follow-ups">Follow-ups</SelectItem>
-          </SelectContent>
-        </Select>
-        
-        <Select>
-          <SelectTrigger className="w-40">
-            <SortAsc className="w-4 h-4 mr-2" />
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="predictive-score">AI Score</SelectItem>
-            <SelectItem value="due-date">Due Date</SelectItem>
-            <SelectItem value="priority">Priority</SelectItem>
-            <SelectItem value="contact">Contact</SelectItem>
-            <SelectItem value="created">Created</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex gap-2 items-center">
+          {activeFilterCount > 0 && (
+            <Badge variant="outline" className="text-xs">
+              {activeFilterCount} active filter{activeFilterCount !== 1 ? 's' : ''}
+            </Badge>
+          )}
+          <Button variant="ghost" size="sm" onClick={onClearAll}>
+            Clear all
+          </Button>
+        </div>
       </div>
-      
-      <div className="flex gap-2 items-center">
-        <Badge variant="outline" className="text-xs">
-          12 active filters
-        </Badge>
-        <Button variant="ghost" size="sm">
-          Clear all
+
+      {/* Secondary Filter Buttons */}
+      <div className="flex gap-2">
+        <Button
+          variant={filters.secondaryFilter === "all-tasks" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onFilterChange("secondaryFilter", "all-tasks")}
+          className="gap-2"
+        >
+          <CheckSquare className="w-4 h-4" />
+          All Tasks
+        </Button>
+        
+        <Button
+          variant={filters.secondaryFilter === "call-automation" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onFilterChange("secondaryFilter", "call-automation")}
+          className="gap-2"
+        >
+          <Phone className="w-4 h-4" />
+          Call Automation
+        </Button>
+        
+        <Button
+          variant={filters.secondaryFilter === "outreach" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onFilterChange("secondaryFilter", "outreach")}
+          className="gap-2"
+        >
+          <Target className="w-4 h-4" />
+          Outreach
+        </Button>
+        
+        <Button
+          variant={filters.secondaryFilter === "campaigns" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onFilterChange("secondaryFilter", "campaigns")}
+          className="gap-2"
+        >
+          <BarChart3 className="w-4 h-4" />
+          Campaigns
         </Button>
       </div>
     </div>

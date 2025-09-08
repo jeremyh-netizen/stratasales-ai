@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mockTasks, type Task } from "./tasks-list";
+import type { FilterState } from "@/pages/Tasks";
 
 interface CampaignGroup {
   campaign: {
@@ -34,7 +35,13 @@ interface CampaignGroup {
   uniqueContacts: number;
 }
 
-export function TasksByCampaign() {
+interface TasksByCampaignProps {
+  filters?: FilterState;
+  updateFilter?: (key: keyof FilterState, value: any) => void;
+  clearAllFilters?: () => void;
+}
+
+export function TasksByCampaign({ filters }: TasksByCampaignProps) {
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
   const [openCampaigns, setOpenCampaigns] = useState<Set<string>>(new Set(["cam1", "cam2"]));
 

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mockTasks, type Task } from "./tasks-list";
+import type { FilterState } from "@/pages/Tasks";
 
 interface AccountGroup {
   account: {
@@ -30,7 +31,13 @@ interface AccountGroup {
   highPriorityCount: number;
 }
 
-export function TasksByAccount() {
+interface TasksByAccountProps {
+  filters?: FilterState;
+  updateFilter?: (key: keyof FilterState, value: any) => void;
+  clearAllFilters?: () => void;
+}
+
+export function TasksByAccount({ filters }: TasksByAccountProps) {
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
   const [openAccounts, setOpenAccounts] = useState<Set<string>>(new Set(["a1", "a2"]));
 

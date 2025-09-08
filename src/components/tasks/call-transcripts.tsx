@@ -20,6 +20,7 @@ import {
   MessageSquare,
   Lightbulb
 } from "lucide-react";
+import type { FilterState } from "@/pages/Tasks";
 
 interface CallTranscript {
   id: string;
@@ -98,7 +99,14 @@ const mockTranscripts: CallTranscript[] = [
   }
 ];
 
-export function CallTranscripts() {
+interface CallTranscriptsProps {
+  organizationType?: string;
+  filters?: FilterState;
+  updateFilter?: (key: keyof FilterState, value: any) => void;
+  clearAllFilters?: () => void;
+}
+
+export function CallTranscripts({ organizationType, filters }: CallTranscriptsProps) {
   const [selectedTranscript, setSelectedTranscript] = useState(mockTranscripts[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 

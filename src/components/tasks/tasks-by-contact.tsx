@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mockTasks, type Task } from "./tasks-list";
+import type { FilterState } from "@/pages/Tasks";
 
 interface ContactGroup {
   contact: {
@@ -33,7 +34,13 @@ interface ContactGroup {
   highPriorityCount: number;
 }
 
-export function TasksByContact() {
+interface TasksByContactProps {
+  filters?: FilterState;
+  updateFilter?: (key: keyof FilterState, value: any) => void;
+  clearAllFilters?: () => void;
+}
+
+export function TasksByContact({ filters }: TasksByContactProps) {
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
   const [openContacts, setOpenContacts] = useState<Set<string>>(new Set(["c1", "c2"]));
 
