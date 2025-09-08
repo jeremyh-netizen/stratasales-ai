@@ -158,6 +158,119 @@ const competitorData: Record<string, CompetitorData> = {
         metric: "60% efficiency gain, 15% revenue growth"
       }
     ]
+  },
+  "Tableau": {
+    name: "Tableau",
+    description: "Visual Analytics Platform",
+    keyMessage: "Tableau is powerful, but it's heavy, slow, and costly. DataGOL provides the same depth of insight in a fraction of the time and cost — with AI automation, unified data fabric, and native SaaS embedding that Tableau simply can't match.",
+    challenges: [
+      {
+        challenge: "Complex ETL & prep required",
+        solution: "Unified data fabric ingests and models automatically"
+      },
+      {
+        challenge: "Heavy analyst dependence",
+        solution: "AI Agents deliver plain-English analysis instantly"
+      },
+      {
+        challenge: "Long deployment cycles",
+        solution: "8–10 weeks time-to-value"
+      },
+      {
+        challenge: "High licensing & infra cost",
+        solution: "40–60% cost savings"
+      },
+      {
+        challenge: "Limited SaaS embedding",
+        solution: "Native iframe analytics embedding"
+      }
+    ],
+    capabilities: [
+      {
+        title: "Unified Data Fabric",
+        description: "DataGOL unifies CRM, ERP, product, and billing data natively; Tableau requires external ETL and prep tools.",
+        example: "No separate ETL pipelines needed - data flows automatically from all sources."
+      },
+      {
+        title: "AI Productivity",
+        description: "DataGOL includes AI Agents & Co-Pilots for instant analysis and workflows; Tableau depends on manual dashboard creation.",
+        example: "Ask questions in plain English and get instant insights without building dashboards."
+      },
+      {
+        title: "Embedded Analytics",
+        description: "DataGOL allows native iframe embedding into SaaS platforms; Tableau embedding is limited and license-heavy.",
+        example: "Seamlessly embed analytics directly into your product without complex integrations."
+      },
+      {
+        title: "Time to Value",
+        description: "DataGOL delivers insights in 8–10 weeks; Tableau deployments typically run 6–12 months.",
+        example: "Get up and running with full analytics in weeks, not months."
+      }
+    ],
+    differentiators: [
+      {
+        feature: "Unified Data Fabric",
+        us: "Unifies CRM, ERP, product, and billing data natively",
+        them: "Requires external ETL and prep tools",
+        advantage: "strong"
+      },
+      {
+        feature: "AI Productivity",
+        us: "AI Agents & Co-Pilots for instant analysis and workflows",
+        them: "Depends on manual dashboard creation",
+        advantage: "strong"
+      },
+      {
+        feature: "Embedded Analytics",
+        us: "Native iframe embedding into SaaS platforms",
+        them: "Limited embedding, license-heavy",
+        advantage: "strong"
+      },
+      {
+        feature: "Time to Value",
+        us: "8–10 weeks delivery",
+        them: "6–12 months deployment cycles",
+        advantage: "strong"
+      },
+      {
+        feature: "Cost Efficiency",
+        us: "40–60% cost savings vs. traditional BI",
+        them: "Expensive licenses and infrastructure",
+        advantage: "strong"
+      }
+    ],
+    objectionResponses: [
+      {
+        objection: "Tableau is the industry standard for business intelligence.",
+        response: "You're right that Tableau has strong visualization capabilities. However, most organizations struggle with the 6-12 month implementation cycles and heavy ETL requirements. DataGOL delivers the same analytical depth in 8-10 weeks without the complexity."
+      },
+      {
+        objection: "Our team is already trained on Tableau.",
+        response: "That's valuable expertise! The good news is DataGOL's AI agents eliminate the need for complex dashboard building. Your team can focus on insights rather than technical implementation, while our natural language interface makes adoption seamless."
+      },
+      {
+        objection: "Tableau integrates with our existing data sources.",
+        response: "Integration is exactly where DataGOL shines. While Tableau requires separate ETL tools and data prep, our unified data fabric connects directly to your CRM, ERP, and product systems automatically - no additional tools needed."
+      },
+      {
+        objection: "What about advanced visualization capabilities?",
+        response: "DataGOL provides comprehensive visualization plus embedded analytics that Tableau struggles with. More importantly, our AI agents can generate insights automatically, reducing the need to build complex dashboards manually."
+      }
+    ],
+    caseStudies: [
+      {
+        company: "Mid-size SaaS Company",
+        industry: "Software",
+        result: "Replaced Tableau deployment, reduced time-to-insights from 8 months to 6 weeks",
+        metric: "75% faster deployment, 50% cost reduction"
+      },
+      {
+        company: "Enterprise Client",
+        industry: "Financial Services",
+        result: "Eliminated ETL bottlenecks and analyst dependencies that plagued their Tableau setup",
+        metric: "60% reduction in analyst workload"
+      }
+    ]
   }
 };
 
