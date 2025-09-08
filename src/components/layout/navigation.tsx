@@ -32,6 +32,11 @@ const navigationItems = [
     badge: "12",
   },
   {
+    title: "Accounts",
+    icon: Building2,
+    path: "/accounts",
+  },
+  {
     title: "Leads",
     icon: Users,
     path: "/leads",
@@ -48,11 +53,6 @@ const navigationItems = [
     icon: Shield,
     path: "/battle-cards",
     badge: "3",
-  },
-  {
-    title: "Accounts",
-    icon: Building2,
-    path: "/accounts",
   },
   {
     title: "Analytics",
