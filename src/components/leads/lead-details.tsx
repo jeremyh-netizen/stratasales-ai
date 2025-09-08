@@ -270,117 +270,192 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
           </TabsContent>
 
           <TabsContent value="campaign" className="p-4 space-y-4">
-            {/* Campaign Overview */}
+            {/* Campaign Performance Overview */}
             <Card className="p-4">
               <h3 className="font-semibold mb-3 flex items-center">
                 <Target className="w-4 h-4 mr-2 text-primary" />
-                Campaign Overview
+                Campaign Performance
               </h3>
-              <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="grid grid-cols-4 gap-4 mb-4">
                 <div className="text-center p-3 bg-muted/30 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">5</div>
+                  <div className="text-2xl font-bold text-primary">72%</div>
+                  <div className="text-xs text-muted-foreground">Open Rate</div>
+                </div>
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-success">45%</div>
+                  <div className="text-xs text-muted-foreground">Click Rate</div>
+                </div>
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-warning">12%</div>
+                  <div className="text-xs text-muted-foreground">Reply Rate</div>
+                </div>
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-accent">6</div>
                   <div className="text-xs text-muted-foreground">Touchpoints</div>
-                </div>
-                <div className="text-center p-3 bg-muted/30 rounded-lg">
-                  <div className="text-2xl font-bold text-warning">3</div>
-                  <div className="text-xs text-muted-foreground">Pending</div>
-                </div>
-                <div className="text-center p-3 bg-muted/30 rounded-lg">
-                  <div className="text-2xl font-bold text-success">2</div>
-                  <div className="text-xs text-muted-foreground">Completed</div>
                 </div>
               </div>
             </Card>
 
-            {/* Campaign Timeline */}
+            {/* Email Sequence Strategy */}
             <Card className="p-4">
               <h3 className="font-semibold mb-3 flex items-center">
-                <Calendar className="w-4 h-4 mr-2" />
-                Outreach Timeline
+                <Mail className="w-4 h-4 mr-2" />
+                Automated Email Sequence
               </h3>
               <div className="space-y-3">
+                {/* Email 1 - Curiosity */}
                 <div className="flex items-start space-x-3 p-3 bg-success/5 border border-success/20 rounded-lg">
                   <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center mt-1">
                     <Mail className="w-4 h-4 text-success" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-foreground">Initial Introduction Email</h4>
-                      <span className="text-xs text-success font-medium">Completed</span>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <h4 className="font-medium text-foreground">Email 1: Curiosity Builder</h4>
+                        <Badge variant="secondary" className="bg-success/10 text-success">Sent</Badge>
+                      </div>
+                      <span className="text-xs text-success font-medium">Opened 2h ago</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Personalized intro highlighting AI solutions</p>
-                    <span className="text-xs text-muted-foreground">Jan 15, 2024</span>
+                    <p className="text-sm font-medium mb-1">Subject: Quick AI automation idea for {lead.company}</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      "Hi {lead.contact}, noticed you're scaling fast at {lead.company}. Many {lead.industry} companies struggle with manual processes that AI could automate in hours, not months..."
+                    </p>
+                    <div className="flex items-center space-x-4 text-xs">
+                      <span className="text-muted-foreground">Sent: Jan 15, 9:30 AM</span>
+                      <span className="text-success">✓ Opened</span>
+                      <span className="text-warning">⏱ No reply yet</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 p-3 bg-success/5 border border-success/20 rounded-lg">
-                  <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center mt-1">
-                    <Download className="w-4 h-4 text-success" />
+                {/* Email 2 - Proof */}
+                <div className="flex items-start space-x-3 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+                    <TrendingUp className="w-4 h-4 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-foreground">Resource Share</h4>
-                      <span className="text-xs text-success font-medium">Completed</span>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <h4 className="font-medium text-foreground">Email 2: Social Proof</h4>
+                        <Badge variant="outline" className="border-primary text-primary">Scheduled</Badge>
+                      </div>
+                      <span className="text-xs text-primary font-medium">Sends in 2 days (no reply trigger)</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">AI Implementation Guide sent</p>
-                    <span className="text-xs text-muted-foreground">Jan 12, 2024</span>
+                    <p className="text-sm font-medium mb-1">Subject: How TechCorp reduced manual work by 87%</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      "Quick follow-up with proof point: Similar {lead.industry} company reduced processing time from 8 hours to 45 minutes using our AI automation..."
+                    </p>
+                    <div className="flex items-center space-x-4 text-xs">
+                      <span className="text-muted-foreground">Scheduled: Jan 17, 10:00 AM</span>
+                      <span className="text-primary">🎯 Conditional send</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 p-3 bg-warning/5 border border-warning/20 rounded-lg">
-                  <div className="w-8 h-8 bg-warning/10 rounded-full flex items-center justify-center mt-1">
-                    <Phone className="w-4 h-4 text-warning" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-foreground">Discovery Call</h4>
-                      <span className="text-xs text-warning font-medium">Scheduled</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">45-min call to discuss needs and budget</p>
-                    <span className="text-xs text-muted-foreground">Jan 18, 2024 - 2:00 PM</span>
-                  </div>
-                </div>
-
+                {/* Email 3 - Scarcity */}
                 <div className="flex items-start space-x-3 p-3 bg-muted/30 border border-border rounded-lg">
                   <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center mt-1">
-                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
+                    <Clock className="w-4 h-4 text-muted-foreground" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-muted-foreground">Product Demo</h4>
-                      <span className="text-xs text-muted-foreground">Pending</span>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <h4 className="font-medium text-muted-foreground">Email 3: Soft Close</h4>
+                        <Badge variant="outline" className="text-muted-foreground">Queued</Badge>
+                      </div>
+                      <span className="text-xs text-muted-foreground">Triggers in 1 week</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Live demo of AI platform features</p>
-                    <span className="text-xs text-muted-foreground">Scheduled after discovery call</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3 p-3 bg-muted/30 border border-border rounded-lg">
-                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center mt-1">
-                    <MessageSquare className="w-4 h-4 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-muted-foreground">Follow-up & Proposal</h4>
-                      <span className="text-xs text-muted-foreground">Pending</span>
+                    <p className="text-sm font-medium mb-1">Subject: 15-min pilot for {lead.company}?</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      "If timing isn't right, no problem. Before I close the loop - some clients start with a 15-min automation audit to identify the highest ROI opportunities..."
+                    </p>
+                    <div className="flex items-center space-x-4 text-xs">
+                      <span className="text-muted-foreground">Will send: Jan 24, 9:00 AM</span>
+                      <span className="text-muted-foreground">📊 Final nurture attempt</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Custom proposal based on requirements</p>
-                    <span className="text-xs text-muted-foreground">After demo completion</span>
                   </div>
                 </div>
               </div>
             </Card>
 
-            {/* Next Campaign Actions */}
+            {/* LinkedIn Outreach */}
+            <Card className="p-4">
+              <h3 className="font-semibold mb-3 flex items-center">
+                <Globe className="w-4 h-4 mr-2" />
+                LinkedIn Sequence
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3 p-3 bg-success/5 border border-success/20 rounded-lg">
+                  <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center mt-1">
+                    <Globe className="w-4 h-4 text-success" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-foreground">Connection Request</h4>
+                      <span className="text-xs text-success font-medium">Accepted</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      "Hi {lead.contact}, I help {lead.industry} companies automate workflows with AI. Thought it might be useful to connect."
+                    </p>
+                    <span className="text-xs text-muted-foreground">Jan 13, 2024</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-foreground">Follow-up DM</h4>
+                      <span className="text-xs text-primary font-medium">Scheduled</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      "Thanks for connecting! Are you seeing demand from {lead.company} teams for automated reporting and workflows?"
+                    </p>
+                    <span className="text-xs text-muted-foreground">Scheduled for tomorrow</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Campaign Automation Rules */}
+            <Card className="p-4 border-warning/20 bg-warning/5">
+              <h3 className="font-semibold mb-3 flex items-center text-warning">
+                <Activity className="w-4 h-4 mr-2" />
+                Smart Automation Rules
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-success rounded-full"></div>
+                  <span>If email opened but no reply → Send follow-up email in 4-5 days</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span>If link clicked → Priority flag + immediate sales notification</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-warning rounded-full"></div>
+                  <span>If no engagement after 3 emails → Move to LinkedIn outreach</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>If website visit detected → Send relevant case study within 2 hours</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* Next Actions */}
             <Card className="p-4 border-primary/20 bg-primary/5">
               <h3 className="font-semibold mb-2 flex items-center text-primary">
                 <Clock className="w-4 h-4 mr-2" />
-                Next Campaign Actions
+                Upcoming Actions
               </h3>
               <ul className="space-y-1 text-sm">
-                <li>• Prepare discovery call agenda and questions</li>
-                <li>• Send calendar reminder 24h before call</li>
-                <li>• Prepare demo environment with relevant use cases</li>
+                <li>• Monitor email 1 engagement for 48 hours</li>
+                <li>• Prepare email 2 with TechCorp case study if no reply</li>
+                <li>• Send LinkedIn follow-up message tomorrow</li>
+                <li>• Alert sales team if link clicks detected</li>
               </ul>
             </Card>
           </TabsContent>
