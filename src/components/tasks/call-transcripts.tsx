@@ -339,6 +339,100 @@ const mockTranscripts: CallTranscript[] = [
       { speaker: "user", text: "That's exactly the type of ROI our other manufacturing clients see. What's your typical maintenance budget annually?", timestamp: "00:00:38" },
       { speaker: "contact", text: "About $2M total, with roughly 30% going to unplanned repairs. We've allocated $150K specifically for predictive maintenance technology this quarter.", timestamp: "00:00:45" }
     ]
+  },
+  {
+    id: "7",
+    contact: {
+      name: "Sarah Chen",
+      avatar: "https://i.pravatar.cc/40?img=1",
+      company: "TechCorp"
+    },
+    date: "2024-01-09",
+    duration: "19:15",
+    sentiment: "positive",
+    sentimentScore: 82,
+    summary: "Follow-up call with Sarah to discuss pilot program details. Technical team approved the solution after demo. Budget allocation confirmed for Q1 implementation with phased rollout approach.",
+    aiInsights: {
+      signals: [
+        "Technical approval received from development team",
+        "Pilot program budget approved - $25K initial phase",
+        "Phased rollout strategy agreed upon",
+        "Implementation timeline confirmed for February start"
+      ],
+      nextSteps: [
+        "Draft pilot program contract with specific deliverables",
+        "Schedule kickoff meeting with technical team",
+        "Prepare onboarding materials for first 10 users",
+        "Set up weekly check-ins during pilot phase"
+      ],
+      competitorMentions: [
+        { name: "HubSpot", count: 2, context: "Price difference discussion - our solution 30% more cost-effective" }
+      ],
+      objections: [
+        "Concerns about user adoption during pilot",
+        "Request for additional training resources"
+      ],
+      buyingSignals: [
+        "Signed pilot program agreement",
+        "Allocated dedicated project manager",
+        "Scheduled technical onboarding sessions",
+        "Requested success metrics tracking"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "Hi Sarah, great to follow up on our conversation last week. I heard your team had a chance to review the technical demo.", timestamp: "00:00:10" },
+      { speaker: "contact", text: "Yes! The development team was really impressed. They especially liked the API flexibility and the real-time analytics dashboard.", timestamp: "00:00:18" },
+      { speaker: "user", text: "That's fantastic news. Are we ready to move forward with the pilot program we discussed?", timestamp: "00:00:32" },
+      { speaker: "contact", text: "Absolutely. I've secured $25K for the initial phase, and we'd like to start with 10 users in February if that works for you.", timestamp: "00:00:40" }
+    ]
+  },
+  {
+    id: "8",
+    contact: {
+      name: "Michael Johnson",
+      avatar: "https://i.pravatar.cc/40?img=13",
+      company: "TechCorp"
+    },
+    date: "2024-01-08",
+    duration: "26:30",
+    sentiment: "neutral",
+    sentimentScore: 65,
+    summary: "Initial discovery call with Michael from TechCorp's IT department. Discussion focused on integration requirements and security protocols. Technical feasibility confirmed but needs security team approval.",
+    aiInsights: {
+      signals: [
+        "IT department endorsement for technical capabilities",
+        "Security review process initiated",
+        "Integration complexity assessed as 'medium'",
+        "Timeline flexibility for security requirements"
+      ],
+      nextSteps: [
+        "Provide detailed security architecture documentation",
+        "Schedule presentation with security team",
+        "Prepare integration timeline with security milestones",
+        "Connect with Sarah Chen to align technical and business requirements"
+      ],
+      competitorMentions: [
+        { name: "Salesforce", count: 3, context: "Previous implementation - too complex for current needs" },
+        { name: "Microsoft", count: 2, context: "Current infrastructure provider - integration considerations" }
+      ],
+      objections: [
+        "Security team approval required before any implementation",
+        "Integration timeline concerns with current Microsoft infrastructure",
+        "Need for comprehensive security audit"
+      ],
+      buyingSignals: [
+        "Requested detailed security documentation",
+        "Expressed interest in technical pilot program",
+        "Mentioned collaboration with Sarah Chen's team",
+        "Asked about security compliance certifications"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "Michael, thanks for taking time to discuss the technical aspects of our solution with TechCorp's IT requirements.", timestamp: "00:00:12" },
+      { speaker: "contact", text: "Of course. Sarah mentioned you have some impressive capabilities, but I need to understand how this integrates with our existing Microsoft infrastructure.", timestamp: "00:00:19" },
+      { speaker: "user", text: "Great question. We have native integrations with Microsoft 365 and Azure AD. What specific security protocols does your team require?", timestamp: "00:00:33" },
+      { speaker: "contact", text: "We follow SOC 2 compliance standards, and any new system needs approval from our security team. Can you walk me through your security architecture?", timestamp: "00:00:47" }
+    ]
   }
 ];
 
@@ -369,6 +463,140 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
     }
   };
 
+  // Group transcripts by company if organizationType is "by-account"
+  const groupedTranscripts = organizationType === "by-account" 
+    ? mockTranscripts.reduce((acc, transcript) => {
+        const company = transcript.contact.company;
+        if (!acc[company]) {
+          acc[company] = [];
+        }
+        acc[company].push(transcript);
+        return acc;
+      }, {} as Record<string, CallTranscript[]>)
+    : null;
+
+  const renderTranscriptsList = () => {
+    if (organizationType === "by-account" && groupedTranscripts) {
+      return (
+        <ScrollArea className="h-[600px]">
+          {Object.entries(groupedTranscripts).map(([company, transcripts]) => {
+            const avgSentiment = Math.round(
+              transcripts.reduce((sum, t) => sum + t.sentimentScore, 0) / transcripts.length
+            );
+            const totalDuration = transcripts.reduce((total, t) => {
+              const [minutes, seconds] = t.duration.split(':').map(Number);
+              return total + minutes + (seconds / 60);
+            }, 0);
+            
+            return (
+              <div key={company} className="mb-4">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-foreground">{company}</h3>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {transcripts.length} call{transcripts.length > 1 ? 's' : ''}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        Avg: {avgSentiment}%
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {Math.round(totalDuration)}min total
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {transcripts.map((transcript) => {
+                  const SentimentIcon = getSentimentIcon(transcript.sentiment);
+                  
+                  return (
+                    <div
+                      key={transcript.id}
+                      className={cn(
+                        "p-4 border-b border-border cursor-pointer hover:bg-muted/50 transition-colors",
+                        selectedTranscript.id === transcript.id && "bg-muted"
+                      )}
+                      onClick={() => setSelectedTranscript(transcript)}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={transcript.contact.avatar} />
+                          <AvatarFallback>{transcript.contact.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-semibold text-sm text-foreground truncate">
+                              {transcript.contact.name}
+                            </h4>
+                            <Badge variant={getSentimentColor(transcript.sentiment)} className="text-xs">
+                              <SentimentIcon className="w-3 h-3 mr-1" />
+                              {transcript.sentimentScore}%
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Clock className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{transcript.duration}</span>
+                            <span className="text-xs text-muted-foreground">•</span>
+                            <span className="text-xs text-muted-foreground">{transcript.date}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </ScrollArea>
+      );
+    }
+
+    // Default list view for other organization types
+    return (
+      <ScrollArea className="h-[600px]">
+        {mockTranscripts.map((transcript) => {
+          const SentimentIcon = getSentimentIcon(transcript.sentiment);
+          
+          return (
+            <div
+              key={transcript.id}
+              className={cn(
+                "p-4 border-b border-border cursor-pointer hover:bg-muted/50 transition-colors",
+                selectedTranscript.id === transcript.id && "bg-muted"
+              )}
+              onClick={() => setSelectedTranscript(transcript)}
+            >
+              <div className="flex items-start space-x-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={transcript.contact.avatar} />
+                  <AvatarFallback>{transcript.contact.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-sm text-foreground truncate">
+                      {transcript.contact.name}
+                    </h4>
+                    <Badge variant={getSentimentColor(transcript.sentiment)} className="text-xs">
+                      <SentimentIcon className="w-3 h-3 mr-1" />
+                      {transcript.sentimentScore}%
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{transcript.contact.company}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Clock className="w-3 h-3 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">{transcript.duration}</span>
+                    <span className="text-xs text-muted-foreground">•</span>
+                    <span className="text-xs text-muted-foreground">{transcript.date}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </ScrollArea>
+    );
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Transcripts List */}
@@ -377,51 +605,11 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <Phone className="w-5 h-5" />
-              Recent Calls
+              {organizationType === "by-account" ? "Calls by Account" : "Recent Calls"}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <ScrollArea className="h-[600px]">
-              {mockTranscripts.map((transcript) => {
-                const SentimentIcon = getSentimentIcon(transcript.sentiment);
-                
-                return (
-                  <div
-                    key={transcript.id}
-                    className={cn(
-                      "p-4 border-b border-border cursor-pointer hover:bg-muted/50 transition-colors",
-                      selectedTranscript.id === transcript.id && "bg-muted"
-                    )}
-                    onClick={() => setSelectedTranscript(transcript)}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <Avatar className="w-10 h-10">
-                        <AvatarImage src={transcript.contact.avatar} />
-                        <AvatarFallback>{transcript.contact.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-sm text-foreground truncate">
-                            {transcript.contact.name}
-                          </h4>
-                          <Badge variant={getSentimentColor(transcript.sentiment)} className="text-xs">
-                            <SentimentIcon className="w-3 h-3 mr-1" />
-                            {transcript.sentimentScore}%
-                          </Badge>
-                        </div>
-                        <p className="text-xs text-muted-foreground">{transcript.contact.company}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Clock className="w-3 h-3 text-muted-foreground" />
-                          <span className="text-xs text-muted-foreground">{transcript.duration}</span>
-                          <span className="text-xs text-muted-foreground">•</span>
-                          <span className="text-xs text-muted-foreground">{transcript.date}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </ScrollArea>
+            {renderTranscriptsList()}
           </CardContent>
         </Card>
       </div>
