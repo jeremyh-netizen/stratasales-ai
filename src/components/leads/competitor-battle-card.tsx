@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertTriangle, CheckCircle, TrendingUp, Users, DollarSign, Clock, X } from "lucide-react";
+import { AlertTriangle, CheckCircle, TrendingUp, Users, DollarSign, Clock, X, ExternalLink } from "lucide-react";
 
 interface BattleCardProps {
   competitor: string;
@@ -38,6 +38,7 @@ interface CompetitorData {
     industry: string;
     result: string;
     metric: string;
+    link: string;
   }>;
 }
 
@@ -149,13 +150,15 @@ const competitorData: Record<string, CompetitorData> = {
         company: "Remo",
         industry: "SaaS Platform",
         result: "Reduced dashboarding costs by 86% and improved customer retention by 43%",
-        metric: "86% cost reduction, 43% retention increase"
+        metric: "86% cost reduction, 43% retention increase",
+        link: "https://drive.google.com/file/d/1iIUiBTe2aPYwX1kQOz897HiO3waEXT-S/view"
       },
       {
         company: "Healthcare SaaS Client",
         industry: "Healthcare Technology",
-        result: "Achieved 60% efficiency gain and 15% revenue growth through automated insights",
-        metric: "60% efficiency gain, 15% revenue growth"
+        result: "Inefficient data processing across 20 different sources transformed into unified intelligent platform. Achieved 15% revenue growth, 60% operational efficiency increase, and saved 1200+ hours monthly through automated workflows and actionable insights",
+        metric: "15% revenue growth, 60% efficiency gain, 1200+ hours saved",
+        link: "https://www.datagol.ai/case-studies/datagol-revolutionizes-healthcare-data-management"
       }
     ]
   },
@@ -262,13 +265,15 @@ const competitorData: Record<string, CompetitorData> = {
         company: "Mid-size SaaS Company",
         industry: "Software",
         result: "Replaced Tableau deployment, reduced time-to-insights from 8 months to 6 weeks",
-        metric: "75% faster deployment, 50% cost reduction"
+        metric: "75% faster deployment, 50% cost reduction",
+        link: "https://www.datagol.ai/case-studies"
       },
       {
         company: "Enterprise Client",
         industry: "Financial Services",
         result: "Eliminated ETL bottlenecks and analyst dependencies that plagued their Tableau setup",
-        metric: "60% reduction in analyst workload"
+        metric: "60% reduction in analyst workload",
+        link: "https://www.datagol.ai/case-studies"
       }
     ]
   }
@@ -406,18 +411,28 @@ export function CompetitorBattleCard({ competitor, onClose }: BattleCardProps) {
             <h3 className="font-semibold">Success Stories</h3>
             <div className="grid gap-4">
               {data.caseStudies.map((study, index) => (
-                <Card key={index}>
+                <Card key={index} className="relative">
                   <CardHeader className="pb-3">
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-primary" />
-                      <div>
-                        <h4 className="font-medium">{study.company}</h4>
-                        <p className="text-sm text-muted-foreground">{study.industry}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 text-primary" />
+                        <div>
+                          <h4 className="font-medium">{study.company}</h4>
+                          <p className="text-sm text-muted-foreground">{study.industry}</p>
+                        </div>
                       </div>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => window.open(study.link, '_blank')}
+                        className="h-8 w-8 p-0 hover:bg-primary/10"
+                      >
+                        <ExternalLink className="h-4 w-4 text-primary" />
+                      </Button>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-sm mb-2">{study.result}</p>
+                    <p className="text-sm mb-3 leading-relaxed">{study.result}</p>
                     <div className="flex items-center gap-2">
                       <DollarSign className="h-4 w-4 text-green-500" />
                       <span className="text-sm font-medium text-green-600">{study.metric}</span>
