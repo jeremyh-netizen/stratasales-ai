@@ -39,16 +39,16 @@ const navigationItems = [
     wip: true,
   },
   {
-    title: "Leads",
-    icon: Users,
-    path: "/leads",
-    badge: "24",
-  },
-  {
     title: "Contacts",
     icon: Users,
     path: "/contacts",
     wip: true,
+  },
+  {
+    title: "Leads",
+    icon: Users,
+    path: "/leads",
+    badge: "24",
   },
   {
     title: "Opportunities",
