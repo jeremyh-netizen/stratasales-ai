@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Zap, Target, Clock } from "lucide-react";
+import { Plus, Zap, Target, Clock, Calendar } from "lucide-react";
+import { CalendarSyncDialog } from "./calendar-sync-dialog";
 
 export function TasksHeader() {
+  const [isCalendarDialogOpen, setIsCalendarDialogOpen] = useState(false);
   return (
     <div className="border-b border-border bg-card p-6">
       <div className="flex items-center justify-between mb-6">
@@ -17,6 +20,14 @@ export function TasksHeader() {
           <Button variant="outline" className="gap-2">
             <Zap className="w-4 h-4" />
             Auto-Generate Tasks
+          </Button>
+          <Button 
+            variant="outline" 
+            className="gap-2"
+            onClick={() => setIsCalendarDialogOpen(true)}
+          >
+            <Calendar className="w-4 h-4" />
+            Add to Calendar
           </Button>
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
@@ -77,6 +88,11 @@ export function TasksHeader() {
           </CardContent>
         </Card>
       </div>
+
+      <CalendarSyncDialog 
+        open={isCalendarDialogOpen} 
+        onOpenChange={setIsCalendarDialogOpen}
+      />
     </div>
   );
 }
