@@ -20,7 +20,8 @@ import {
   MessageSquare,
   Lightbulb,
   Plus,
-  ArrowUpDown
+  ArrowUpDown,
+  Target
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -38,6 +39,10 @@ interface CallTranscript {
   sentiment: "positive" | "neutral" | "negative";
   sentimentScore: number;
   summary: string;
+  campaign?: {
+    id: string;
+    name: string;
+  };
   aiInsights: {
     signals: string[];
     nextSteps: string[];
@@ -65,6 +70,7 @@ const mockTranscripts: CallTranscript[] = [
     sentiment: "positive",
     sentimentScore: 78,
     summary: "Productive discussion about pricing and implementation timeline. Sarah expressed strong interest but has budget concerns for Q1. Competitor comparison with HubSpot came up multiple times. Decision timeline confirmed for end of Q1.",
+    campaign: { id: "c1", name: "Q1 Enterprise Outreach" },
     aiInsights: {
       signals: [
         "Budget authority confirmed - Sarah is final decision maker",
@@ -490,6 +496,7 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
   const sortedTranscripts = sortTranscripts(mockTranscripts);
 
   // Group transcripts by company if organizationType is "by-account"
+  // Group transcripts by campaign if organizationType is "by-campaign"
   const groupedTranscripts = organizationType === "by-account" 
     ? sortedTranscripts.reduce((acc, transcript) => {
         const company = transcript.contact.company;
@@ -499,7 +506,16 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
         acc[company].push(transcript);
         return acc;
       }, {} as Record<string, CallTranscript[]>)
-    : null;
+    : organizationType === "by-campaign"
+    ? sortedTranscripts.reduce((acc, transcript) => {
+        const campaignName = transcript.campaign?.name || "No Campaign";
+        if (!acc[campaignName]) {
+          acc[campaignName] = [];
+        }
+        acc[campaignName].push(transcript);
+        return acc;
+       }, {} as Record<string, CallTranscript[]>)
+     : {};
 
   const renderTranscriptsList = () => {
     if (organizationType === "by-account" && groupedTranscripts) {
@@ -560,6 +576,86 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
                             </Badge>
                           </div>
                           <div className="flex items-center gap-2 mt-1">
+                            <Clock className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{transcript.duration}</span>
+                            <span className="text-xs text-muted-foreground">•</span>
+                            <span className="text-xs text-muted-foreground">{transcript.date}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </ScrollArea>
+      );
+    }
+
+    if (organizationType === "by-campaign" && groupedTranscripts) {
+      return (
+        <ScrollArea className="h-[600px]">
+          {Object.entries(groupedTranscripts).map(([campaignName, transcripts]) => {
+            const avgSentiment = Math.round(
+              transcripts.reduce((sum, t) => sum + t.sentimentScore, 0) / transcripts.length
+            );
+            const totalDuration = transcripts.reduce((total, t) => {
+              const [minutes, seconds] = t.duration.split(':').map(Number);
+              return total + minutes + (seconds / 60);
+            }, 0);
+            
+            return (
+              <div key={campaignName} className="mb-4">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-muted-foreground" />
+                      <h3 className="font-semibold text-foreground">{campaignName}</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {transcripts.length} call{transcripts.length > 1 ? 's' : ''}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        Avg: {avgSentiment}%
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {Math.round(totalDuration)}min total
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {transcripts.map((transcript) => {
+                  const SentimentIcon = getSentimentIcon(transcript.sentiment);
+                  
+                  return (
+                    <div
+                      key={transcript.id}
+                      className={cn(
+                        "p-4 border-b border-border cursor-pointer hover:bg-muted/50 transition-colors",
+                        selectedTranscript.id === transcript.id && "bg-muted"
+                      )}
+                      onClick={() => setSelectedTranscript(transcript)}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={transcript.contact.avatar} />
+                          <AvatarFallback>{transcript.contact.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-semibold text-sm text-foreground truncate">
+                              {transcript.contact.name}
+                            </h4>
+                            <Badge variant={getSentimentColor(transcript.sentiment)} className="text-xs">
+                              <SentimentIcon className="w-3 h-3 mr-1" />
+                              {transcript.sentimentScore}%
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-xs text-muted-foreground">{transcript.contact.company}</span>
+                            <span className="text-xs text-muted-foreground">•</span>
                             <Clock className="w-3 h-3 text-muted-foreground" />
                             <span className="text-xs text-muted-foreground">{transcript.duration}</span>
                             <span className="text-xs text-muted-foreground">•</span>
