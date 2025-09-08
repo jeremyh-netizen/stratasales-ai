@@ -68,7 +68,7 @@ export function Navigation({ className }: NavigationProps) {
             <BarChart3 className="w-4 h-4 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">CRM AI</h1>
+            <h1 className="text-xl font-bold text-foreground">DATASales AI</h1>
             <p className="text-xs text-muted-foreground">Sales Intelligence</p>
           </div>
         </div>
