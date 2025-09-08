@@ -26,6 +26,10 @@ export interface Task {
   tags: string[];
   completed: boolean;
   createdDate: string;
+  industry?: string;
+  lastInteraction?: string;
+  buyingSignalsScore?: number;
+  taskSource?: "manual" | "ai-generated" | "automation";
 }
 
 export function filterTasks(tasks: Task[], filters: FilterState): Task[] {

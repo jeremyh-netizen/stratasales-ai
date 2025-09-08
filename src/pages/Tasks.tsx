@@ -8,6 +8,7 @@ import { TasksByContact } from "@/components/tasks/tasks-by-contact";
 import { TasksByCampaign } from "@/components/tasks/tasks-by-campaign";
 import { CallTranscripts } from "@/components/tasks/call-transcripts";
 import { CampaignManager } from "@/components/tasks/campaign-manager";
+import { AITaskGenerator } from "@/components/tasks/ai-task-generator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export interface FilterState {
@@ -109,6 +110,11 @@ export default function Tasks() {
                 {renderTabContent("by-campaign")}
               </TabsContent>
             </Tabs>
+            
+            {/* AI Task Generator */}
+            <div className="mt-8">
+              <AITaskGenerator />
+            </div>
           </div>
         </div>
       </div>
