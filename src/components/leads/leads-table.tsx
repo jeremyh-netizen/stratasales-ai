@@ -279,19 +279,24 @@ export function LeadsTable({ filters, selectedLead, onSelectLead }: LeadsTablePr
               </TableCell>
               
               <TableCell>
-                <div className="flex items-center justify-center space-x-1">
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <Mail className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <Phone className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <Calendar className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    <MoreHorizontal className="w-4 h-4" />
-                  </Button>
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="flex items-center justify-center space-x-1">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Mail className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Phone className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Calendar className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="text-xs text-muted-foreground text-center max-w-[120px]">
+                    {lead.nextAction}
+                  </div>
                 </div>
               </TableCell>
             </TableRow>
