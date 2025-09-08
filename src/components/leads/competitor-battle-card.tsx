@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertTriangle, CheckCircle, TrendingUp, Users, DollarSign, Clock, X, ExternalLink } from "lucide-react";
+import { AlertTriangle, CheckCircle, TrendingUp, Users, DollarSign, Clock, X, ExternalLink, ArrowRight, Lightbulb, Target, Zap } from "lucide-react";
 
 interface BattleCardProps {
   competitor: string;
@@ -344,19 +344,66 @@ export function CompetitorBattleCard({ competitor, onClose }: BattleCardProps) {
               <p className="text-sm">{data.keyMessage}</p>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-4">How We Solve Key Challenges</h3>
-              <div className="space-y-3">
+            <div className="space-y-6">
+              <h3 className="font-semibold text-lg mb-6">How We Solve Key Challenges</h3>
+              <div className="space-y-6">
                 {data.challenges.map((item, index) => (
-                  <div key={index} className="border rounded-lg p-4">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Badge variant="outline" className="mb-2">Challenge</Badge>
-                        <p className="text-sm text-muted-foreground">{item.challenge}</p>
+                  <div key={index} className="group relative">
+                    <div className="grid md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
+                      {/* Challenge Card */}
+                      <Card className="border-destructive/20 bg-destructive/5 hover:bg-destructive/10 transition-colors duration-200">
+                        <CardContent className="p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="mt-0.5">
+                              <AlertTriangle className="h-5 w-5 text-destructive" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge variant="outline" className="border-destructive/30 text-destructive bg-transparent text-xs">
+                                  Challenge
+                                </Badge>
+                              </div>
+                              <p className="text-sm leading-relaxed font-medium text-destructive/90">
+                                {item.challenge}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Arrow Connector */}
+                      <div className="hidden md:flex items-center justify-center">
+                        <div className="flex items-center gap-2 text-muted-foreground group-hover:text-primary transition-colors duration-200">
+                          <ArrowRight className="h-5 w-5" />
+                        </div>
                       </div>
-                      <div>
-                        <Badge variant="default" className="mb-2">Our Solution</Badge>
-                        <p className="text-sm font-medium">{item.solution}</p>
+
+                      {/* Solution Card */}
+                      <Card className="border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors duration-200">
+                        <CardContent className="p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="mt-0.5">
+                              <Lightbulb className="h-5 w-5 text-primary" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge className="bg-primary text-primary-foreground text-xs">
+                                  Our Solution
+                                </Badge>
+                              </div>
+                              <p className="text-sm leading-relaxed font-medium text-primary/90">
+                                {item.solution}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Mobile Arrow */}
+                    <div className="md:hidden flex justify-center my-4">
+                      <div className="flex items-center gap-2 text-muted-foreground group-hover:text-primary transition-colors duration-200">
+                        <ArrowRight className="h-4 w-4 rotate-90" />
                       </div>
                     </div>
                   </div>
