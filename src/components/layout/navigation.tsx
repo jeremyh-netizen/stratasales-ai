@@ -45,6 +45,12 @@ const navigationItems = [
     badge: "24",
   },
   {
+    title: "Contacts",
+    icon: Users,
+    path: "/contacts",
+    wip: true,
+  },
+  {
     title: "Opportunities",
     icon: Target,
     path: "/opportunities",
