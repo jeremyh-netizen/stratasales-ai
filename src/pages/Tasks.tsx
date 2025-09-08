@@ -26,7 +26,7 @@ const defaultFilters: FilterState = {
   priority: "all",
   type: "all", 
   sortBy: "predictive-score",
-  sortOrder: "desc",
+  sortOrder: "asc",
   secondaryFilter: "all-tasks",
   dateRange: "all"
 };
