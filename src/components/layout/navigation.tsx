@@ -25,6 +25,12 @@ const navigationItems = [
     active: true,
   },
   {
+    title: "Tasks",
+    icon: CheckSquare,
+    path: "/tasks",
+    badge: "12",
+  },
+  {
     title: "Leads",
     icon: Users,
     path: "/leads",
@@ -40,12 +46,6 @@ const navigationItems = [
     title: "Accounts",
     icon: Building2,
     path: "/accounts",
-  },
-  {
-    title: "Tasks",
-    icon: CheckSquare,
-    path: "/tasks",
-    badge: "12",
   },
   {
     title: "Analytics",
