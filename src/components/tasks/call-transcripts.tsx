@@ -98,6 +98,247 @@ const mockTranscripts: CallTranscript[] = [
       { speaker: "user", text: "That's great to hear. I know you mentioned you're looking at solutions to improve your sales team's productivity. Can you tell me more about what's driving that?", timestamp: "00:00:35" },
       { speaker: "contact", text: "Absolutely. Our team is growing fast - we went from 10 to 25 reps last year - but our conversion rates are actually declining. We think it's because reps are spending too much time on admin tasks instead of selling.", timestamp: "00:00:48" }
     ]
+  },
+  {
+    id: "2",
+    contact: {
+      name: "Marcus Rodriguez",
+      avatar: "https://i.pravatar.cc/40?img=3",
+      company: "FinanceFirst Bank"
+    },
+    date: "2024-01-14",
+    duration: "18:45",
+    sentiment: "negative",
+    sentimentScore: 32,
+    summary: "Challenging call with Marcus regarding security concerns and regulatory compliance. Current vendor satisfaction is high, making switching difficult. Strong objections raised about data migration and downtime risks.",
+    aiInsights: {
+      signals: [
+        "Regulatory compliance is top priority",
+        "Current solution working well - high satisfaction",
+        "Risk-averse decision making culture",
+        "Security team has final veto power"
+      ],
+      nextSteps: [
+        "Prepare detailed security and compliance documentation",
+        "Schedule call with security team lead",
+        "Provide case studies from similar financial institutions",
+        "Address data migration concerns with technical team"
+      ],
+      competitorMentions: [
+        { name: "Oracle", count: 8, context: "Current vendor - very satisfied with security posture" },
+        { name: "IBM", count: 3, context: "Previously evaluated but rejected due to cost" }
+      ],
+      objections: [
+        "Regulatory audit scheduled next quarter",
+        "High satisfaction with current Oracle system",
+        "Data migration risks and potential downtime",
+        "Security team skeptical of cloud solutions"
+      ],
+      buyingSignals: [
+        "Asked about compliance certifications",
+        "Inquired about implementation timeline flexibility"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "Marcus, thank you for making time today. I understand you're evaluating options to modernize your current systems.", timestamp: "00:00:12" },
+      { speaker: "contact", text: "Yes, though I have to be honest - we're quite happy with our Oracle setup. This is more of an exploratory conversation at this point.", timestamp: "00:00:18" },
+      { speaker: "user", text: "I appreciate the honesty. What would need to change for you to consider a switch?", timestamp: "00:00:32" },
+      { speaker: "contact", text: "Well, we have a regulatory audit coming up, and any major changes right now would be... problematic. Security is our number one concern.", timestamp: "00:00:41" }
+    ]
+  },
+  {
+    id: "3",
+    contact: {
+      name: "Emily Watson",
+      avatar: "https://i.pravatar.cc/40?img=5",
+      company: "RetailMax Solutions"
+    },
+    date: "2024-01-13",
+    duration: "31:20",
+    sentiment: "positive",
+    sentimentScore: 85,
+    summary: "Excellent discovery call with Emily. Strong fit identified for e-commerce analytics needs. Budget approved and team excited about AI capabilities. Ready to move forward with pilot program in February.",
+    aiInsights: {
+      signals: [
+        "Budget pre-approved - $50K for pilot program",
+        "Executive sponsor identified (CMO)",
+        "Pain point clearly articulated - lost revenue from poor analytics",
+        "Timeline urgency - peak season preparation"
+      ],
+      nextSteps: [
+        "Send pilot program proposal by end of week",
+        "Schedule technical demo with analytics team",
+        "Prepare customer success stories from retail clients",
+        "Coordinate with legal team for contract review"
+      ],
+      competitorMentions: [
+        { name: "Google Analytics", count: 4, context: "Current solution - frustrated with limitations" },
+        { name: "Adobe Analytics", count: 2, context: "Evaluated but too expensive for their needs" }
+      ],
+      objections: [
+        "Integration complexity with existing e-commerce platform",
+        "Training requirements for marketing team"
+      ],
+      buyingSignals: [
+        "Asked for pilot program pricing immediately",
+        "Mentioned specific budget allocation",
+        "Requested customer references in retail",
+        "Inquired about implementation support included"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "Emily, I'm excited to learn more about RetailMax's analytics challenges. What's driving your search for a new solution?", timestamp: "00:00:08" },
+      { speaker: "contact", text: "We're losing money because we can't get actionable insights from our current Google Analytics setup. Our CMO has allocated budget specifically to fix this problem.", timestamp: "00:00:15" },
+      { speaker: "user", text: "That's exactly the type of problem we solve best. Can you quantify what this is costing you?", timestamp: "00:00:28" },
+      { speaker: "contact", text: "We estimate we're losing at least $200K per quarter in missed opportunities. We need something that can predict customer behavior, not just report on what happened.", timestamp: "00:00:35" }
+    ]
+  },
+  {
+    id: "4",
+    contact: {
+      name: "David Park",
+      avatar: "https://i.pravatar.cc/40?img=7",
+      company: "MedTech Innovations"
+    },
+    date: "2024-01-12",
+    duration: "27:15",
+    sentiment: "neutral",
+    sentimentScore: 58,
+    summary: "Mixed signals from David. Strong technical interest but concerned about regulatory validation in healthcare space. FDA compliance requirements adding complexity to decision process.",
+    aiInsights: {
+      signals: [
+        "Technical team very interested in AI capabilities",
+        "FDA validation process is lengthy but manageable",
+        "Decision involves multiple stakeholders",
+        "Q2 implementation target mentioned"
+      ],
+      nextSteps: [
+        "Provide FDA compliance documentation and certifications",
+        "Connect with existing healthcare customers for references",
+        "Schedule technical deep-dive with R&D team",
+        "Prepare regulatory timeline and support offering"
+      ],
+      competitorMentions: [
+        { name: "Epic Systems", count: 6, context: "Current EHR provider - integration requirements discussed" },
+        { name: "Cerner", count: 2, context: "Alternative they're also evaluating" }
+      ],
+      objections: [
+        "FDA validation timeline uncertainty",
+        "Integration complexity with Epic Systems",
+        "Multiple stakeholder approval required",
+        "Healthcare-specific compliance requirements"
+      ],
+      buyingSignals: [
+        "Asked about healthcare customer references",
+        "Inquired about FDA compliance support",
+        "Mentioned Q2 implementation timeline",
+        "Requested technical architecture review"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "David, thanks for connecting today. I know healthcare tech decisions involve unique considerations around compliance.", timestamp: "00:00:10" },
+      { speaker: "contact", text: "Exactly right. We love what we're seeing technically, but FDA validation is always our biggest concern with new platforms.", timestamp: "00:00:17" },
+      { speaker: "user", text: "Completely understand. We have several healthcare clients who've successfully navigated that process. What's your typical timeline for regulatory review?", timestamp: "00:00:30" },
+      { speaker: "contact", text: "Usually 3-6 months depending on the complexity. Do you have documentation on your existing FDA compliance certifications?", timestamp: "00:00:42" }
+    ]
+  },
+  {
+    id: "5",
+    contact: {
+      name: "Lisa Thompson",
+      avatar: "https://i.pravatar.cc/40?img=9",
+      company: "EduTech Academy"
+    },
+    date: "2024-01-11",
+    duration: "22:50",
+    sentiment: "positive",
+    sentimentScore: 72,
+    summary: "Good alignment with Lisa on student analytics needs. Budget constraints typical for education sector but strong value proposition identified. Potential for pilot program in summer semester.",
+    aiInsights: {
+      signals: [
+        "Strong alignment on student success metrics",
+        "Summer pilot program interest expressed",
+        "Grant funding potential mentioned",
+        "Board presentation scheduled for March"
+      ],
+      nextSteps: [
+        "Prepare education sector pricing proposal",
+        "Send case studies from other universities",
+        "Research available education technology grants",
+        "Schedule demo for academic affairs team"
+      ],
+      competitorMentions: [
+        { name: "Blackboard", count: 5, context: "Current LMS provider - limited analytics capabilities" },
+        { name: "Canvas", count: 3, context: "Alternative LMS they're considering" }
+      ],
+      objections: [
+        "Limited budget typical for education sector",
+        "Academic calendar constraints on implementation",
+        "Faculty adoption and training concerns",
+        "Integration requirements with existing LMS"
+      ],
+      buyingSignals: [
+        "Asked about education sector discounts",
+        "Mentioned summer pilot timeline",
+        "Inquired about grant funding assistance",
+        "Requested academic references"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "Lisa, I'm really excited to discuss how we can help EduTech Academy improve student outcomes through better analytics.", timestamp: "00:00:12" },
+      { speaker: "contact", text: "We're definitely interested. Student retention is our biggest challenge, and our current Blackboard analytics just aren't giving us actionable insights.", timestamp: "00:00:18" },
+      { speaker: "user", text: "That's a common challenge we help solve. What's your ideal timeline for implementing something like this?", timestamp: "00:00:32" },
+      { speaker: "contact", text: "Summer semester would be perfect for a pilot. Less disruption to students, and we could have it ready for the fall rush if it works well.", timestamp: "00:00:45" }
+    ]
+  },
+  {
+    id: "6",
+    contact: {
+      name: "James Mitchell",
+      avatar: "https://i.pravatar.cc/40?img=11",
+      company: "Manufacturing Plus"
+    },
+    date: "2024-01-10",
+    duration: "35:40",
+    sentiment: "positive",
+    sentimentScore: 81,
+    summary: "Strong interest from James in predictive maintenance capabilities. Clear ROI case identified through reduced downtime. Decision maker confirmed with implementation budget allocated for Q1.",
+    aiInsights: {
+      signals: [
+        "Confirmed decision maker and budget authority",
+        "Clear ROI calculation completed during call",
+        "Immediate pain point - recent costly equipment failure",
+        "Q1 implementation budget already allocated"
+      ],
+      nextSteps: [
+        "Send formal proposal within 48 hours",
+        "Schedule plant visit and technical assessment",
+        "Prepare ROI model with specific equipment data",
+        "Connect with implementation team for scoping"
+      ],
+      competitorMentions: [
+        { name: "GE Digital", count: 4, context: "Previously evaluated but found too complex" },
+        { name: "Siemens", count: 3, context: "Current equipment vendor - limited software capabilities" }
+      ],
+      objections: [
+        "Integration with legacy Siemens equipment",
+        "Plant floor network connectivity limitations",
+        "Operator training and adoption concerns"
+      ],
+      buyingSignals: [
+        "Calculated specific ROI during the call",
+        "Asked for formal proposal immediately",
+        "Mentioned Q1 budget allocation",
+        "Requested plant visit for technical assessment",
+        "Discussed specific implementation timeline"
+      ]
+    },
+    transcript: [
+      { speaker: "user", text: "James, I understand you had some recent equipment failures that could have been prevented with better predictive analytics.", timestamp: "00:00:15" },
+      { speaker: "contact", text: "Yes, we had a $300K unplanned shutdown last month. If we could prevent just one of those per year, this solution would pay for itself immediately.", timestamp: "00:00:22" },
+      { speaker: "user", text: "That's exactly the type of ROI our other manufacturing clients see. What's your typical maintenance budget annually?", timestamp: "00:00:38" },
+      { speaker: "contact", text: "About $2M total, with roughly 30% going to unplanned repairs. We've allocated $150K specifically for predictive maintenance technology this quarter.", timestamp: "00:00:45" }
+    ]
   }
 ];
 
