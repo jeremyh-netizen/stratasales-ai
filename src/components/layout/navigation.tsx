@@ -98,7 +98,7 @@ export function Navigation({ className }: NavigationProps) {
               onClick={() => navigate(item.path)}
             >
               <Icon className="w-4 h-4" />
-              <span className="flex-1 text-left">{item.title}</span>
+              <span className={cn("flex-1 text-left", isActive ? "opacity-100" : "opacity-60")}>{item.title}</span>
               {item.badge && (
                 <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
                   {item.badge}
