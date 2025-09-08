@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Navigation } from "@/components/layout/navigation";
-import { TasksHeader } from "@/components/tasks/tasks-header";
 import { TasksFilters } from "@/components/tasks/tasks-filters";
-import { TasksList } from "@/components/tasks/tasks-list";
-import { TasksByAccount } from "@/components/tasks/tasks-by-account";
-import { TasksByContact } from "@/components/tasks/tasks-by-contact";
-import { TasksByCampaign } from "@/components/tasks/tasks-by-campaign";
 import { CallTranscripts } from "@/components/tasks/call-transcripts";
-import { CampaignManager } from "@/components/tasks/campaign-manager";
-import { AITaskGenerator } from "@/components/tasks/ai-task-generator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Phone } from "lucide-react";
 
 export interface FilterState {
   searchTerm: string;
@@ -27,11 +21,11 @@ const defaultFilters: FilterState = {
   type: "all", 
   sortBy: "predictive-score",
   sortOrder: "asc",
-  secondaryFilter: "all-tasks",
+  secondaryFilter: "call-automation", // Default to call-automation for meetings page
   dateRange: "all"
 };
 
-export default function Tasks() {
+export default function Meetings() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
 
   const updateFilter = (key: keyof FilterState, value: any) => {
@@ -44,33 +38,10 @@ export default function Tasks() {
 
   const renderTabContent = (organizationType: string) => {
     const commonProps = { filters, updateFilter, clearAllFilters };
-
+    
     return (
       <div className="space-y-6">
-        <TasksFilters 
-          filters={filters}
-          onFilterChange={updateFilter}
-          onClearAll={clearAllFilters}
-        />
-        
-        {/* Secondary Filter Content */}
-        {filters.secondaryFilter === "all-tasks" && (
-          <>
-            {organizationType === "all-tasks" && <TasksList {...commonProps} viewType="all" />}
-            {organizationType === "by-account" && <TasksByAccount {...commonProps} />}
-            {organizationType === "by-contact" && <TasksByContact {...commonProps} />}
-            {organizationType === "by-campaign" && <TasksByCampaign {...commonProps} />}
-          </>
-        )}
-        
-        
-        {filters.secondaryFilter === "outreach" && (
-          <CampaignManager {...commonProps} organizationType={organizationType} />
-        )}
-        
-        {filters.secondaryFilter === "campaigns" && (
-          <CampaignManager {...commonProps} organizationType={organizationType} />
-        )}
+        <CallTranscripts {...commonProps} organizationType={organizationType} />
       </div>
     );
   };
@@ -80,19 +51,31 @@ export default function Tasks() {
       <div className="flex">
         <Navigation className="w-64" />
         <div className="flex-1 flex flex-col">
-          <TasksHeader />
+          <header className="border-b border-border bg-card p-6">
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Phone className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">Meeting and Calls</h1>
+                <p className="text-sm text-muted-foreground">
+                  Manage your meeting transcripts and call records
+                </p>
+              </div>
+            </div>
+          </header>
           
           <div className="flex-1 p-6">
-            <Tabs defaultValue="all-tasks" className="space-y-6">
+            <Tabs defaultValue="all-meetings" className="space-y-6">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all-tasks">All Tasks</TabsTrigger>
-                <TabsTrigger value="by-account">Tasks by Account</TabsTrigger>
-                <TabsTrigger value="by-contact">Tasks by Contact</TabsTrigger>
-                <TabsTrigger value="by-campaign">Tasks by Campaign</TabsTrigger>
+                <TabsTrigger value="all-meetings">All Meetings</TabsTrigger>
+                <TabsTrigger value="by-account">Meetings by Account</TabsTrigger>
+                <TabsTrigger value="by-contact">Meetings by Contact</TabsTrigger>
+                <TabsTrigger value="by-campaign">Meetings by Campaign</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="all-tasks">
-                {renderTabContent("all-tasks")}
+              <TabsContent value="all-meetings">
+                {renderTabContent("all-meetings")}
               </TabsContent>
               
               <TabsContent value="by-account">
@@ -107,11 +90,6 @@ export default function Tasks() {
                 {renderTabContent("by-campaign")}
               </TabsContent>
             </Tabs>
-            
-            {/* AI Task Generator */}
-            <div className="mt-8">
-              <AITaskGenerator />
-            </div>
           </div>
         </div>
       </div>
