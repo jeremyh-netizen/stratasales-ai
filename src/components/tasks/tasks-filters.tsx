@@ -136,7 +136,7 @@ export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFilte
           className="gap-2"
         >
           <Phone className="w-4 h-4" />
-          Call Automation
+          Meeting and Calls
         </Button>
         
         <Button
