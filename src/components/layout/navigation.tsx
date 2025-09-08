@@ -47,6 +47,7 @@ const navigationItems = [
     title: "Battle Cards",
     icon: Shield,
     path: "/battle-cards",
+    badge: "3",
   },
   {
     title: "Accounts",
