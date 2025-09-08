@@ -19,9 +19,11 @@ import {
   Download,
   MessageSquare,
   Lightbulb,
-  Plus
+  Plus,
+  ArrowUpDown
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import type { FilterState } from "@/pages/Tasks";
 
 interface CallTranscript {
@@ -446,6 +448,7 @@ interface CallTranscriptsProps {
 export function CallTranscripts({ organizationType, filters }: CallTranscriptsProps) {
   const [selectedTranscript, setSelectedTranscript] = useState(mockTranscripts[0]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [sortBy, setSortBy] = useState<"date" | "account" | "contact" | "length" | "score">("date");
 
   const getSentimentColor = (sentiment: CallTranscript["sentiment"]) => {
     switch (sentiment) {
@@ -463,9 +466,32 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
     }
   };
 
+  const sortTranscripts = (transcripts: CallTranscript[]) => {
+    return [...transcripts].sort((a, b) => {
+      switch (sortBy) {
+        case "date":
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        case "account":
+          return a.contact.company.localeCompare(b.contact.company);
+        case "contact":
+          return a.contact.name.localeCompare(b.contact.name);
+        case "length":
+          const aDuration = a.duration.split(':').reduce((acc, time) => (60 * acc) + +time, 0);
+          const bDuration = b.duration.split(':').reduce((acc, time) => (60 * acc) + +time, 0);
+          return bDuration - aDuration;
+        case "score":
+          return b.sentimentScore - a.sentimentScore;
+        default:
+          return 0;
+      }
+    });
+  };
+
+  const sortedTranscripts = sortTranscripts(mockTranscripts);
+
   // Group transcripts by company if organizationType is "by-account"
   const groupedTranscripts = organizationType === "by-account" 
-    ? mockTranscripts.reduce((acc, transcript) => {
+    ? sortedTranscripts.reduce((acc, transcript) => {
         const company = transcript.contact.company;
         if (!acc[company]) {
           acc[company] = [];
@@ -554,7 +580,7 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
     // Default list view for other organization types
     return (
       <ScrollArea className="h-[600px]">
-        {mockTranscripts.map((transcript) => {
+        {sortedTranscripts.map((transcript) => {
           const SentimentIcon = getSentimentIcon(transcript.sentiment);
           
           return (
@@ -603,9 +629,37 @@ export function CallTranscripts({ organizationType, filters }: CallTranscriptsPr
       <div className="lg:col-span-1">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Phone className="w-5 h-5" />
-              {organizationType === "by-account" ? "Calls by Account" : "Recent Calls"}
+            <CardTitle className="text-lg flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Phone className="w-5 h-5" />
+                {organizationType === "by-account" ? "Calls by Account" : "Recent Calls"}
+              </div>
+              {organizationType !== "by-account" && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <ArrowUpDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setSortBy("date")} className={sortBy === "date" ? "bg-accent" : ""}>
+                      Date
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSortBy("account")} className={sortBy === "account" ? "bg-accent" : ""}>
+                      Account
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSortBy("contact")} className={sortBy === "contact" ? "bg-accent" : ""}>
+                      Contact
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSortBy("length")} className={sortBy === "length" ? "bg-accent" : ""}>
+                      Length
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSortBy("score")} className={sortBy === "score" ? "bg-accent" : ""}>
+                      Score
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
