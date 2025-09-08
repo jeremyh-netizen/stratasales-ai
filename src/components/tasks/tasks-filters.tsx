@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Filter, SortAsc, CheckSquare, Phone, Target, BarChart3 } from "lucide-react";
+import { Search, Filter, SortAsc, SortDesc, CheckSquare, Phone, Target, BarChart3 } from "lucide-react";
 import type { FilterState } from "@/pages/Tasks";
 
 interface TasksFiltersProps {
@@ -93,6 +93,16 @@ export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFilte
               <SelectItem value="created">Created</SelectItem>
             </SelectContent>
           </Select>
+          
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => onFilterChange("sortOrder", filters.sortOrder === "asc" ? "desc" : "asc")}
+            className="gap-2"
+          >
+            {filters.sortOrder === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />}
+            {filters.sortOrder === "asc" ? "Asc" : "Desc"}
+          </Button>
         </div>
         
         <div className="flex gap-2 items-center">
