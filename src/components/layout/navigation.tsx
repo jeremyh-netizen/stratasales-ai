@@ -35,6 +35,7 @@ const navigationItems = [
     title: "Accounts",
     icon: Building2,
     path: "/accounts",
+    wip: true,
   },
   {
     title: "Leads",
@@ -47,6 +48,7 @@ const navigationItems = [
     icon: Target,
     path: "/opportunities",
     badge: "8",
+    wip: true,
   },
   {
     title: "Battle Cards",
@@ -58,6 +60,7 @@ const navigationItems = [
     title: "Analytics",
     icon: BarChart3,
     path: "/analytics",
+    wip: true,
   },
 ];
 
@@ -93,7 +96,8 @@ export function Navigation({ className }: NavigationProps) {
               variant={isActive ? "secondary" : "ghost"}
               className={cn(
                 "w-full justify-start space-x-3 h-10 px-3",
-                isActive && "bg-primary/10 text-primary border-primary/20"
+                isActive && "bg-primary/10 text-primary border-primary/20",
+                item.wip && "opacity-50"
               )}
               onClick={() => navigate(item.path)}
             >
