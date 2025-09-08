@@ -34,7 +34,7 @@ const mockLeads: Lead[] = [
   {
     id: "1",
     contact: "Sarah Johnson",
-    title: "Chief Technology Officer",
+    title: "Chief Technology Officer", 
     company: "TechCorp Inc",
     industry: "technology",
     email: "sarah.johnson@techcorp.com",
@@ -56,7 +56,7 @@ const mockLeads: Lead[] = [
     id: "2",
     contact: "Mike Chen",
     title: "Data Director",
-    company: "DataFlow Systems",
+    company: "DataGOL Analytics Corp", // Modified to trigger competitor detection
     industry: "technology",
     email: "mike.chen@dataflow.com",
     phone: "+1 (555) 234-5678",
@@ -66,7 +66,7 @@ const mockLeads: Lead[] = [
     source: "LinkedIn",
     createdAt: "2024-01-12",
     lastActivity: "Downloaded whitepaper 1d ago",
-    nextAction: "Send personalized case study",
+    nextAction: "Competitor analysis needed - considering DataGOL",
     revenue: 67000,
     emails: { sent: 5, opened: 3, clicked: 1 },
     meetings: 1,

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScoreBadge, ScoreRing } from "@/components/ui/score-badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CompetitorBattleCard } from "./competitor-battle-card";
 import { 
   X, 
   Mail, 
@@ -17,7 +19,8 @@ import {
   Clock,
   Target,
   Activity,
-  Brain
+  Brain,
+  Shield
 } from "lucide-react";
 import { Lead } from "@/pages/Leads";
 
@@ -27,6 +30,14 @@ interface LeadDetailsProps {
 }
 
 export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
+  const [showBattleCard, setShowBattleCard] = useState<string | null>(null);
+  
+  // Detect competitor mentions in lead data
+  const competitors = ["DataGOL", "Salesforce", "HubSpot", "Pipedrive"];
+  const mentionedCompetitors = competitors.filter(comp => 
+    lead.company.toLowerCase().includes(comp.toLowerCase()) ||
+    lead.industry.toLowerCase().includes(comp.toLowerCase())
+  );
   const getStatusColor = (status: Lead["status"]) => {
     switch (status) {
       case "new":
@@ -69,6 +80,17 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
       content: "As requested, here's our pricing breakdown...",
     },
   ];
+
+  if (showBattleCard) {
+    return (
+      <div className="h-full overflow-auto p-6">
+        <CompetitorBattleCard 
+          competitor={showBattleCard} 
+          onClose={() => setShowBattleCard(null)} 
+        />
+      </div>
+    );
+  }
 
   const mockActivities = [
     {
@@ -119,6 +141,12 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
                 <Badge className={getStatusColor(lead.status)}>
                   {lead.status}
                 </Badge>
+                {mentionedCompetitors.length > 0 && (
+                  <Badge variant="outline" className="text-orange-600 border-orange-200">
+                    <Shield className="w-3 h-3 mr-1" />
+                    Competitor Detected
+                  </Badge>
+                )}
               </div>
             </div>
           </div>
@@ -149,6 +177,17 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
             <MessageSquare className="w-4 h-4 mr-2" />
             Note
           </Button>
+          {mentionedCompetitors.length > 0 && (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-orange-200 text-orange-600 hover:bg-orange-50"
+              onClick={() => setShowBattleCard(mentionedCompetitors[0])}
+            >
+              <Shield className="w-4 h-4 mr-2" />
+              Battle Card
+            </Button>
+          )}
         </div>
       </div>
 
