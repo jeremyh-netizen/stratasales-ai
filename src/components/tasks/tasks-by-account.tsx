@@ -18,7 +18,8 @@ import {
   ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { mockTasks, type Task } from "./tasks-list";
+import { mockTasks } from "./tasks-list";
+import { type Task } from "@/lib/task-filters";
 import type { FilterState } from "@/pages/Tasks";
 
 interface AccountGroup {
@@ -90,6 +91,7 @@ export function TasksByAccount({ filters }: TasksByAccountProps) {
       case "call": return Phone;
       case "email": return Mail;
       case "follow-up": return MessageSquare;
+      case "meeting": return Target;
       case "ai-generated": return Brain;
     }
   };
