@@ -129,6 +129,15 @@ export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFilte
           All Tasks
         </Button>
         
+        <Button
+          variant={filters.secondaryFilter === "call-automation" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onFilterChange("secondaryFilter", "call-automation")}
+          className="gap-2"
+        >
+          <Phone className="w-4 h-4" />
+          Meeting and Calls
+        </Button>
         
         <Button
           variant={filters.secondaryFilter === "outreach" ? "default" : "outline"}

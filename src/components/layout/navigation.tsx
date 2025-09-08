@@ -9,8 +9,7 @@ import {
   BarChart3,
   Settings,
   Bell,
-  Shield,
-  Phone
+  Shield
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -50,12 +49,6 @@ const navigationItems = [
     path: "/opportunities",
     badge: "8",
     wip: true,
-  },
-  {
-    title: "Meeting and Calls",
-    icon: Phone,
-    path: "/meetings",
-    badge: "5",
   },
   {
     title: "Battle Cards",
