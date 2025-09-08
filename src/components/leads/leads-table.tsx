@@ -294,7 +294,7 @@ export function LeadsTable({ filters, selectedLead, onSelectLead }: LeadsTablePr
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>
                   </div>
-                  <div className="text-xs text-muted-foreground text-center max-w-[120px]">
+                  <div className="text-xs text-accent text-left max-w-[120px]">
                     {lead.nextAction}
                   </div>
                 </div>
