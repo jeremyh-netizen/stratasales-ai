@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   X, 
   Building2, 
@@ -35,6 +36,7 @@ interface StrategicAccountDetailsProps {
 
 export function StrategicAccountDetails({ account, onClose }: StrategicAccountDetailsProps) {
   const [activePlaybook, setActivePlaybook] = useState<string | null>(null);
+  const [outreachStatus, setOutreachStatus] = useState<string>("Review Outreach");
 
   const getHealthScoreColor = (score: number) => {
     if (score >= 80) return "text-green-600";
@@ -623,10 +625,22 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
             {/* 4-Touch Email Sequence */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center text-lg">
-                  <Mail className="w-5 h-5 mr-2 text-indigo-500" />
-                  Strategic Outreach Cadence
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center text-lg">
+                    <Mail className="w-5 h-5 mr-2 text-indigo-500" />
+                    Strategic Outreach Cadence
+                  </CardTitle>
+                  <Select value={outreachStatus} onValueChange={setOutreachStatus}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Review Outreach">Review Outreach</SelectItem>
+                      <SelectItem value="Messages Approved">Messages Approved</SelectItem>
+                      <SelectItem value="LAUNCH CAMPAIGN">LAUNCH CAMPAIGN</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 <CardDescription>Multi-touch email sequence with strategic rationale</CardDescription>
               </CardHeader>
               <CardContent>
