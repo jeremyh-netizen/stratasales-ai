@@ -78,15 +78,51 @@ export default {
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
+        "gradient-secondary": "var(--gradient-secondary)",
+        "gradient-accent": "var(--gradient-accent)",
         "gradient-success": "var(--gradient-success)",
+        "gradient-warning": "var(--gradient-warning)",
+        "gradient-destructive": "var(--gradient-destructive)",
         "gradient-card": "var(--gradient-card)",
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-subtle": "var(--gradient-subtle)",
+        
+        // Status-based gradients
+        "gradient-lead": "var(--gradient-lead)",
+        "gradient-opportunity": "var(--gradient-opportunity)",
+        "gradient-active": "var(--gradient-active)",
+        
+        // Health score gradients
+        "gradient-health-excellent": "var(--gradient-health-excellent)",
+        "gradient-health-good": "var(--gradient-health-good)",
+        "gradient-health-warning": "var(--gradient-health-warning)",
+        "gradient-health-critical": "var(--gradient-health-critical)",
+        
+        // Premium effects
+        "gradient-premium": "var(--gradient-premium)",
+        "gradient-glow": "var(--gradient-glow)",
       },
       boxShadow: {
         soft: "var(--shadow-soft)",
         medium: "var(--shadow-medium)",
         large: "var(--shadow-large)",
         score: "var(--shadow-score)",
+        
+        elegant: "var(--shadow-elegant)",
+        glow: "var(--shadow-glow)",
+        card: "var(--shadow-card)",
+        "card-hover": "var(--shadow-card-hover)",
+        "card-premium": "var(--shadow-card-premium)",
+        
+        // Status-based shadows
+        lead: "var(--shadow-lead)",
+        opportunity: "var(--shadow-opportunity)",
+        active: "var(--shadow-active)",
+        
+        // Health score animations
+        "health-pulse": "var(--shadow-health-pulse)",
+        "health-warning-pulse": "var(--shadow-health-warning-pulse)",
+        "health-critical-pulse": "var(--shadow-health-critical-pulse)",
       },
       transitionTimingFunction: {
         smooth: "var(--transition-smooth)",

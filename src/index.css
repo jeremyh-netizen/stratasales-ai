@@ -51,15 +51,53 @@ All colors MUST be HSL.
     --chart-4: 38 92% 50%;
     --chart-5: 280 100% 45%;
 
+    /* Status-Based Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary) / 0.8));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent) / 0.8));
     --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(142 76% 50%));
+    --gradient-warning: linear-gradient(135deg, hsl(var(--warning)), hsl(var(--warning) / 0.8));
+    --gradient-destructive: linear-gradient(135deg, hsl(var(--destructive)), hsl(var(--destructive) / 0.8));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 5% 98%));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.3));
 
+    /* Strategic Status Gradients */
+    --gradient-lead: linear-gradient(135deg, hsl(43 96% 56%), hsl(38 92% 50%));
+    --gradient-opportunity: linear-gradient(135deg, hsl(217 91% 60%), hsl(221 83% 53%));
+    --gradient-active: linear-gradient(135deg, hsl(142 71% 45%), hsl(140 66% 38%));
+    
+    /* Health Score Gradients */
+    --gradient-health-excellent: linear-gradient(135deg, hsl(142 71% 45%), hsl(120 60% 50%));
+    --gradient-health-good: linear-gradient(135deg, hsl(217 91% 60%), hsl(210 85% 55%));
+    --gradient-health-warning: linear-gradient(135deg, hsl(43 96% 56%), hsl(35 88% 50%));
+    --gradient-health-critical: linear-gradient(135deg, hsl(0 84% 60%), hsl(348 83% 47%));
+    
+    /* Premium Card Effects */
+    --gradient-premium: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 50%, hsl(var(--accent)) 100%);
+    --gradient-glow: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--primary-glow) / 0.05));
+
+    /* Enhanced Shadows */
     --shadow-soft: 0 1px 3px hsl(240 5% 15% / 0.1), 0 1px 2px hsl(240 5% 15% / 0.06);
     --shadow-medium: 0 4px 6px hsl(240 5% 15% / 0.07), 0 2px 4px hsl(240 5% 15% / 0.06);
     --shadow-large: 0 10px 15px hsl(240 5% 15% / 0.1), 0 4px 6px hsl(240 5% 15% / 0.05);
     --shadow-score: 0 0 20px hsl(var(--primary) / 0.2);
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+    --shadow-card: 0 4px 6px -1px hsl(var(--muted-foreground) / 0.1), 0 2px 4px -1px hsl(var(--muted-foreground) / 0.06);
+    --shadow-card-hover: 0 10px 15px -3px hsl(var(--muted-foreground) / 0.1), 0 4px 6px -2px hsl(var(--muted-foreground) / 0.05);
+    --shadow-card-premium: 0 20px 25px -5px hsl(var(--primary) / 0.1), 0 10px 10px -5px hsl(var(--primary) / 0.04);
+    
+    /* Status-based Shadows */
+    --shadow-lead: 0 8px 20px -5px hsl(43 96% 56% / 0.25);
+    --shadow-opportunity: 0 8px 20px -5px hsl(217 91% 60% / 0.25);
+    --shadow-active: 0 8px 20px -5px hsl(142 71% 45% / 0.25);
+    
+    /* Health Score Ring Animations */
+    --shadow-health-pulse: 0 0 0 3px hsl(var(--success) / 0.2);
+    --shadow-health-warning-pulse: 0 0 0 3px hsl(var(--warning) / 0.2);
+    --shadow-health-critical-pulse: 0 0 0 3px hsl(var(--destructive) / 0.2);
 
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);

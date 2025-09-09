@@ -23,68 +23,126 @@ interface StrategicAccountCardProps {
 }
 
 export function StrategicAccountCard({ account, onViewDetails, onStatusChange }: StrategicAccountCardProps) {
-  const getGrowthStageColor = (stage: string) => {
+  const getGrowthStageVariant = (stage: string) => {
     switch (stage) {
-      case "startup": return "bg-blue-100 text-blue-800 border-blue-200";
-      case "growth": return "bg-green-100 text-green-800 border-green-200";
-      case "scale": return "bg-purple-100 text-purple-800 border-purple-200";
-      case "enterprise": return "bg-gray-100 text-gray-800 border-gray-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+      case "startup": return "bg-gradient-to-r from-blue-500/10 to-blue-600/10 text-blue-700 border-blue-200/50";
+      case "growth": return "bg-gradient-to-r from-success/10 to-success/15 text-success border-success/30";
+      case "scale": return "bg-gradient-to-r from-primary/10 to-primary/15 text-primary border-primary/30";
+      case "enterprise": return "bg-gradient-to-r from-muted/50 to-muted/30 text-muted-foreground border-muted";
+      default: return "bg-gradient-to-r from-muted/50 to-muted/30 text-muted-foreground border-muted";
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusStyles = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-100 text-green-800 border-green-200";
-      case "Opportunity": return "bg-blue-100 text-blue-800 border-blue-200";
-      case "Lead": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+      case "Active": 
+        return {
+          className: "bg-gradient-active text-white border-0 shadow-active/20",
+          gradient: "from-success to-success/80"
+        };
+      case "Opportunity": 
+        return {
+          className: "bg-gradient-opportunity text-white border-0 shadow-opportunity/20",
+          gradient: "from-blue-500 to-blue-600"
+        };
+      case "Lead": 
+        return {
+          className: "bg-gradient-lead text-white border-0 shadow-lead/20",
+          gradient: "from-warning to-warning/80"
+        };
+      default: 
+        return {
+          className: "bg-muted text-muted-foreground border-muted",
+          gradient: "from-muted to-muted/80"
+        };
     }
   };
 
-  const getHealthScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-yellow-600";
-    return "text-red-600";
+  const getHealthScoreStyles = (score: number) => {
+    if (score >= 90) return {
+      textColor: "text-success",
+      ringColor: "ring-success/20",
+      bgGradient: "bg-gradient-health-excellent",
+      shadow: "shadow-health-pulse"
+    };
+    if (score >= 80) return {
+      textColor: "text-success",
+      ringColor: "ring-success/15",
+      bgGradient: "bg-gradient-to-br from-success/10 to-success/5",
+      shadow: ""
+    };
+    if (score >= 60) return {
+      textColor: "text-warning",
+      ringColor: "ring-warning/20",
+      bgGradient: "bg-gradient-to-br from-warning/10 to-warning/5",
+      shadow: "shadow-health-warning-pulse"
+    };
+    return {
+      textColor: "text-destructive",
+      ringColor: "ring-destructive/20",
+      bgGradient: "bg-gradient-to-br from-destructive/10 to-destructive/5",
+      shadow: "shadow-health-critical-pulse"
+    };
   };
+
+  const isHighValueAccount = account.revenue.includes('M') && parseFloat(account.revenue.replace(/[^0-9.]/g, '')) >= 1;
+  const hasRecentActivity = account.lastActivity.includes('day') || account.lastActivity.includes('hour');
+  const statusStyles = getStatusStyles(account.status);
+  const healthStyles = getHealthScoreStyles(account.healthScore);
 
   return (
-    <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+    <Card className={`
+      group cursor-pointer transition-all duration-300 hover:scale-[1.02]
+      ${isHighValueAccount ? 'shadow-card-premium hover:shadow-elegant' : 'shadow-card hover:shadow-card-hover'}
+      ${hasRecentActivity ? 'ring-2 ring-primary/20 animate-pulse' : ''}
+      ${account.status === 'Active' ? 'hover:shadow-active/30' : ''}
+      ${account.status === 'Opportunity' ? 'hover:shadow-opportunity/30' : ''}
+      ${account.status === 'Lead' ? 'hover:shadow-lead/30' : ''}
+    `}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-3">
-            <Avatar className="h-12 w-12">
-              <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${account.name}`} />
-              <AvatarFallback className="bg-gradient-primary text-primary-foreground">
-                {account.name.split(' ').map(n => n[0]).join('')}
-              </AvatarFallback>
-            </Avatar>
-            <div className="space-y-1">
+            <div className="relative">
+              <Avatar className="h-12 w-12">
+                <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${account.name}`} />
+                <AvatarFallback className="bg-gradient-primary text-primary-foreground">
+                  {account.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              {isHighValueAccount && (
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-premium rounded-full border-2 border-background animate-pulse" />
+              )}
+            </div>
+            <div className="space-y-1.5">
               <div className="flex items-center space-x-2">
                 <h3 
-                  className="font-semibold text-lg text-foreground cursor-pointer hover:text-primary transition-colors"
+                  className="font-semibold text-lg text-foreground cursor-pointer hover:text-primary transition-colors group-hover:text-primary"
                   onClick={() => onViewDetails(account.id)}
                 >
                   {account.name}
                 </h3>
                 <Select value={account.status} onValueChange={(value) => onStatusChange?.(account.id, value as StrategicAccount['status'])}>
-                  <SelectTrigger className={`w-fit border-0 p-1 h-auto text-xs font-medium ${getStatusColor(account.status)}`}>
+                  <SelectTrigger className={`
+                    w-fit border-0 p-2 h-7 text-xs font-medium rounded-full transition-all duration-200
+                    ${statusStyles.className}
+                    hover:scale-105 hover:shadow-md
+                  `}>
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="min-w-fit">
-                    <SelectItem value="Lead" className="text-xs">Lead</SelectItem>
-                    <SelectItem value="Opportunity" className="text-xs">Opportunity</SelectItem>
-                    <SelectItem value="Active" className="text-xs">Active</SelectItem>
+                  <SelectContent className="min-w-fit bg-background/95 backdrop-blur-sm border-border/50">
+                    <SelectItem value="Lead" className="text-xs hover:bg-gradient-lead/10">Lead</SelectItem>
+                    <SelectItem value="Opportunity" className="text-xs hover:bg-gradient-opportunity/10">Opportunity</SelectItem>
+                    <SelectItem value="Active" className="text-xs hover:bg-gradient-active/10">Active</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <p className="text-sm text-muted-foreground">{account.industry}</p>
-              <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                <div className="flex items-center space-x-1">
+              <p className="text-sm text-muted-foreground font-medium">{account.industry}</p>
+              <div className="flex items-center space-x-4 text-xs">
+                <div className="flex items-center space-x-1 text-muted-foreground">
                   <Users className="w-3 h-3" />
                   <span>{account.strategicProfile.employees} employees</span>
                 </div>
-                <Badge variant="outline" className={getGrowthStageColor(account.strategicProfile.growthStage)}>
+                <Badge variant="outline" className={`${getGrowthStageVariant(account.strategicProfile.growthStage)} text-xs px-2 py-0.5`}>
                   {account.strategicProfile.growthStage}
                 </Badge>
               </div>
@@ -92,41 +150,49 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
           </div>
           
           <div className="text-right">
-            <div className={`text-2xl font-bold ${getHealthScoreColor(account.healthScore)}`}>
-              {account.healthScore}
+            <div className={`
+              relative inline-flex items-center justify-center w-16 h-16 rounded-full 
+              ${healthStyles.bgGradient} ${healthStyles.ringColor} ring-2 ${healthStyles.shadow}
+              transition-all duration-300 group-hover:scale-105
+            `}>
+              <div className={`text-2xl font-bold ${healthStyles.textColor}`}>
+                {account.healthScore}
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground">Health Score</p>
+            <p className="text-xs text-muted-foreground mt-1 font-medium">Health Score</p>
           </div>
         </div>
       </CardHeader>
 
       <CardContent className="space-y-4">
         {/* Strategic Mission */}
-        <div className="bg-muted/30 p-3 rounded-lg">
-          <div className="flex items-center space-x-2 mb-1">
+        <div className="bg-gradient-subtle p-4 rounded-xl border border-border/50">
+          <div className="flex items-center space-x-2 mb-2">
             <Target className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">Mission</span>
+            <span className="text-sm font-semibold text-foreground">Strategic Mission</span>
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
             {account.strategicProfile.mission}
           </p>
         </div>
 
         {/* Recent Funding (if available) */}
         {account.strategicProfile.recentFunding && (
-          <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <DollarSign className="w-4 h-4 text-green-600" />
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-success/10 via-success/5 to-transparent border border-success/20 rounded-xl">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-success rounded-full flex items-center justify-center">
+                <DollarSign className="w-4 h-4 text-white" />
+              </div>
               <div>
-                <p className="text-sm font-medium text-green-800">
+                <p className="text-sm font-semibold text-success">
                   {account.strategicProfile.recentFunding.amount} {account.strategicProfile.recentFunding.round}
                 </p>
-                <p className="text-xs text-green-600">
+                <p className="text-xs text-success/70">
                   {account.strategicProfile.recentFunding.date} • {account.strategicProfile.recentFunding.leadInvestor}
                 </p>
               </div>
             </div>
-            <Badge variant="outline" className="bg-green-100 text-green-800 border-green-300">
+            <Badge variant="outline" className="bg-success/10 text-success border-success/30 font-medium">
               Total: {account.strategicProfile.recentFunding.totalFunding}
             </Badge>
           </div>
@@ -134,50 +200,60 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
 
         {/* Key Metrics */}
         <div className="grid grid-cols-3 gap-3">
-          <div className="text-center p-2 bg-muted/20 rounded-lg">
+          <div className="text-center p-3 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 group-hover:from-primary/5 transition-colors">
             <div className="text-lg font-bold text-foreground">{account.revenue}</div>
-            <div className="text-xs text-muted-foreground">Revenue</div>
+            <div className="text-xs text-muted-foreground font-medium">Revenue</div>
           </div>
-          <div className="text-center p-2 bg-muted/20 rounded-lg">
+          <div className="text-center p-3 bg-gradient-to-br from-primary/5 to-primary/10 rounded-xl border border-primary/20">
             <div className="text-lg font-bold text-primary">{account.stakeholders.length}</div>
-            <div className="text-xs text-muted-foreground">Stakeholders</div>
+            <div className="text-xs text-primary/70 font-medium">Stakeholders</div>
           </div>
-          <div className="text-center p-2 bg-muted/20 rounded-lg">
-            <div className="text-lg font-bold text-warning">{account.businessIntelligence.buyingSignals.length}</div>
-            <div className="text-xs text-muted-foreground">Buy Signals</div>
+          <div className="text-center p-3 bg-gradient-to-br from-warning/10 to-warning/5 rounded-xl border border-warning/20">
+            <div className="text-lg font-bold text-warning flex items-center justify-center space-x-1">
+              <span>{account.businessIntelligence.buyingSignals.length}</span>
+              {account.businessIntelligence.buyingSignals.length > 3 && (
+                <div className="w-2 h-2 bg-warning rounded-full animate-pulse" />
+              )}
+            </div>
+            <div className="text-xs text-warning/70 font-medium">Buy Signals</div>
           </div>
         </div>
 
         {/* Key Pressures Preview */}
-        <div>
-          <div className="flex items-center space-x-2 mb-2">
-            <Brain className="w-4 h-4 text-orange-500" />
-            <span className="text-sm font-medium text-foreground">Key Pressures</span>
+        <div className="bg-gradient-to-r from-orange-500/5 to-transparent p-4 rounded-xl border border-orange-200/30">
+          <div className="flex items-center space-x-2 mb-3">
+            <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-orange-600 rounded-md flex items-center justify-center">
+              <Brain className="w-3 h-3 text-white" />
+            </div>
+            <span className="text-sm font-semibold text-foreground">Key Pressures</span>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-2">
             {account.strategicProfile.keyPressures.slice(0, 2).map((pressure, index) => (
-              <div key={index} className="text-xs text-muted-foreground">
-                • {pressure}
+              <div key={index} className="text-xs text-muted-foreground flex items-start space-x-2">
+                <div className="w-1 h-1 bg-orange-500 rounded-full mt-1.5 flex-shrink-0" />
+                <span className="leading-relaxed">{pressure}</span>
               </div>
             ))}
             {account.strategicProfile.keyPressures.length > 2 && (
-              <div className="text-xs text-primary">
-                +{account.strategicProfile.keyPressures.length - 2} more...
+              <div className="text-xs text-orange-600 font-medium">
+                +{account.strategicProfile.keyPressures.length - 2} more insights...
               </div>
             )}
           </div>
         </div>
 
         {/* ROI Preview */}
-        <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+        <div className="p-4 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/30 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-primary">Potential ROI</p>
-              <p className="text-xs text-muted-foreground">
-                {account.outreachStrategy.roiModel.costSavings} cost reduction
+              <p className="text-sm font-semibold text-primary">Potential ROI</p>
+              <p className="text-xs text-primary/70 mt-1">
+                {account.outreachStrategy.roiModel.costSavings} cost reduction potential
               </p>
             </div>
-            <TrendingUp className="w-4 h-4 text-primary" />
+            <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-white" />
+            </div>
           </div>
         </div>
 
@@ -185,24 +261,36 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
         <div className="flex items-center space-x-2 pt-2">
           <Button 
             size="sm" 
-            className="flex-1"
+            className="flex-1 bg-gradient-primary hover:bg-gradient-primary/90 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
             onClick={() => onViewDetails(account.id)}
           >
             <Eye className="w-4 h-4 mr-2" />
             Strategic View
           </Button>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-200"
+          >
             <Calendar className="w-4 h-4 mr-2" />
             Engage
           </Button>
         </div>
 
         {/* Last Activity */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t border-border">
-          <span>Last activity: {account.lastActivity}</span>
-          <div className="flex items-center space-x-1 group-hover:text-primary transition-colors">
-            <span>View Details</span>
-            <ArrowRight className="w-3 h-3" />
+        <div className="flex items-center justify-between text-xs pt-3 border-t border-border/50">
+          <div className="flex items-center space-x-2">
+            <span className="text-muted-foreground">Last activity:</span>
+            <span className={`font-medium ${hasRecentActivity ? 'text-success' : 'text-muted-foreground'}`}>
+              {account.lastActivity}
+            </span>
+            {hasRecentActivity && (
+              <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
+            )}
+          </div>
+          <div className="flex items-center space-x-1 text-muted-foreground group-hover:text-primary transition-colors cursor-pointer">
+            <span className="font-medium">View Details</span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
       </CardContent>
