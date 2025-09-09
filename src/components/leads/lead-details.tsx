@@ -23,7 +23,8 @@ import {
   Shield,
   User,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Edit3
 } from "lucide-react";
 import { Lead } from "@/pages/Leads";
 
@@ -310,10 +311,15 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
 
             {/* Next Action */}
             <Card className="p-4 border-primary/20 bg-primary/5">
-              <h3 className="font-semibold mb-2 flex items-center text-primary">
-                <Clock className="w-4 h-4 mr-2" />
-                Next Action
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-semibold flex items-center text-primary">
+                  <Clock className="w-4 h-4 mr-2" />
+                  Next Action
+                </h3>
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                  <Edit3 className="w-4 h-4" />
+                </Button>
+              </div>
               <p className="text-sm text-foreground">{lead.nextAction}</p>
             </Card>
           </TabsContent>
