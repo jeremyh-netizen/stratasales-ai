@@ -11,7 +11,7 @@ export interface FilterState {
   type: "all" | "calls" | "emails" | "follow-ups" | "ai-generated";
   sortBy: "predictive-score" | "due-date" | "priority" | "contact" | "created";
   sortOrder: "asc" | "desc";
-  secondaryFilter: "all-tasks" | "call-automation" | "outreach" | "campaigns";
+  secondaryFilter: "all-tasks" | "call-automation" | "outreach";
   dateRange: "all" | "overdue" | "due-today" | "this-week";
 }
 

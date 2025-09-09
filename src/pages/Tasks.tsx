@@ -7,7 +7,6 @@ import { TasksByAccount } from "@/components/tasks/tasks-by-account";
 import { TasksByContact } from "@/components/tasks/tasks-by-contact";
 import { TasksByCampaign } from "@/components/tasks/tasks-by-campaign";
 import { CallTranscripts } from "@/components/tasks/call-transcripts";
-import { CampaignManager } from "@/components/tasks/campaign-manager";
 import { AITaskGenerator } from "@/components/tasks/ai-task-generator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -17,7 +16,7 @@ export interface FilterState {
   type: "all" | "calls" | "emails" | "follow-ups" | "ai-generated";
   sortBy: "predictive-score" | "due-date" | "priority" | "contact" | "created";
   sortOrder: "asc" | "desc";
-  secondaryFilter: "all-tasks" | "call-automation" | "outreach" | "campaigns";
+  secondaryFilter: "all-tasks" | "call-automation" | "outreach";
   dateRange: "all" | "overdue" | "due-today" | "this-week";
 }
 
@@ -65,11 +64,7 @@ export default function Tasks() {
         
         
         {filters.secondaryFilter === "outreach" && (
-          <CampaignManager {...commonProps} organizationType={organizationType} />
-        )}
-        
-        {filters.secondaryFilter === "campaigns" && (
-          <CampaignManager {...commonProps} organizationType={organizationType} />
+          <CallTranscripts {...commonProps} />
         )}
       </div>
     );

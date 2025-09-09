@@ -59,6 +59,12 @@ const navigationItems = [
     wip: true,
   },
   {
+    title: "Campaigns",
+    icon: Target,
+    path: "/campaigns",
+    badge: "4",
+  },
+  {
     title: "Meetings",
     icon: Phone,
     path: "/meetings",

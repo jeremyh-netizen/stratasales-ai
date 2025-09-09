@@ -139,16 +139,6 @@ export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFilte
           <Target className="w-4 h-4" />
           Outreach
         </Button>
-        
-        <Button
-          variant={filters.secondaryFilter === "campaigns" ? "default" : "outline"}
-          size="sm"
-          onClick={() => onFilterChange("secondaryFilter", "campaigns")}
-          className="gap-2"
-        >
-          <BarChart3 className="w-4 h-4" />
-          Campaigns
-        </Button>
       </div>
     </div>
   );
