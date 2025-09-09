@@ -33,14 +33,15 @@ const Contacts = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
+    <div className="flex min-h-screen bg-background">
+      {/* Sidebar Navigation */}
+      <Navigation className="w-64 flex-shrink-0" />
       
-      <main className="ml-64 p-6">
-        <div className={`transition-all duration-300 ${
-          selectedContact ? 'lg:grid lg:grid-cols-2 lg:gap-6' : ''
-        }`}>
-          <div className="space-y-6">
+      {/* Main Content */}
+      <div className="flex-1 flex">
+        {/* Contacts List */}
+        <div className={`transition-all duration-300 ${selectedContact ? 'w-1/2' : 'w-full'}`}>
+          <div className="p-8">
             <ContactsHeader 
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
@@ -58,17 +59,18 @@ const Contacts = () => {
               onContactSelect={setSelectedContact}
             />
           </div>
-          
-          {selectedContact && (
-            <div className={`space-y-6 ${selectedContact ? 'mt-6 lg:mt-0' : ''}`}>
-              <ContactDetails 
-                contact={selectedContact}
-                onClose={() => setSelectedContact(null)}
-              />
-            </div>
-          )}
         </div>
-      </main>
+
+        {/* Contact Details Panel */}
+        {selectedContact && (
+          <div className="w-1/2 border-l border-border bg-card">
+            <ContactDetails 
+              contact={selectedContact}
+              onClose={() => setSelectedContact(null)}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
