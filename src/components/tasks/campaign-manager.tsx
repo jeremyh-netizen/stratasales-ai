@@ -72,6 +72,14 @@ const mockCampaigns: Campaign[] = [
 
 const campaignTemplates = [
   {
+    name: "Engage with Prospects who open email",
+    description: "Multi-channel sequence triggered by email opens with intelligent follow-up timing",
+    emails: 4,
+    linkedin: 3,
+    phone: 3,
+    aiFeatures: ["Email open tracking", "Behavioral triggers", "Smart timing optimization", "Multi-channel orchestration"]
+  },
+  {
     name: "Enterprise Decision Makers",
     description: "Multi-touch sequence for C-level executives with social proof and ROI focus",
     emails: 3,
@@ -91,14 +99,6 @@ const campaignTemplates = [
     emails: 6,
     linkedin: 3,
     aiFeatures: ["Content personalization", "Industry insights", "Behavioral triggers"]
-  },
-  {
-    name: "Engage with Prospects who open email",
-    description: "Multi-channel sequence triggered by email opens with intelligent follow-up timing",
-    emails: 4,
-    linkedin: 3,
-    phone: 3,
-    aiFeatures: ["Email open tracking", "Behavioral triggers", "Smart timing optimization", "Multi-channel orchestration"]
   }
 ];
 
