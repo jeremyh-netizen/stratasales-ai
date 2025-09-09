@@ -61,27 +61,27 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
   const getHealthScoreStyles = (score: number) => {
     if (score >= 90) return {
       textColor: "text-success",
-      ringColor: "ring-success/20",
+      ringColor: "ring-success/30",
       bgGradient: "bg-gradient-health-excellent",
-      shadow: "shadow-health-pulse"
+      shadow: "shadow-glow"
     };
     if (score >= 80) return {
       textColor: "text-success",
-      ringColor: "ring-success/15",
+      ringColor: "ring-success/20",
       bgGradient: "bg-gradient-to-br from-success/10 to-success/5",
       shadow: ""
     };
     if (score >= 60) return {
       textColor: "text-warning",
-      ringColor: "ring-warning/20",
+      ringColor: "ring-warning/30",
       bgGradient: "bg-gradient-to-br from-warning/10 to-warning/5",
-      shadow: "shadow-health-warning-pulse"
+      shadow: "shadow-glow"
     };
     return {
       textColor: "text-destructive",
-      ringColor: "ring-destructive/20",
+      ringColor: "ring-destructive/30",
       bgGradient: "bg-gradient-to-br from-destructive/10 to-destructive/5",
-      shadow: "shadow-health-critical-pulse"
+      shadow: "shadow-glow"
     };
   };
 
@@ -92,12 +92,13 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
 
   return (
     <Card className={`
-      group cursor-pointer transition-all duration-300 hover:scale-[1.02]
+      group cursor-pointer transition-all duration-300 ease-out contain-layout will-change-transform
+      hover:scale-[1.01] hover:-translate-y-1
       ${isHighValueAccount ? 'shadow-card-premium hover:shadow-elegant' : 'shadow-card hover:shadow-card-hover'}
-      ${hasRecentActivity ? 'ring-2 ring-primary/20 animate-pulse' : ''}
-      ${account.status === 'Active' ? 'hover:shadow-active/30' : ''}
-      ${account.status === 'Opportunity' ? 'hover:shadow-opportunity/30' : ''}
-      ${account.status === 'Lead' ? 'hover:shadow-lead/30' : ''}
+      ${hasRecentActivity ? 'ring-1 ring-primary/30 shadow-glow' : ''}
+      ${account.status === 'Active' ? 'hover:shadow-active/20' : ''}
+      ${account.status === 'Opportunity' ? 'hover:shadow-opportunity/20' : ''}
+      ${account.status === 'Lead' ? 'hover:shadow-lead/20' : ''}
     `}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
@@ -110,7 +111,7 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
                 </AvatarFallback>
               </Avatar>
               {isHighValueAccount && (
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-premium rounded-full border-2 border-background animate-pulse" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-premium rounded-full border-2 border-background shadow-glow" />
               )}
             </div>
             <div className="space-y-1.5">
@@ -152,8 +153,8 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
           <div className="text-right">
             <div className={`
               relative inline-flex items-center justify-center w-16 h-16 rounded-full 
-              ${healthStyles.bgGradient} ${healthStyles.ringColor} ring-2 ${healthStyles.shadow}
-              transition-all duration-300 group-hover:scale-105
+              ${healthStyles.bgGradient} ${healthStyles.ringColor} ring-1 ${healthStyles.shadow}
+              transition-all duration-300 ease-out contain-layout
             `}>
               <div className={`text-2xl font-bold ${healthStyles.textColor}`}>
                 {account.healthScore}
@@ -212,7 +213,7 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
             <div className="text-lg font-bold text-warning flex items-center justify-center space-x-1">
               <span>{account.businessIntelligence.buyingSignals.length}</span>
               {account.businessIntelligence.buyingSignals.length > 3 && (
-                <div className="w-2 h-2 bg-warning rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-warning rounded-full shadow-glow" />
               )}
             </div>
             <div className="text-xs text-warning/70 font-medium">Buy Signals</div>
@@ -285,7 +286,7 @@ export function StrategicAccountCard({ account, onViewDetails, onStatusChange }:
               {account.lastActivity}
             </span>
             {hasRecentActivity && (
-              <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-success rounded-full shadow-glow" />
             )}
           </div>
           <div className="flex items-center space-x-1 text-muted-foreground group-hover:text-primary transition-colors cursor-pointer">
