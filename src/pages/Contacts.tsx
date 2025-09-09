@@ -27,6 +27,7 @@ export interface Contact {
     emailsSent: number;
     emailOpens: number;
     websiteVisits: number;
+    downloads: number;
   };
 }
 

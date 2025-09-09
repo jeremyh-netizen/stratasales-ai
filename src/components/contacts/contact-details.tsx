@@ -24,7 +24,8 @@ import {
   Linkedin,
   Send,
   Eye,
-  BarChart3
+  BarChart3,
+  Download
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Contact } from "@/pages/Contacts";
@@ -302,21 +303,26 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 rounded-lg bg-muted/50">
-                  <Send className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold">{contact.activity.emailsSent}</div>
-                  <div className="text-sm text-muted-foreground">Emails Sent</div>
-                </div>
+              <div className="grid grid-cols-4 gap-4">
                 <div className="text-center p-4 rounded-lg bg-muted/50">
                   <Eye className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold">{contact.activity.emailOpens}</div>
-                  <div className="text-sm text-muted-foreground">Email Opens</div>
+                  <div className="text-2xl font-bold">{contact.activity.emailOpens}/{contact.activity.emailsSent}</div>
+                  <div className="text-sm text-muted-foreground">Opens/Sent</div>
                 </div>
                 <div className="text-center p-4 rounded-lg bg-muted/50">
                   <Globe className="w-6 h-6 mx-auto mb-2 text-primary" />
                   <div className="text-2xl font-bold">{contact.activity.websiteVisits}</div>
                   <div className="text-sm text-muted-foreground">Website Visits</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-muted/50">
+                  <Download className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{contact.activity.downloads}</div>
+                  <div className="text-sm text-muted-foreground">Downloads</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-muted/50">
+                  <BarChart3 className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{Math.round(((contact.activity.emailOpens / contact.activity.emailsSent) * 0.4 + (contact.activity.websiteVisits / contact.activity.emailsSent) * 0.3 + (contact.activity.downloads / contact.activity.emailsSent) * 0.3) * 100)}</div>
+                  <div className="text-sm text-muted-foreground">Engagement</div>
                 </div>
               </div>
               
@@ -327,9 +333,13 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
                     <span className="font-medium">{Math.round((contact.activity.emailOpens / contact.activity.emailsSent) * 100)}%</span>
                   </div>
                   <div className="flex justify-between mt-1">
-                    <span>Engagement Score:</span>
+                    <span>Download Rate:</span>
+                    <span className="font-medium">{Math.round((contact.activity.downloads / contact.activity.emailsSent) * 100)}%</span>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span>Overall Engagement:</span>
                     <span className="font-medium text-primary">
-                      {Math.round(((contact.activity.emailOpens / contact.activity.emailsSent) * 0.6 + (contact.activity.websiteVisits / contact.activity.emailsSent) * 0.4) * 100)}
+                      {Math.round(((contact.activity.emailOpens / contact.activity.emailsSent) * 0.4 + (contact.activity.websiteVisits / contact.activity.emailsSent) * 0.3 + (contact.activity.downloads / contact.activity.emailsSent) * 0.3) * 100)}%
                     </span>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Building2, Mail, Phone, ExternalLink, Send, Eye, Globe, Linkedin } from "lucide-react";
+import { Building2, Mail, Phone, ExternalLink, Send, Eye, Globe, Linkedin, Download } from "lucide-react";
 import { Contact } from "@/pages/Contacts";
 import { useNavigate } from "react-router-dom";
 
@@ -27,9 +27,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/dawn-russell-magaya",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 34,
-      emailOpens: 22,
-      websiteVisits: 12
+      emailsSent: 7,
+      emailOpens: 4,
+      websiteVisits: 2,
+      downloads: 5
     }
   },
   {
@@ -51,9 +52,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/mark-buman-magaya",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 45,
-      emailOpens: 31,
-      websiteVisits: 18
+      emailsSent: 9,
+      emailOpens: 6,
+      websiteVisits: 4,
+      downloads: 7
     }
   },
   {
@@ -75,9 +77,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/eric-ingram-cfo",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 28,
-      emailOpens: 19,
-      websiteVisits: 8
+      emailsSent: 6,
+      emailOpens: 4,
+      websiteVisits: 2,
+      downloads: 3
     }
   },
   {
@@ -99,9 +102,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/niten-jaiswal-engineering",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 21,
-      emailOpens: 15,
-      websiteVisits: 7
+      emailsSent: 4,
+      emailOpens: 3,
+      websiteVisits: 1,
+      downloads: 2
     }
   },
   {
@@ -123,9 +127,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/david-luttrell-cto",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 39,
-      emailOpens: 25,
-      websiteVisits: 14
+      emailsSent: 8,
+      emailOpens: 5,
+      websiteVisits: 3,
+      downloads: 6
     }
   },
   {
@@ -147,9 +152,10 @@ const mockContacts: Contact[] = [
     linkedInUrl: "https://linkedin.com/in/jose-javier-perez-architect",
     websiteUrl: "https://magaya.com",
     activity: {
-      emailsSent: 26,
-      emailOpens: 17,
-      websiteVisits: 9
+      emailsSent: 5,
+      emailOpens: 3,
+      websiteVisits: 2,
+      downloads: 4
     }
   }
 ];
@@ -296,19 +302,19 @@ export function ContactsTable({
                 <TableCell>
                   <div className="space-y-1">
                     <div className="flex items-center text-xs">
-                      <Send className="w-3 h-3 mr-1 text-muted-foreground" />
-                      <span className="font-medium">{contact.activity.emailsSent}</span>
-                      <span className="text-muted-foreground ml-1">sent</span>
-                    </div>
-                    <div className="flex items-center text-xs">
                       <Eye className="w-3 h-3 mr-1 text-muted-foreground" />
-                      <span className="font-medium">{contact.activity.emailOpens}</span>
-                      <span className="text-muted-foreground ml-1">opens</span>
+                      <span className="font-medium">{contact.activity.emailOpens}/{contact.activity.emailsSent}</span>
+                      <span className="text-muted-foreground ml-1">opens/sent</span>
                     </div>
                     <div className="flex items-center text-xs">
                       <Globe className="w-3 h-3 mr-1 text-muted-foreground" />
                       <span className="font-medium">{contact.activity.websiteVisits}</span>
                       <span className="text-muted-foreground ml-1">visits</span>
+                    </div>
+                    <div className="flex items-center text-xs">
+                      <Download className="w-3 h-3 mr-1 text-muted-foreground" />
+                      <span className="font-medium">{contact.activity.downloads}</span>
+                      <span className="text-muted-foreground ml-1">downloads</span>
                     </div>
                   </div>
                 </TableCell>
