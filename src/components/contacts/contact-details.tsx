@@ -18,8 +18,15 @@ import {
   ChevronUp,
   Calendar,
   MessageSquare,
-  UserPlus
+  UserPlus,
+  ExternalLink,
+  Globe,
+  Linkedin,
+  Send,
+  Eye,
+  BarChart3
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Contact } from "@/pages/Contacts";
 
 interface ContactDetailsProps {
@@ -29,6 +36,24 @@ interface ContactDetailsProps {
 
 export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
   const [showFullBio, setShowFullBio] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCompanyClick = () => {
+    navigate('/accounts', { 
+      state: { 
+        selectedAccountName: contact.company,
+        openAccountDetails: true
+      } 
+    });
+  };
+
+  const handleLinkedInClick = () => {
+    window.open(contact.linkedInUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleWebsiteClick = () => {
+    window.open(contact.websiteUrl, '_blank', 'noopener,noreferrer');
+  };
 
   const generateBio = (contact: Contact) => {
     const bios: Record<string, string> = {
@@ -78,7 +103,17 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
                 </AvatarFallback>
               </Avatar>
               <div>
-                <CardTitle className="text-xl">{contact.name}</CardTitle>
+                <div className="flex items-center space-x-2">
+                  <CardTitle className="text-xl">{contact.name}</CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLinkedInClick}
+                    className="p-1 h-8 w-8"
+                  >
+                    <Linkedin className="w-4 h-4 text-blue-600" />
+                  </Button>
+                </div>
                 <p className="text-muted-foreground">{contact.title}</p>
                 <div className="flex items-center mt-2 space-x-4">
                   <Badge variant="outline" className={getAuthorityColor(contact.authority)}>
@@ -122,7 +157,24 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
               </div>
               <div className="flex items-center">
                 <Building2 className="w-4 h-4 mr-2 text-muted-foreground" />
-                <span className="text-sm">{contact.company}</span>
+                <Button
+                  variant="link"
+                  className="p-0 h-auto text-sm hover:text-primary"
+                  onClick={handleCompanyClick}
+                >
+                  {contact.company}
+                </Button>
+              </div>
+              <div className="flex items-center">
+                <Globe className="w-4 h-4 mr-2 text-muted-foreground" />
+                <Button
+                  variant="link"
+                  className="p-0 h-auto text-sm hover:text-primary"
+                  onClick={handleWebsiteClick}
+                >
+                  {contact.websiteUrl}
+                  <ExternalLink className="w-3 h-3 ml-1" />
+                </Button>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
@@ -241,6 +293,50 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
         </TabsContent>
 
         <TabsContent value="engagement" className="space-y-4">
+          {/* Activity Metrics */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center">
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Activity Metrics
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center p-4 rounded-lg bg-muted/50">
+                  <Send className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{contact.activity.emailsSent}</div>
+                  <div className="text-sm text-muted-foreground">Emails Sent</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-muted/50">
+                  <Eye className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{contact.activity.emailOpens}</div>
+                  <div className="text-sm text-muted-foreground">Email Opens</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-muted/50">
+                  <Globe className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{contact.activity.websiteVisits}</div>
+                  <div className="text-sm text-muted-foreground">Website Visits</div>
+                </div>
+              </div>
+              
+              <div className="pt-4 border-t">
+                <div className="text-sm text-muted-foreground">
+                  <div className="flex justify-between">
+                    <span>Email Open Rate:</span>
+                    <span className="font-medium">{Math.round((contact.activity.emailOpens / contact.activity.emailsSent) * 100)}%</span>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span>Engagement Score:</span>
+                    <span className="font-medium text-primary">
+                      {Math.round(((contact.activity.emailOpens / contact.activity.emailsSent) * 0.6 + (contact.activity.websiteVisits / contact.activity.emailsSent) * 0.4) * 100)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Quick Actions */}
           <Card>
             <CardHeader>
@@ -272,8 +368,28 @@ export function ContactDetails({ contact, onClose }: ContactDetailsProps) {
               <CardTitle className="text-base">Recent Activity</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-sm text-muted-foreground text-center py-4">
-                No recent activity recorded
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center">
+                    <Eye className="w-3 h-3 mr-2 text-muted-foreground" />
+                    <span>Opened email: Q4 Product Updates</span>
+                  </div>
+                  <span className="text-muted-foreground">2 days ago</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center">
+                    <Globe className="w-3 h-3 mr-2 text-muted-foreground" />
+                    <span>Visited pricing page</span>
+                  </div>
+                  <span className="text-muted-foreground">3 days ago</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center">
+                    <Send className="w-3 h-3 mr-2 text-muted-foreground" />
+                    <span>Email sent: Feature announcement</span>
+                  </div>
+                  <span className="text-muted-foreground">1 week ago</span>
+                </div>
               </div>
             </CardContent>
           </Card>

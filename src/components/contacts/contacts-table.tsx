@@ -1,8 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Building2, Mail, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Building2, Mail, Phone, ExternalLink, Send, Eye, Globe, Linkedin } from "lucide-react";
 import { Contact } from "@/pages/Contacts";
+import { useNavigate } from "react-router-dom";
 
 // Mock data for the 6 Magaya executives
 const mockContacts: Contact[] = [
@@ -21,7 +23,14 @@ const mockContacts: Contact[] = [
     expertise: ["Customer Lifecycle Management", "Operational Excellence", "Scaling Operations", "Six Sigma"],
     tenure: "Promoted to COO March 2025, Previously Chief Customer Officer",
     background: "Previous roles at Blue Ridge (supply chain planning software) and Izenda (embedded analytics)",
-    priorities: ["Customer Success Optimization", "Operational Scaling", "Process Excellence"]
+    priorities: ["Customer Success Optimization", "Operational Scaling", "Process Excellence"],
+    linkedInUrl: "https://linkedin.com/in/dawn-russell-magaya",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 34,
+      emailOpens: 22,
+      websiteVisits: 12
+    }
   },
   {
     id: "2", 
@@ -38,7 +47,14 @@ const mockContacts: Contact[] = [
     expertise: ["Enterprise Sales", "Supply Chain Solutions", "Revenue Growth", "Sales Strategy"],
     tenure: "Current CRO at Magaya Corporation",
     background: "Previous roles at IQMS Software (SVP Sales), HighJump, and Infor",
-    priorities: ["Revenue Growth", "Sales Strategy", "Market Expansion"]
+    priorities: ["Revenue Growth", "Sales Strategy", "Market Expansion"],
+    linkedInUrl: "https://linkedin.com/in/mark-buman-magaya",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 45,
+      emailOpens: 31,
+      websiteVisits: 18
+    }
   },
   {
     id: "3",
@@ -55,7 +71,14 @@ const mockContacts: Contact[] = [
     expertise: ["Financial Operations", "PE-Funded Business Management", "Strategic Finance", "Revenue Alignment"],
     tenure: "Joined June 2024",
     background: "Previous CFO roles at Millennia (healthcare tech) and Logitix (ticketing platform)",
-    priorities: ["Financial Operations", "Revenue Growth Alignment", "Strategic Planning"]
+    priorities: ["Financial Operations", "Revenue Growth Alignment", "Strategic Planning"],
+    linkedInUrl: "https://linkedin.com/in/eric-ingram-cfo",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 28,
+      emailOpens: 19,
+      websiteVisits: 8
+    }
   },
   {
     id: "4",
@@ -72,7 +95,14 @@ const mockContacts: Contact[] = [
     expertise: ["Database Modernization", "Performance Optimization", "Infrastructure", "Security", "Team Leadership"],
     tenure: "Current VP Engineering at Magaya Corporation",
     background: "Previous roles at AWS, Broadridge, IBM Global Services, and Wizeline. Led recent database modernization achieving 10x performance improvement",
-    priorities: ["Technology Innovation", "Performance Optimization", "Team Development"]
+    priorities: ["Technology Innovation", "Performance Optimization", "Team Development"],
+    linkedInUrl: "https://linkedin.com/in/niten-jaiswal-engineering",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 21,
+      emailOpens: 15,
+      websiteVisits: 7
+    }
   },
   {
     id: "5",
@@ -89,7 +119,14 @@ const mockContacts: Contact[] = [
     expertise: ["Rate Management", "Digital Forwarding Solutions", "Software Architecture", "Industry Integration"],
     tenure: "15+ years (co-founded Catapult International, now Magaya Rate Management)",
     background: "Co-founded Catapult International which became Magaya Rate Management division",
-    priorities: ["Digital Forwarding Innovation", "Rate Management Solutions", "Industry Partnerships"]
+    priorities: ["Digital Forwarding Innovation", "Rate Management Solutions", "Industry Partnerships"],
+    linkedInUrl: "https://linkedin.com/in/david-luttrell-cto",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 39,
+      emailOpens: 25,
+      websiteVisits: 14
+    }
   },
   {
     id: "6",
@@ -106,7 +143,14 @@ const mockContacts: Contact[] = [
     expertise: ["Software Architecture", "Application Development", "Technical Leadership", "System Design"],
     tenure: "15+ years with Magaya Corporation",
     background: "Long-tenure technical professional focused on core software architecture and development",
-    priorities: ["Technical Excellence", "Architecture Innovation", "Development Best Practices"]
+    priorities: ["Technical Excellence", "Architecture Innovation", "Development Best Practices"],
+    linkedInUrl: "https://linkedin.com/in/jose-javier-perez-architect",
+    websiteUrl: "https://magaya.com",
+    activity: {
+      emailsSent: 26,
+      emailOpens: 17,
+      websiteVisits: 9
+    }
   }
 ];
 
@@ -127,6 +171,23 @@ export function ContactsTable({
   selectedContact, 
   onContactSelect 
 }: ContactsTableProps) {
+  const navigate = useNavigate();
+
+  const handleCompanyClick = (company: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Navigate to accounts page and select Magaya Corporation account
+    navigate('/accounts', { 
+      state: { 
+        selectedAccountName: company,
+        openAccountDetails: true
+      } 
+    });
+  };
+
+  const handleLinkedInClick = (linkedInUrl: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(linkedInUrl, '_blank', 'noopener,noreferrer');
+  };
   
   const filteredContacts = mockContacts.filter(contact => {
     const matchesSearch = contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -167,6 +228,7 @@ export function ContactsTable({
               <TableHead className="min-w-[200px]">Contact</TableHead>
               <TableHead className="min-w-[200px]">Title & Company</TableHead>
               <TableHead className="min-w-[250px]">Contact Info</TableHead>
+              <TableHead className="min-w-[150px]">Activity</TableHead>
               <TableHead className="min-w-[120px]">Authority</TableHead>
               <TableHead className="min-w-[120px]">Department</TableHead>
             </TableRow>
@@ -188,7 +250,15 @@ export function ContactsTable({
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0">
-                      <div className="font-medium truncate">{contact.name}</div>
+                      <Button
+                        variant="link"
+                        className="p-0 h-auto font-medium text-left justify-start hover:text-primary"
+                        onClick={(e) => handleLinkedInClick(contact.linkedInUrl, e)}
+                      >
+                        <Linkedin className="w-3 h-3 mr-1" />
+                        {contact.name}
+                        <ExternalLink className="w-3 h-3 ml-1" />
+                      </Button>
                       <div className="text-sm text-muted-foreground truncate">{contact.location}</div>
                     </div>
                   </div>
@@ -199,7 +269,13 @@ export function ContactsTable({
                     <div className="font-medium truncate">{contact.title}</div>
                     <div className="text-sm text-muted-foreground flex items-center">
                       <Building2 className="w-3 h-3 mr-1 flex-shrink-0" />
-                      <span className="truncate">{contact.company}</span>
+                      <Button
+                        variant="link"
+                        className="p-0 h-auto text-sm text-muted-foreground hover:text-primary underline-offset-4"
+                        onClick={(e) => handleCompanyClick(contact.company, e)}
+                      >
+                        {contact.company}
+                      </Button>
                     </div>
                   </div>
                 </TableCell>
@@ -213,6 +289,26 @@ export function ContactsTable({
                     <div className="text-sm flex items-center">
                       <Phone className="w-3 h-3 mr-1 flex-shrink-0 text-muted-foreground" />
                       <span className="truncate">{contact.phone}</span>
+                    </div>
+                  </div>
+                </TableCell>
+                
+                <TableCell>
+                  <div className="space-y-1">
+                    <div className="flex items-center text-xs">
+                      <Send className="w-3 h-3 mr-1 text-muted-foreground" />
+                      <span className="font-medium">{contact.activity.emailsSent}</span>
+                      <span className="text-muted-foreground ml-1">sent</span>
+                    </div>
+                    <div className="flex items-center text-xs">
+                      <Eye className="w-3 h-3 mr-1 text-muted-foreground" />
+                      <span className="font-medium">{contact.activity.emailOpens}</span>
+                      <span className="text-muted-foreground ml-1">opens</span>
+                    </div>
+                    <div className="flex items-center text-xs">
+                      <Globe className="w-3 h-3 mr-1 text-muted-foreground" />
+                      <span className="font-medium">{contact.activity.websiteVisits}</span>
+                      <span className="text-muted-foreground ml-1">visits</span>
                     </div>
                   </div>
                 </TableCell>

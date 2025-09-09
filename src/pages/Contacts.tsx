@@ -21,6 +21,13 @@ export interface Contact {
   tenure: string;
   background: string;
   priorities: string[];
+  linkedInUrl: string;
+  websiteUrl: string;
+  activity: {
+    emailsSent: number;
+    emailOpens: number;
+    websiteVisits: number;
+  };
 }
 
 const Contacts = () => {
