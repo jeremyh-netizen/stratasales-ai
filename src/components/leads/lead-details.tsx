@@ -4,6 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScoreBadge, ScoreRing } from "@/components/ui/score-badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { CompetitorBattleCard } from "./competitor-battle-card";
 import { 
   X, 
@@ -36,6 +45,8 @@ interface LeadDetailsProps {
 export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
   const [showBattleCard, setShowBattleCard] = useState<string | null>(null);
   const [showFullBio, setShowFullBio] = useState(false);
+  const [editingNextAction, setEditingNextAction] = useState(false);
+  const [editNextAction, setEditNextAction] = useState("");
   
   // Detect competitor mentions in lead data
   const competitors = ["DataGOL", "Salesforce", "HubSpot", "Pipedrive"];
@@ -60,6 +71,23 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
       default:
         return "bg-gray-100 text-gray-800";
     }
+  };
+
+  const handleEditNextAction = () => {
+    setEditingNextAction(true);
+    setEditNextAction(lead.nextAction);
+  };
+
+  const handleSaveNextAction = () => {
+    // In a real app, this would update the lead via API
+    console.log("Saving next action:", editNextAction);
+    setEditingNextAction(false);
+    setEditNextAction("");
+  };
+
+  const handleCancelEdit = () => {
+    setEditingNextAction(false);
+    setEditNextAction("");
   };
 
   const generateBio = (lead: Lead) => {
@@ -316,7 +344,12 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
                   <Clock className="w-4 h-4 mr-2" />
                   Next Action
                 </h3>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-8 w-8 p-0"
+                  onClick={handleEditNextAction}
+                >
                   <Edit3 className="w-4 h-4" />
                 </Button>
               </div>
@@ -602,6 +635,35 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Edit Next Action Modal */}
+      <Dialog open={editingNextAction} onOpenChange={() => handleCancelEdit()}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Next Action</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="nextAction">Next Action</Label>
+              <Textarea
+                id="nextAction"
+                value={editNextAction}
+                onChange={(e) => setEditNextAction(e.target.value)}
+                placeholder="Enter the next action for this lead..."
+                className="min-h-[100px]"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={handleCancelEdit}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveNextAction}>
+              Save Changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
