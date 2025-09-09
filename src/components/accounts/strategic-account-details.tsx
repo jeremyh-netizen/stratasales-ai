@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { 
   X, 
   Building2, 
@@ -37,6 +38,7 @@ interface StrategicAccountDetailsProps {
 export function StrategicAccountDetails({ account, onClose }: StrategicAccountDetailsProps) {
   const [activePlaybook, setActivePlaybook] = useState<string | null>(null);
   const [outreachStatus, setOutreachStatus] = useState<string>("Review Outreach");
+  const [expandedEmails, setExpandedEmails] = useState<{ [key: number]: boolean }>({});
 
   const getHealthScoreColor = (score: number) => {
     if (score >= 80) return "text-green-600";
@@ -60,6 +62,13 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
   };
 
   const stageInfo = getGrowthStageInfo(account.strategicProfile.growthStage);
+
+  const toggleEmailExpansion = (index: number) => {
+    setExpandedEmails(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
 
   return (
     <div className="h-full overflow-hidden flex flex-col bg-background">
@@ -675,14 +684,32 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
                       preview: "Final outreach: Lower data infrastructure TCO while accelerating Fiber platform..."
                     }
                   ].map((email, index) => (
-                    <div key={index} className="border rounded-lg p-4 hover:bg-muted/20 transition-colors">
+                    <div key={index} className="border rounded-lg p-4 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => toggleEmailExpansion(index)}>
                       <div className="flex items-start justify-between mb-2">
                         <h5 className="font-medium text-indigo-600">{email.title}</h5>
                         <Badge variant="outline" className="text-xs">{email.timing}</Badge>
                       </div>
                       <p className="text-sm font-medium mb-1">Subject: {email.subject}</p>
                       <p className="text-xs text-muted-foreground mb-2">{email.rationale}</p>
-                      <p className="text-xs bg-muted/50 p-2 rounded italic">{email.preview}</p>
+                      <div className="relative">
+                        <p className={cn(
+                          "text-xs bg-muted/50 p-2 rounded italic transition-all duration-200",
+                          !expandedEmails[index] && "overflow-hidden"
+                        )}
+                        style={!expandedEmails[index] ? {
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical' as any,
+                          maxHeight: '2.5rem'
+                        } : {}}>
+                          {email.preview}
+                        </p>
+                        {!expandedEmails[index] && (
+                          <div className="absolute bottom-0 right-0 bg-muted/50 px-2 py-1 rounded-tl text-xs text-muted-foreground">
+                            Click to expand
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
