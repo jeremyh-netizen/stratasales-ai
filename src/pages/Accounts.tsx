@@ -93,8 +93,8 @@ const getHealthScoreColor = (score: number) => {
 const getStatusVariant = (status: string) => {
   switch (status) {
     case "Active": return "default";
-    case "Prospect": return "secondary";
-    case "Inactive": return "outline";
+    case "Opportunity": return "secondary"; 
+    case "Lead": return "outline";
     default: return "outline";
   }
 };
@@ -103,15 +103,31 @@ export default function Accounts() {
   const [viewMode, setViewMode] = useState<"strategic" | "table">("strategic");
   const [selectedAccount, setSelectedAccount] = useState<StrategicAccount | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [accounts, setAccounts] = useState<StrategicAccount[]>(mockStrategicAccounts);
 
   const handleViewAccountDetails = (accountId: string) => {
-    const account = mockStrategicAccounts.find(acc => acc.id === accountId);
+    const account = accounts.find(acc => acc.id === accountId);
     if (account) {
       setSelectedAccount(account);
     }
   };
 
-  const filteredAccounts = mockStrategicAccounts.filter(account =>
+  const handleStatusChange = (accountId: string, newStatus: StrategicAccount['status']) => {
+    setAccounts(prevAccounts => 
+      prevAccounts.map(account => 
+        account.id === accountId 
+          ? { ...account, status: newStatus }
+          : account
+      )
+    );
+    
+    // Update selected account if it's the one being changed
+    if (selectedAccount?.id === accountId) {
+      setSelectedAccount(prev => prev ? { ...prev, status: newStatus } : null);
+    }
+  };
+
+  const filteredAccounts = accounts.filter(account =>
     account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     account.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
     account.primaryContact.toLowerCase().includes(searchQuery.toLowerCase())
@@ -124,7 +140,8 @@ export default function Accounts() {
         <main className="flex-1 overflow-hidden">
           <StrategicAccountDetails 
             account={selectedAccount} 
-            onClose={() => setSelectedAccount(null)} 
+            onClose={() => setSelectedAccount(null)}
+            onStatusChange={handleStatusChange}
           />
         </main>
       </div>
@@ -181,7 +198,7 @@ export default function Accounts() {
                 <Building2 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{mockStrategicAccounts.length}</div>
+                <div className="text-2xl font-bold">{accounts.length}</div>
                 <p className="text-xs text-muted-foreground">
                   High-value targets
                 </p>
@@ -195,7 +212,7 @@ export default function Accounts() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {mockStrategicAccounts.filter(acc => acc.status === "Active").length}
+                  {accounts.filter(acc => acc.status === "Active").length}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   In active outreach
@@ -223,7 +240,7 @@ export default function Accounts() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {Math.round(mockStrategicAccounts.reduce((acc, account) => acc + account.healthScore, 0) / mockStrategicAccounts.length)}
+                  {Math.round(accounts.reduce((acc, account) => acc + account.healthScore, 0) / accounts.length)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Account health
@@ -238,7 +255,7 @@ export default function Accounts() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {mockStrategicAccounts.reduce((acc, account) => acc + account.businessIntelligence.buyingSignals.length, 0)}
+                  {accounts.reduce((acc, account) => acc + account.businessIntelligence.buyingSignals.length, 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Active signals
@@ -276,6 +293,7 @@ export default function Accounts() {
                   key={account.id}
                   account={account}
                   onViewDetails={handleViewAccountDetails}
+                  onStatusChange={handleStatusChange}
                 />
               ))}
             </div>

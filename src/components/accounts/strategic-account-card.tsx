@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Building2, 
   TrendingUp, 
@@ -18,9 +19,10 @@ import type { StrategicAccount } from "@/lib/strategic-intelligence";
 interface StrategicAccountCardProps {
   account: StrategicAccount;
   onViewDetails: (accountId: string) => void;
+  onStatusChange?: (accountId: string, status: StrategicAccount['status']) => void;
 }
 
-export function StrategicAccountCard({ account, onViewDetails }: StrategicAccountCardProps) {
+export function StrategicAccountCard({ account, onViewDetails, onStatusChange }: StrategicAccountCardProps) {
   const getGrowthStageColor = (stage: string) => {
     switch (stage) {
       case "startup": return "bg-blue-100 text-blue-800 border-blue-200";
@@ -34,8 +36,8 @@ export function StrategicAccountCard({ account, onViewDetails }: StrategicAccoun
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Active": return "bg-green-100 text-green-800 border-green-200";
-      case "Prospect": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "Inactive": return "bg-gray-100 text-gray-800 border-gray-200";
+      case "Opportunity": return "bg-blue-100 text-blue-800 border-blue-200";
+      case "Lead": return "bg-yellow-100 text-yellow-800 border-yellow-200";
       default: return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
@@ -65,9 +67,16 @@ export function StrategicAccountCard({ account, onViewDetails }: StrategicAccoun
                 >
                   {account.name}
                 </h3>
-                <Badge className={getStatusColor(account.status)}>
-                  {account.status}
-                </Badge>
+                <Select value={account.status} onValueChange={(value) => onStatusChange?.(account.id, value as StrategicAccount['status'])}>
+                  <SelectTrigger className={`w-fit border-0 p-1 h-auto text-xs font-medium ${getStatusColor(account.status)}`}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="min-w-fit">
+                    <SelectItem value="Lead" className="text-xs">Lead</SelectItem>
+                    <SelectItem value="Opportunity" className="text-xs">Opportunity</SelectItem>
+                    <SelectItem value="Active" className="text-xs">Active</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <p className="text-sm text-muted-foreground">{account.industry}</p>
               <div className="flex items-center space-x-4 text-xs text-muted-foreground">

@@ -11,7 +11,7 @@ export interface StrategicAccount {
   revenue: string;
   healthScore: number;
   lastActivity: string;
-  status: "Active" | "Prospect" | "Inactive";
+  status: "Lead" | "Opportunity" | "Active";
   
   // Strategic Intelligence Extensions
   strategicProfile: {
@@ -593,7 +593,7 @@ export const mockStrategicAccounts: StrategicAccount[] = [
     revenue: "$5.2M",
     healthScore: 92,
     lastActivity: "1 day ago",
-    status: "Active",
+    status: "Lead",
     
     strategicProfile: {
       mission: "Democratize financial wellness by helping over 100 million Americans ease their debt burden",
@@ -756,7 +756,7 @@ export const mockStrategicAccounts: StrategicAccount[] = [
     revenue: "$2.5M",
     healthScore: 85,
     lastActivity: "2 days ago",
-    status: "Active",
+    status: "Opportunity",
     
     strategicProfile: {
       mission: "Enable digital transformation through innovative cloud solutions",
@@ -893,6 +893,324 @@ export const mockStrategicAccounts: StrategicAccount[] = [
         costSavings: "50% reduction in analytics development time",
         efficiencyGains: "3x faster client onboarding", 
         revenueImpact: "25% increase in client retention through better insights"
+      }
+    }
+  },
+
+  {
+    id: "3",
+    name: "DataFlow Systems",
+    industry: "Software",
+    size: "100-500",
+    primaryContact: "Michael Chen",
+    email: "michael.chen@dataflow.com",
+    phone: "+1 (555) 456-7890",
+    revenue: "$8.5M",
+    healthScore: 78,
+    lastActivity: "3 days ago",
+    status: "Active",
+    
+    strategicProfile: {
+      mission: "Streamline enterprise data workflows with intelligent automation",
+      marketPosition: "Enterprise data management solutions provider",
+      recentFunding: {
+        amount: "$15M",
+        round: "Series B",
+        date: "June 2023",
+        leadInvestor: "Accel Partners",
+        totalFunding: "$28M"
+      },
+      growthStage: "scale",
+      employees: 220,
+      keyPressures: [
+        "Increase customer engagement and retention",
+        "Compete with larger enterprise vendors",
+        "Deliver advanced analytics capabilities"
+      ],
+      competitiveThreats: [
+        "Established enterprise software vendors",
+        "Open source alternatives gaining traction",
+        "Cloud providers building native solutions"
+      ]
+    },
+    
+    businessIntelligence: {
+      painPoints: [
+        "Complex client integrations taking months",
+        "High customer churn after initial deployment",
+        "Lack of real-time analytics for enterprise clients"
+      ],
+      buyingSignals: [
+        "Active customer success initiatives",
+        "Recent hire of VP of Analytics", 
+        "Customer feedback requesting better dashboards"
+      ],
+      technologyStack: [
+        "Java",
+        "AWS",
+        "PostgreSQL",
+        "React",
+        "Apache Kafka"
+      ],
+      scalingChallenges: [
+        "Customer onboarding complexity",
+        "Enterprise security requirements",
+        "Multi-tenant performance optimization"
+      ],
+      budgetAuthority: "VP Engineering and CFO joint approval for >$200K",
+      decisionTimeline: "Q2 2024 product roadmap finalization"
+    },
+    
+    stakeholders: [
+      {
+        id: "c3",
+        name: "Michael Chen",
+        title: "VP of Engineering",
+        email: "michael.chen@dataflow.com",
+        phone: "+1 (555) 456-7890",
+        company: "DataFlow Systems",
+        department: "Engineering",
+        
+        professionalBackground: {
+          education: "PhD Computer Science, MIT",
+          careerPath: [
+            "Senior Engineer at Facebook",
+            "Technical Lead at Airbnb",
+            "Principal Engineer at Stripe"
+          ],
+          keyExperience: [
+            "Large-scale system architecture",
+            "Data infrastructure scaling",
+            "Product engineering leadership"
+          ],
+          expertise: [
+            "Distributed systems",
+            "Data engineering",
+            "Engineering management",
+            "Product strategy"
+          ]
+        },
+        
+        decisionMaking: {
+          authority: "high",
+          influence: "high",
+          budgetControl: true,
+          vendorSelection: true,
+          implementationOversight: true
+        },
+        
+        strategicPriorities: {
+          primary: [
+            "Engineering excellence and velocity",
+            "Customer success through technology",
+            "Scalable product architecture",
+            "Team growth and development"
+          ],
+          painPoints: [
+            "Technical debt from rapid growth",
+            "Customer integration complexity",
+            "Engineering resource allocation",
+            "Performance at enterprise scale"
+          ],
+          success_metrics: [
+            "Customer integration time reduction",
+            "Product reliability metrics",
+            "Engineering team velocity",
+            "Customer satisfaction scores"
+          ],
+          communicationStyle: "Technical, analytical, results-oriented"
+        },
+        
+        engagementStrategy: {
+          preferredChannels: ["Email", "Technical calls", "GitHub"],
+          messagingAngles: [
+            "Engineering efficiency improvements",
+            "Technical architecture advantages",
+            "Performance and scalability benefits",
+            "Developer productivity gains"
+          ],
+          valueDrivers: [
+            "Reduced engineering complexity",
+            "Faster customer deployments",
+            "Improved system performance",
+            "Team productivity enhancement"
+          ],
+          relationship_strength: "cold"
+        }
+      }
+    ],
+    
+    outreachStrategy: {
+      valueProposition: "Accelerate enterprise customer success while reducing engineering complexity",
+      messagingFramework: [
+        "Simplify Integration: Reduce customer onboarding from months to weeks",
+        "Enhance Performance: Deliver enterprise-grade analytics capabilities",
+        "Scale Efficiently: Support growth without proportional engineering overhead"
+      ],
+      competitivePositioning: "Modern developer experience vs legacy enterprise solutions",
+      roiModel: {
+        costSavings: "60% reduction in customer integration costs",
+        efficiencyGains: "4x faster customer onboarding",
+        revenueImpact: "35% improvement in customer retention"
+      }
+    }
+  },
+
+  {
+    id: "4",
+    name: "CloudScale Analytics",
+    industry: "Cloud Services",
+    size: "50-200",
+    primaryContact: "Lisa Rodriguez",
+    email: "lisa.rodriguez@cloudscale.io",
+    phone: "+1 (555) 321-0987",
+    revenue: "$12.3M",
+    healthScore: 82,
+    lastActivity: "1 day ago",
+    status: "Active",
+    
+    strategicProfile: {
+      mission: "Democratize advanced analytics for modern cloud-native businesses",
+      marketPosition: "Cloud-first analytics platform for mid-market companies",
+      recentFunding: {
+        amount: "$25M",
+        round: "Series A",
+        date: "September 2023",
+        leadInvestor: "Bessemer Venture Partners",
+        totalFunding: "$35M"
+      },
+      growthStage: "growth",
+      employees: 95,
+      keyPressures: [
+        "Rapid customer acquisition in competitive market",
+        "Build scalable analytics platform",
+        "Establish market differentiation"
+      ],
+      competitiveThreats: [
+        "Well-funded analytics startups",
+        "Cloud providers expanding analytics offerings",
+        "Traditional BI vendors moving to cloud"
+      ]
+    },
+    
+    businessIntelligence: {
+      painPoints: [
+        "Customer requests for advanced visualizations",
+        "Performance issues with large datasets",
+        "Complex setup process for new customers"
+      ],
+      buyingSignals: [
+        "Recent funding to expand product capabilities",
+        "Hiring spree for engineering and product teams",
+        "Customer advisory board feedback on analytics needs"
+      ],
+      technologyStack: [
+        "Python",
+        "Google Cloud",
+        "BigQuery",
+        "React",
+        "Docker"
+      ],
+      scalingChallenges: [
+        "Query performance optimization",
+        "Multi-cloud data source integration",
+        "Customer self-service capabilities"
+      ],
+      budgetAuthority: "CEO and CTO collaborative decisions for >$150K",
+      decisionTimeline: "Q1 2024 platform enhancement roadmap"
+    },
+    
+    stakeholders: [
+      {
+        id: "c4",
+        name: "Lisa Rodriguez",
+        title: "Chief Technology Officer",
+        email: "lisa.rodriguez@cloudscale.io",
+        phone: "+1 (555) 321-0987",
+        company: "CloudScale Analytics",
+        department: "Technology",
+        
+        professionalBackground: {
+          education: "MS Data Science, UC Berkeley",
+          careerPath: [
+            "Data Scientist at Netflix",
+            "Senior Analytics Engineer at Snowflake",
+            "Head of Data Engineering at Datadog"
+          ],
+          keyExperience: [
+            "Analytics platform development",
+            "Large-scale data processing",
+            "Customer-facing analytics products"
+          ],
+          expertise: [
+            "Data platform architecture",
+            "Analytics product development",
+            "Performance optimization",
+            "Customer success engineering"
+          ]
+        },
+        
+        decisionMaking: {
+          authority: "high",
+          influence: "high",
+          budgetControl: true,
+          vendorSelection: true,
+          implementationOversight: true
+        },
+        
+        strategicPriorities: {
+          primary: [
+            "Product performance and reliability",
+            "Customer experience optimization",
+            "Platform scalability and efficiency",
+            "Innovation in analytics capabilities"
+          ],
+          painPoints: [
+            "Platform performance at scale",
+            "Customer onboarding complexity",
+            "Engineering velocity vs quality balance",
+            "Competitive feature differentiation"
+          ],
+          success_metrics: [
+            "Query performance improvements",
+            "Customer onboarding time",
+            "Platform uptime and reliability",
+            "Feature adoption rates"
+          ],
+          communicationStyle: "Data-driven, customer-focused, pragmatic"
+        },
+        
+        engagementStrategy: {
+          preferredChannels: ["Email", "Video calls", "Slack"],
+          messagingAngles: [
+            "Customer experience enhancements",
+            "Platform performance improvements",
+            "Analytics innovation opportunities",
+            "Engineering efficiency gains"
+          ],
+          valueDrivers: [
+            "Improved customer satisfaction",
+            "Enhanced platform capabilities",
+            "Reduced operational overhead",
+            "Competitive advantage in analytics"
+          ],
+          relationship_strength: "developing"
+        }
+      }
+    ],
+    
+    outreachStrategy: {
+      valueProposition: "Enhance analytics platform capabilities while improving customer experience",
+      messagingFramework: [
+        "Accelerate Innovation: Deliver advanced analytics features faster",
+        "Optimize Performance: Improve query speed and platform reliability",
+        "Enhance Experience: Simplify customer onboarding and self-service"
+      ],
+      competitivePositioning: "Modern analytics platform vs traditional BI tools",
+      roiModel: {
+        costSavings: "45% reduction in platform development costs",
+        efficiencyGains: "3x faster feature delivery",
+        revenueImpact: "28% increase in customer expansion revenue"
       }
     }
   }

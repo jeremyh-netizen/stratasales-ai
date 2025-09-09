@@ -33,9 +33,10 @@ import type { StrategicAccount } from "@/lib/strategic-intelligence";
 interface StrategicAccountDetailsProps {
   account: StrategicAccount;
   onClose: () => void;
+  onStatusChange?: (accountId: string, status: StrategicAccount['status']) => void;
 }
 
-export function StrategicAccountDetails({ account, onClose }: StrategicAccountDetailsProps) {
+export function StrategicAccountDetails({ account, onClose, onStatusChange }: StrategicAccountDetailsProps) {
   const [activePlaybook, setActivePlaybook] = useState<string | null>(null);
   const [outreachStatus, setOutreachStatus] = useState<string>("Review Outreach");
   const [expandedEmails, setExpandedEmails] = useState<{ [key: number]: boolean }>({});
@@ -44,6 +45,15 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
     if (score >= 80) return "text-green-600";
     if (score >= 60) return "text-yellow-600";
     return "text-red-600";
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Active": return "bg-green-100 text-green-800 border-green-200";
+      case "Opportunity": return "bg-blue-100 text-blue-800 border-blue-200";
+      case "Lead": return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      default: return "bg-gray-100 text-gray-800 border-gray-200";
+    }
   };
 
   const getGrowthStageInfo = (stage: string) => {
@@ -88,6 +98,16 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
                 <Badge className={stageInfo.color}>
                   {stageInfo.icon} {account.strategicProfile.growthStage}
                 </Badge>
+                <Select value={account.status} onValueChange={(value) => onStatusChange?.(account.id, value as StrategicAccount['status'])}>
+                  <SelectTrigger className={`w-fit border-0 p-2 h-auto text-sm font-medium ${getStatusColor(account.status)}`}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="min-w-fit">
+                    <SelectItem value="Lead">Lead</SelectItem>
+                    <SelectItem value="Opportunity">Opportunity</SelectItem>
+                    <SelectItem value="Active">Active</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <p className="text-muted-foreground">{account.industry} • {account.strategicProfile.employees} employees</p>
               <div className="flex items-center space-x-4">
