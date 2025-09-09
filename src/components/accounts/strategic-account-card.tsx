@@ -59,7 +59,12 @@ export function StrategicAccountCard({ account, onViewDetails }: StrategicAccoun
             </Avatar>
             <div className="space-y-1">
               <div className="flex items-center space-x-2">
-                <h3 className="font-semibold text-lg text-foreground">{account.name}</h3>
+                <h3 
+                  className="font-semibold text-lg text-foreground cursor-pointer hover:text-primary transition-colors"
+                  onClick={() => onViewDetails(account.id)}
+                >
+                  {account.name}
+                </h3>
                 <Badge className={getStatusColor(account.status)}>
                   {account.status}
                 </Badge>
