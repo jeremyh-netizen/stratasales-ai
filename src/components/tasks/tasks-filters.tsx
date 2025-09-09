@@ -117,29 +117,6 @@ export function TasksFilters({ filters, onFilterChange, onClearAll }: TasksFilte
         </div>
       </div>
 
-      {/* Secondary Filter Buttons */}
-      <div className="flex gap-2">
-        <Button
-          variant={filters.secondaryFilter === "all-tasks" ? "default" : "outline"}
-          size="sm"
-          onClick={() => onFilterChange("secondaryFilter", "all-tasks")}
-          className="gap-2"
-        >
-          <CheckSquare className="w-4 h-4" />
-          All Tasks
-        </Button>
-        
-        
-        <Button
-          variant={filters.secondaryFilter === "outreach" ? "default" : "outline"}
-          size="sm"
-          onClick={() => onFilterChange("secondaryFilter", "outreach")}
-          className="gap-2"
-        >
-          <Target className="w-4 h-4" />
-          Outreach
-        </Button>
-      </div>
     </div>
   );
 }
