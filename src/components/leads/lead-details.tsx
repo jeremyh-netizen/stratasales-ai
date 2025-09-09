@@ -20,7 +20,10 @@ import {
   Target,
   Activity,
   Brain,
-  Shield
+  Shield,
+  User,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { Lead } from "@/pages/Leads";
 
@@ -31,6 +34,7 @@ interface LeadDetailsProps {
 
 export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
   const [showBattleCard, setShowBattleCard] = useState<string | null>(null);
+  const [showFullBio, setShowFullBio] = useState(false);
   
   // Detect competitor mentions in lead data
   const competitors = ["DataGOL", "Salesforce", "HubSpot", "Pipedrive"];
@@ -56,6 +60,22 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
         return "bg-gray-100 text-gray-800";
     }
   };
+
+  const generateBio = (lead: Lead) => {
+    const bios = {
+      "Sarah Chen": `Sarah is a results-driven marketing executive with over 8 years of experience in B2B SaaS growth strategies. At TechFlow Solutions, she leads digital transformation initiatives that have increased lead generation by 150% over the past two years. She specializes in marketing automation, customer segmentation, and data-driven campaign optimization across multiple channels. Sarah holds an MBA in Marketing from Northwestern Kellogg and is passionate about leveraging AI tools to enhance marketing ROI.`,
+      "Michael Rodriguez": `Michael is an innovative technology leader with 12+ years of experience building scalable enterprise solutions. As CTO of InnovateCorp, he has successfully guided the company through three major platform migrations and implemented cutting-edge AI technologies. He's known for his expertise in cloud architecture, DevOps practices, and leading high-performance engineering teams. Michael frequently speaks at tech conferences and holds multiple AWS certifications.`,
+      "Emily Johnson": `Emily is a strategic business development professional with a proven track record of driving revenue growth in the financial technology sector. At FinanceForward, she has established partnerships that generated over $2M in new business within 18 months. She excels at identifying market opportunities, negotiating complex deals, and building lasting client relationships. Emily earned her finance degree from Wharton and is particularly interested in how AI can transform financial services.`,
+      "David Kim": `David is a visionary product manager with 10 years of experience bringing innovative software solutions to market. At ProductVision Inc, he has launched three successful products that collectively serve over 100,000 users worldwide. His expertise lies in user experience design, agile methodologies, and data-driven product decisions. David is passionate about emerging technologies and has been exploring AI integration opportunities for his product roadmap.`
+    };
+    
+    return bios[lead.contact as keyof typeof bios] || `${lead.contact} is an experienced ${lead.title.toLowerCase()} with extensive expertise in the ${lead.industry.toLowerCase()} industry. Working at ${lead.company}, they focus on driving innovation and operational excellence. ${lead.contact} has a proven track record of implementing strategic initiatives that deliver measurable business results. They are actively exploring new technologies and solutions to enhance their organization's competitive advantage.`;
+  };
+
+  const bio = generateBio(lead);
+  const bioSentences = bio.split('. ').filter(sentence => sentence.trim());
+  const shortBio = bioSentences.slice(0, 2).join('. ') + (bioSentences.length > 2 ? '.' : '');
+  const fullBio = bio;
 
   const mockEmails = [
     {
@@ -219,6 +239,35 @@ export function LeadDetails({ lead, onClose }: LeadDetailsProps) {
                   <Building2 className="w-4 h-4 text-muted-foreground" />
                   <span>{lead.industry} • {lead.source}</span>
                 </div>
+              </div>
+            </Card>
+
+            {/* Bio */}
+            <Card className="p-4">
+              <h3 className="font-semibold mb-3 flex items-center">
+                <User className="w-4 h-4 mr-2" />
+                Bio
+              </h3>
+              <div className="text-sm text-muted-foreground leading-relaxed">
+                <p>{showFullBio ? fullBio : shortBio}</p>
+                {bioSentences.length > 2 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-2 p-0 h-auto font-normal text-primary hover:text-primary/80"
+                    onClick={() => setShowFullBio(!showFullBio)}
+                  >
+                    {showFullBio ? (
+                      <>
+                        Show less <ChevronUp className="w-3 h-3 ml-1" />
+                      </>
+                    ) : (
+                      <>
+                        Show more <ChevronDown className="w-3 h-3 ml-1" />
+                      </>
+                    )}
+                  </Button>
+                )}
               </div>
             </Card>
 
