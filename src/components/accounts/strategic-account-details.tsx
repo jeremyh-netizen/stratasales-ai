@@ -443,32 +443,505 @@ export function StrategicAccountDetails({ account, onClose }: StrategicAccountDe
             </Card>
           </TabsContent>
 
-          <TabsContent value="playbook" className="p-4">
-            <div className="text-center py-8">
-              <Brain className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Strategic Playbooks</h3>
-              <p className="text-muted-foreground mb-4">
-                Detailed outreach playbooks coming soon. This will include the full strategic narrative framework like the Clerkie.io example.
-              </p>
-              <Button variant="outline">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Create Playbook
-              </Button>
-            </div>
+          <TabsContent value="playbook" className="p-4 space-y-6">
+            {/* Executive Summary */}
+            <Card className="border-blue-200 bg-blue-50">
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg text-blue-800">
+                  <Target className="w-5 h-5 mr-2" />
+                  Executive Summary
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-blue-900 mb-2">Strategic Imperative</h4>
+                  <p className="text-sm text-blue-800">Position DataGOL as an essential partner to clerkie.io during its critical post-Series A scaling phase</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-blue-900 mb-2">Core Premise</h4>
+                  <p className="text-sm text-blue-800">Clerkie.io's data-dependent mission requires commensurate data infrastructure agility to avoid growth bottlenecks</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-blue-900 mb-2">Key Thesis</h4>
+                  <p className="text-sm text-blue-800 font-medium">Transform infrastructure liability into revenue-generating asset while de-risking scale</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="bg-white p-3 rounded border border-blue-200 text-center">
+                    <div className="font-bold text-blue-600">60%</div>
+                    <div className="text-xs text-blue-700">Operational Efficiency</div>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200 text-center">
+                    <div className="font-bold text-blue-600">40-86%</div>
+                    <div className="text-xs text-blue-700">Cost Savings</div>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-blue-200 text-center">
+                    <div className="font-bold text-blue-600">43%</div>
+                    <div className="text-xs text-blue-700">Retention Uplift</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Persona Analysis */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <Users className="w-5 h-5 mr-2 text-purple-500" />
+                  Persona Deep Dive: Johnny Krueger
+                </CardTitle>
+                <CardDescription>The Operations Architect - Professional trajectory and strategic receptivity</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-medium mb-2">Professional Trajectory</h4>
+                  <p className="text-sm text-muted-foreground">Classically trained finance and operations professional forged in Microsoft and GE Capital's disciplined corporate environments</p>
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2">Core Competencies</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {["Financial modeling and ROI analysis", "Information systems architecture", "Operational scaling and risk management", "P&L statements and TCO analysis"].map((competency, index) => (
+                      <div key={index} className="text-xs bg-purple-50 p-2 rounded border border-purple-200">
+                        {competency}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2">Decision-Making Context</h4>
+                  <p className="text-sm text-muted-foreground">Managing future liability without clear balance sheet entry - needs concrete financial models to quantify infrastructure risk</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Two-Act Messaging Framework */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <MessageSquare className="w-5 h-5 mr-2 text-green-500" />
+                  Two-Act Messaging Framework
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Act 1 */}
+                <div className="border border-green-200 rounded-lg p-4 bg-green-50">
+                  <h4 className="font-bold text-green-800 mb-2">Act 1: "De-Risk Your Scale"</h4>
+                  <p className="text-sm text-green-700 mb-3">Address immediate operational challenges as COO</p>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-xs font-medium text-green-800">Key Messages:</span>
+                      <ul className="text-xs text-green-700 ml-4 mt-1">
+                        <li>• Unify your data stack and eliminate redundant tool licensing</li>
+                        <li>• Real-time, self-serve analytics for board reporting</li>
+                        <li>• Single source of truth for all business data</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-xs font-medium text-green-800">Proof Points:</span>
+                      <ul className="text-xs text-green-700 ml-4 mt-1">
+                        <li>• 60% operational efficiency improvement</li>
+                        <li>• 40% direct cost savings</li>
+                        <li>• Project timelines: 9+ months → 8-10 weeks</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Act 2 */}
+                <div className="border border-orange-200 rounded-lg p-4 bg-orange-50">
+                  <h4 className="font-bold text-orange-800 mb-2">Act 2: "Accelerate Your Roadmap & Revenue"</h4>
+                  <p className="text-sm text-orange-700 mb-3">Strategic top-line oriented message for revenue growth</p>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-xs font-medium text-orange-800">Key Messages:</span>
+                      <ul className="text-xs text-orange-700 ml-4 mt-1">
+                        <li>• Accelerate 'Fiber' platform with embedded analytics</li>
+                        <li>• Enable customer-facing dashboards in weeks, not months</li>
+                        <li>• Improve customer retention through demonstrable ROI</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-xs font-medium text-orange-800">Proof Points:</span>
+                      <ul className="text-xs text-orange-700 ml-4 mt-1">
+                        <li>• 86% cost reduction in dashboarding (Remo)</li>
+                        <li>• 43% customer retention increase</li>
+                        <li>• 3-4 weeks vs 4+ months delivery</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Pain Point Matrix */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <AlertTriangle className="w-5 h-5 mr-2 text-red-500" />
+                  Pain Point to Value Proposition Matrix
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    {
+                      pain: "Spiraling infrastructure costs during post-Series A scaling",
+                      value: "Drastic TCO Reduction: Unify data stack and eliminate redundant tool licensing",
+                      proof: "86% dashboarding cost reduction, 95% vs traditional AI stack"
+                    },
+                    {
+                      pain: "Slow, manual reporting to board and CEO hindering decisions",
+                      value: "Real-Time Analytics: Unified dashboards with natural language queries",
+                      proof: "Immediate post-event reporting vs 1-2 day delay"
+                    },
+                    {
+                      pain: "Data silos creating cross-functional friction",
+                      value: "Single Source of Truth: Unified business data platform",
+                      proof: "60% increase in operational efficiency"
+                    }
+                  ].map((item, index) => (
+                    <div key={index} className="border rounded-lg p-3 bg-muted/30">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div>
+                          <span className="font-medium text-red-600">Pain:</span>
+                          <p className="mt-1">{item.pain}</p>
+                        </div>
+                        <div>
+                          <span className="font-medium text-blue-600">Value:</span>
+                          <p className="mt-1">{item.value}</p>
+                        </div>
+                        <div>
+                          <span className="font-medium text-green-600">Proof:</span>
+                          <p className="mt-1">{item.proof}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 4-Touch Email Sequence */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <Mail className="w-5 h-5 mr-2 text-indigo-500" />
+                  Strategic Outreach Cadence
+                </CardTitle>
+                <CardDescription>Multi-touch email sequence with strategic rationale</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    {
+                      title: "Email 1: The Quantified Hook",
+                      subject: "A question about Clerkie's scaling efficiency",
+                      timing: "Initial outreach",
+                      rationale: "Establish relevance and credibility with quantified result speaking directly to COO responsibilities",
+                      preview: "Congratulations on the $33M Series A. We helped a healthcare company achieve 60% operational efficiency..."
+                    },
+                    {
+                      title: "Email 2: The Strategic Pivot",
+                      subject: "Re: Clerkie's scaling efficiency", 
+                      timing: "2-3 business days later",
+                      rationale: "Pivot from internal cost savings to external product enhancement and revenue generation",
+                      preview: "Beyond cost savings, we helped Remo cut dashboarding costs 86% and increase retention 43%..."
+                    },
+                    {
+                      title: "Email 3: The TCO Model",
+                      subject: "A TCO model for your data stack",
+                      timing: "3-4 business days later", 
+                      rationale: "Provide tangible value asset addressing 'unquantified risk' with concrete financial model",
+                      preview: "Data stack TCO can exceed $1M in 18 months. Attached model shows planning framework..."
+                    },
+                    {
+                      title: "Email 4: The Breakup",
+                      subject: "Closing the loop",
+                      timing: "4-5 business days later",
+                      rationale: "Professional closure creating subtle urgency while summarizing core value propositions",
+                      preview: "Final outreach: Lower data infrastructure TCO while accelerating Fiber platform..."
+                    }
+                  ].map((email, index) => (
+                    <div key={index} className="border rounded-lg p-4 hover:bg-muted/20 transition-colors">
+                      <div className="flex items-start justify-between mb-2">
+                        <h5 className="font-medium text-indigo-600">{email.title}</h5>
+                        <Badge variant="outline" className="text-xs">{email.timing}</Badge>
+                      </div>
+                      <p className="text-sm font-medium mb-1">Subject: {email.subject}</p>
+                      <p className="text-xs text-muted-foreground mb-2">{email.rationale}</p>
+                      <p className="text-xs bg-muted/50 p-2 rounded italic">{email.preview}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Objection Handling */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <Shield className="w-5 h-5 mr-2 text-yellow-500" />
+                  Objection Handling Framework
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    {
+                      objection: "We have an engineering team; we're building this in-house",
+                      rebuttal: "Value isn't replacing engineers, but liberating them to focus on core IP",
+                      angle: "3-4 weeks delivery vs 9+ months in-house = massive speed-to-market advantage"
+                    },
+                    {
+                      objection: "We're too busy scaling to consider new platforms",
+                      rebuttal: "Platform designed to reduce scaling chaos, not add to it",
+                      angle: "Prevent expensive data silos that are harder to fix later"
+                    },
+                    {
+                      objection: "It sounds expensive",
+                      rebuttal: "95% cost reduction vs self-built stack including tools + headcount",
+                      angle: "Predictable cost model eliminates surprise infrastructure bills"
+                    }
+                  ].map((item, index) => (
+                    <div key={index} className="border rounded-lg p-3 bg-yellow-50 border-yellow-200">
+                      <div className="space-y-2">
+                        <div>
+                          <span className="text-xs font-medium text-yellow-800">Objection:</span>
+                          <p className="text-sm text-yellow-900">"{item.objection}"</p>
+                        </div>
+                        <div>
+                          <span className="text-xs font-medium text-yellow-800">Rebuttal:</span>
+                          <p className="text-sm text-yellow-900">{item.rebuttal}</p>
+                        </div>
+                        <div>
+                          <span className="text-xs font-medium text-yellow-800">Strategic Angle:</span>
+                          <p className="text-sm text-yellow-900">{item.angle}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
-          <TabsContent value="insights" className="p-4">
-            <div className="text-center py-8">
-              <Brain className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">AI-Powered Insights</h3>
-              <p className="text-muted-foreground mb-4">
-                AI analysis of account readiness, optimal outreach timing, and personalized recommendations.
-              </p>
-              <Button variant="outline">
-                <Brain className="w-4 h-4 mr-2" />
-                Generate Insights
-              </Button>
+          <TabsContent value="insights" className="p-4 space-y-6">
+            {/* Overall Readiness Score */}
+            <Card className="border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-lg">
+                  <span className="flex items-center text-green-800">
+                    <Brain className="w-5 h-5 mr-2" />
+                    Account Readiness Score
+                  </span>
+                  <div className="text-3xl font-bold text-green-600">87</div>
+                </CardTitle>
+                <CardDescription>AI-powered analysis of purchase readiness and optimal engagement strategy</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="text-center p-3 bg-white rounded-lg border border-green-200">
+                    <div className="text-xl font-bold text-green-600">92</div>
+                    <div className="text-xs text-green-700">Funding Stage</div>
+                    <Progress value={92} className="mt-2 h-2" />
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg border border-green-200">
+                    <div className="text-xl font-bold text-green-600">85</div>
+                    <div className="text-xs text-green-700">Tech Stack Fit</div>
+                    <Progress value={85} className="mt-2 h-2" />
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg border border-green-200">
+                    <div className="text-xl font-bold text-green-600">88</div>
+                    <div className="text-xs text-green-700">Buying Signals</div>
+                    <Progress value={88} className="mt-2 h-2" />
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-lg border border-green-200">
+                    <div className="text-xl font-bold text-green-600">90</div>
+                    <div className="text-xs text-green-700">Timing</div>
+                    <Progress value={90} className="mt-2 h-2" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Detailed Scoring Analysis */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-lg">
+                    <DollarSign className="w-5 h-5 mr-2 text-blue-500" />
+                    Funding Stage Analysis
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Score</span>
+                    <Badge className="bg-green-100 text-green-800">92 - Optimal</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Post-Series A company with $33M fresh capital and pressure to scale efficiently. Board includes data-centric fintech leaders creating urgency.</p>
+                  <div className="space-y-2">
+                    <h5 className="text-xs font-medium">Key Indicators:</h5>
+                    {["Recent $33M Series A creates scaling pressure", "Board includes data-focused veterans", "Q1 2024 infrastructure decision timeline", "Growth targets require efficiency gains"].map((indicator, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5" />
+                        <span className="text-xs">{indicator}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-lg">
+                    <Zap className="w-5 h-5 mr-2 text-purple-500" />
+                    Tech Stack Compatibility
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Score</span>
+                    <Badge className="bg-green-100 text-green-800">85 - Strong</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Modern microservices architecture with Node.js/AWS/MongoDB stack enables easy integration with minimal disruption.</p>
+                  <div className="space-y-2">
+                    <h5 className="text-xs font-medium">Compatibility Factors:</h5>
+                    {["Modern tech stack enables easy integration", "Microservices create natural unification need", "Existing SQL knowledge reduces learning curve", "Cloud-first infrastructure alignment"].map((factor, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <CheckCircle2 className="w-3 h-3 text-purple-500 mt-0.5" />
+                        <span className="text-xs">{factor}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-lg">
+                    <TrendingUp className="w-5 h-5 mr-2 text-orange-500" />
+                    Buying Signals Strength
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Score</span>
+                    <Badge className="bg-green-100 text-green-800">88 - High</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Multiple strong buying signals indicate high purchase intent. B2B platform development creates urgency.</p>
+                  <div className="space-y-2">
+                    <h5 className="text-xs font-medium">Active Signals:</h5>
+                    {["Building 'Fiber' platform requiring analytics", "Mentioned data silos in recent interviews", "Engineering hiring indicates capacity limits", "COO background suggests TCO focus"].map((signal, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <CheckCircle2 className="w-3 h-3 text-orange-500 mt-0.5" />
+                        <span className="text-xs">{signal}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-lg">
+                    <Clock className="w-5 h-5 mr-2 text-red-500" />
+                    Timing Optimization
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Score</span>
+                    <Badge className="bg-green-100 text-green-800">90 - Exceptional</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Exceptional timing window due to funding cycle and infrastructure planning phase.</p>
+                  <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <h5 className="text-xs font-medium text-red-800 mb-1">Optimal Window:</h5>
+                    <p className="text-sm text-red-700">Next 3-6 months during Q1 2024 infrastructure planning cycle</p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+
+            {/* Persona Intelligence */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <Users className="w-5 h-5 mr-2 text-indigo-500" />
+                  Persona Intelligence Dashboard
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 border rounded-lg bg-indigo-50 border-indigo-200">
+                    <h5 className="font-medium text-indigo-800 mb-2">Communication Style</h5>
+                    <p className="text-sm text-indigo-700">Data-driven, ROI-focused, process-oriented communication with quantified benefits</p>
+                  </div>
+                  <div className="p-4 border rounded-lg bg-indigo-50 border-indigo-200">
+                    <h5 className="font-medium text-indigo-800 mb-2">Best Engagement</h5>
+                    <p className="text-sm text-indigo-700">Tuesday-Thursday, 9-11 AM or 2-4 PM EST via multi-touch email sequence</p>
+                  </div>
+                  <div className="p-4 border rounded-lg bg-indigo-50 border-indigo-200">
+                    <h5 className="font-medium text-indigo-800 mb-2">Key Language</h5>
+                    <p className="text-sm text-indigo-700">Financial modeling, TCO analysis, risk mitigation, operational efficiency</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Strategic Recommendations */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center text-lg">
+                  <Lightbulb className="w-5 h-5 mr-2 text-yellow-500" />
+                  AI-Generated Strategic Recommendations
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h5 className="font-medium mb-2">Messaging Priority</h5>
+                  <div className="space-y-2">
+                    {["Lead with operational efficiency and cost savings (60% efficiency, 40% cost reduction)", "Emphasize risk mitigation and capital efficiency for post-Series A scaling", "Highlight Fiber platform acceleration and customer retention benefits", "Include concrete TCO model showing $1M+ infrastructure cost avoidance"].map((priority, index) => (
+                      <div key={index} className="flex items-start space-x-2 text-sm">
+                        <div className="w-6 h-6 bg-yellow-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
+                          {index + 1}
+                        </div>
+                        <span>{priority}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h5 className="font-medium mb-2">Competitive Angles</h5>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {["Unified platform vs fragmented point solutions", "Speed-to-market advantage (weeks vs months)", "Predictable cost model vs unpredictable scaling", "Purpose-built for fintech compliance"].map((angle, index) => (
+                      <div key={index} className="text-xs bg-yellow-50 p-2 rounded border border-yellow-200">
+                        {angle}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h5 className="font-medium mb-2">Engagement Optimization</h5>
+                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center space-x-4 text-sm">
+                      <div>
+                        <span className="font-medium text-green-800">Best Approach:</span>
+                        <span className="text-green-700 ml-1">Email sequence</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-800">Primary Target:</span>
+                        <span className="text-green-700 ml-1">Johnny Krueger (COO)</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-800">Cadence:</span>
+                        <span className="text-green-700 ml-1">4-touch over 2-3 weeks</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

@@ -103,35 +103,482 @@ export interface OutreachPlaybook {
     strategicImperative: string;
     corePremise: string;
     anticipatedOutcomes: string[];
+    keyThesis: string;
   };
   
-  valueProposition: {
-    primaryBenefits: string[];
-    proofPoints: string[];
-    competitiveDifferentiation: string[];
+  personaAnalysis: {
+    professionalTrajectory: string;
+    coreCompetencies: string[];
+    receptivityFactors: string[];
+    decisionMakingContext: string;
   };
   
   messagingFramework: {
     act1: {
       title: string;
       focus: string;
+      narrative: string;
       keyMessages: string[];
       proofPoints: string[];
+      metricsSupport: string[];
     };
     act2: {
       title: string;
       focus: string;
+      narrative: string;
       keyMessages: string[];
       proofPoints: string[];
+      metricsSupport: string[];
     };
   };
   
-  targetPersonas: {
-    primary: string;
-    secondary: string[];
-    stakeholderMap: string[];
+  painPointMatrix: {
+    painPoint: string;
+    valueProposition: string;
+    supportingProof: string;
+  }[];
+  
+  outreachCadence: {
+    email1: {
+      subject: string;
+      strategicRationale: string;
+      body: string;
+      timing: string;
+    };
+    email2: {
+      subject: string;
+      strategicRationale: string;
+      body: string;
+      timing: string;
+    };
+    email3: {
+      subject: string;
+      strategicRationale: string;
+      body: string;
+      timing: string;
+    };
+    email4: {
+      subject: string;
+      strategicRationale: string;
+      body: string;
+      timing: string;
+    };
+  };
+  
+  objectionHandling: {
+    objection: string;
+    rebuttal: string;
+    strategicAngle: string;
+  }[];
+  
+  engagementProtocols: {
+    discoveryQuestions: string[];
+    pivotStrategies: string[];
+    nextSteps: string[];
   };
 }
+
+export interface AIInsights {
+  accountId: string;
+  lastUpdated: string;
+  
+  readinessScoring: {
+    overall: number;
+    fundingStage: {
+      score: number;
+      analysis: string;
+      indicators: string[];
+    };
+    techStackFit: {
+      score: number;
+      analysis: string;
+      compatibilityFactors: string[];
+    };
+    buyingSignals: {
+      score: number;
+      analysis: string;
+      signals: string[];
+    };
+    timingIndicators: {
+      score: number;
+      analysis: string;
+      optimalWindow: string;
+    };
+  };
+  
+  personaIntelligence: {
+    communicationOptimization: {
+      preferredStyle: string;
+      keyLanguage: string[];
+      avoidanceFactors: string[];
+    };
+    influenceMapping: {
+      primaryInfluencers: string[];
+      decisionProcess: string;
+      keyStakeholders: string[];
+    };
+    engagementTiming: {
+      bestDays: string[];
+      bestTimes: string[];
+      cadenceRecommendation: string;
+    };
+  };
+  
+  strategicRecommendations: {
+    messagingPriority: string[];
+    competitiveAngles: string[];
+    roiModelCustomization: {
+      primaryMetrics: string[];
+      customizationFactors: string[];
+    };
+    riskMitigationTalking: string[];
+  };
+  
+  engagementOptimization: {
+    bestApproach: "email-sequence" | "direct-call" | "warm-intro" | "event-based";
+    stakeholderPrioritization: {
+      contact: string;
+      priority: number;
+      rationale: string;
+    }[];
+    contentPersonalization: string[];
+    followUpOptimization: {
+      cadence: string;
+      channelMix: string[];
+      contentProgression: string[];
+    };
+  };
+}
+
+// Mock Playbook Data
+export const mockOutreachPlaybooks: OutreachPlaybook[] = [
+  {
+    id: "p1",
+    accountId: "1",
+    name: "Strategic Outreach Playbook: Engaging Clerkie.io for High-Growth Partnership",
+    objective: "Position DataGOL as essential partner during critical post-Series A scaling phase",
+    
+    executiveSummary: {
+      strategicImperative: "Position DataGOL as an essential partner to clerkie.io during its critical post-Series A scaling phase",
+      corePremise: "Clerkie.io's data-dependent mission requires commensurate data infrastructure agility to avoid growth bottlenecks",
+      anticipatedOutcomes: [
+        "60% improvement in operational efficiency",
+        "40-86% cost savings in data infrastructure TCO", 
+        "43% uplift in customer retention"
+      ],
+      keyThesis: "Transform infrastructure liability into revenue-generating asset while de-risking scale"
+    },
+    
+    personaAnalysis: {
+      professionalTrajectory: "Classically trained finance and operations professional forged in Microsoft and GE Capital's disciplined corporate environments",
+      coreCompetencies: [
+        "Financial modeling and ROI analysis",
+        "Information systems architecture",
+        "Operational scaling and risk management",
+        "P&L statements and TCO analysis"
+      ],
+      receptivityFactors: [
+        "Fluent in quantified financial implications of technical infrastructure decisions",
+        "Experienced with operational dysfunction at scale from GE/Microsoft background",
+        "Acutely sensitive to unquantified risk and capital efficiency"
+      ],
+      decisionMakingContext: "Managing future liability without clear balance sheet entry - needs concrete financial models to quantify infrastructure risk"
+    },
+    
+    messagingFramework: {
+      act1: {
+        title: "De-Risk Your Scale",
+        focus: "Address immediate operational challenges as COO",
+        narrative: "Focus on Johnny Krueger's immediate, internal pain points. Demonstrate how DataGOL solves operational challenges of scaling by unifying data stack, slashing TCO, and automating board-level reporting.",
+        keyMessages: [
+          "Unify your data stack and eliminate redundant tool licensing",
+          "Real-time, self-serve analytics for board reporting",
+          "Single source of truth for all business data",
+          "Drastic TCO reduction during post-Series A scaling"
+        ],
+        proofPoints: [
+          "Healthcare company: 60% increase in operational efficiency",
+          "40% cost savings in infrastructure",
+          "Eliminate 1-2 day reporting delays",
+          "95% cost reduction vs traditional AI stack"
+        ],
+        metricsSupport: [
+          "60% operational efficiency improvement",
+          "40% direct cost savings",
+          "Project timelines from 9+ months to 8-10 weeks"
+        ]
+      },
+      act2: {
+        title: "Accelerate Your Roadmap & Revenue", 
+        focus: "Strategic top-line oriented message for revenue growth",
+        narrative: "Reframe DataGOL from cost-saving utility into revenue-generating asset. Show how it enhances Clerkie's B2B 'Fiber' product with embedded analytics for competitive advantage.",
+        keyMessages: [
+          "Accelerate 'Fiber' platform with best-in-class embedded analytics",
+          "Enable customer-facing dashboards in weeks, not months", 
+          "Improve customer retention through demonstrable ROI",
+          "Create powerful competitive differentiator"
+        ],
+        proofPoints: [
+          "Remo case study: 86% reduction in dashboarding costs",
+          "43% increase in customer retention",
+          "3-4 weeks implementation vs 4+ months traditional",
+          "Speed-to-market advantage of 7 months"
+        ],
+        metricsSupport: [
+          "86% cost reduction in dashboarding",
+          "43% customer retention increase", 
+          "3-4 week vs 4+ month delivery timeline"
+        ]
+      }
+    },
+    
+    painPointMatrix: [
+      {
+        painPoint: "Spiraling infrastructure costs during post-Series A scaling",
+        valueProposition: "Drastic TCO Reduction: Unify your data stack and eliminate redundant tool licensing and maintenance",
+        supportingProof: "86% dashboarding cost reduction (Remo), 95% cost reduction vs traditional AI stack, 40% cost savings (Healthcare)"
+      },
+      {
+        painPoint: "Slow, manual reporting to board and CEO hindering agile decision-making",
+        valueProposition: "Real-Time, Self-Serve Analytics: Empower organization with unified dashboards and natural language queries",  
+        supportingProof: "Deliver immediate post-event reporting instead of 1-2 day delay (Remo), Real-time Dashboards and Natural Language Queries"
+      },
+      {
+        painPoint: "Data silos between product, engineering, and GTM teams creating friction",
+        valueProposition: "Single Vertical Platform: Create single source of truth for all business data, from product usage to financial metrics",
+        supportingProof: "60% Increase in operational efficiency (Healthcare), addresses data silos preventing unified dashboards"
+      },
+      {
+        painPoint: "Long development cycles for new data-centric features in 'Fiber' platform",
+        valueProposition: "Accelerated Time-to-Market: Leverage embedded analytics to deliver customer-facing dashboards in weeks, not months",
+        supportingProof: "Reduced project timelines from 9+ months to 8-10 weeks (Healthcare), 3-4 weeks vs 4+ months (Remo)"
+      },
+      {
+        painPoint: "Risk of customer churn due to lack of demonstrable ROI for lender clients",
+        valueProposition: "Enhanced Customer Value & Retention: Provide best-in-class embedded analytics to prove Fiber platform value",
+        supportingProof: "Led to 43% increase in retention (Remo), Enable excellent customer experience and retention"
+      }
+    ],
+    
+    outreachCadence: {
+      email1: {
+        subject: "A question about Clerkie's scaling efficiency",
+        strategicRationale: "Establish relevance and credibility with quantified result speaking directly to COO responsibilities managing new funding. Concise, respects time, focuses on capital-efficient scaling.",
+        body: "Johnny,\n\nCongratulations to the Clerkie team on the recent $33M Series A. Scaling operations efficiently after a new funding round is a critical challenge.\n\nMy firm, DataGOL, recently partnered with a healthcare tech company post-funding to unify their data infrastructure. The result was a 60% increase in operational efficiency and 40% in direct cost savings—freeing up capital and engineering cycles to focus on their core product.\n\nGiven your background in financial management and operations, I thought this benchmark might be relevant as you plan Clerkie's next phase of growth.\n\nWould 15 minutes next week be worthwhile to explain how they achieved this?\n\nBest,\nDataGOL",
+        timing: "Initial outreach"
+      },
+      email2: {
+        subject: "Re: Clerkie's scaling efficiency",
+        strategicRationale: "Demonstrate multi-faceted understanding by pivoting from internal cost savings to external product enhancement and revenue generation. Introduces Remo case study as direct parallel to Fiber platform opportunity.",
+        body: "Johnny,\n\nFollowing up on my previous note about operational efficiency.\n\nBeyond internal cost savings, a key challenge for B2B SaaS platforms is demonstrating value to clients through data. We worked with Remo, another SaaS company, who faced this exact issue with their customer-facing dashboards.\n\nBy embedding our analytics platform instead of building it in-house, they cut their dashboarding costs by 86% and, more importantly, increased customer retention by 43%.\n\nAs you continue to develop the \"Fiber\" platform for lenders, this strategy could represent a significant accelerator for your roadmap and a powerful tool for customer retention.\n\nDo you have a brief window to discuss how this might apply to Clerkie?\n\nBest,\nDataGOL",
+        timing: "2-3 business days after first email"
+      },
+      email3: {
+        subject: "A TCO model for your data stack",
+        strategicRationale: "Shift dynamic from asking for time to providing tangible value. Addresses COO's latent pain of 'unquantified risk' with concrete financial model, positioning DataGOL as strategic advisor.",
+        body: "Johnny,\n\nOne last thought. As you scale Clerkie, the total cost of ownership for a fragmented data stack (BI tools, warehousing, ETL, headcount) can quickly exceed $1M in the first 18 months.\n\nWe've built a straightforward model based on this reality that other COOs have found valuable for planning and risk mitigation. I've attached a high-level summary.\n\nHappy to walk you through the assumptions we used if it's of interest.\n\nBest,\nDataGOL",
+        timing: "3-4 business days after second email"
+      },
+      email4: {
+        subject: "Closing the loop",
+        strategicRationale: "Professional closure that creates subtle urgency by signaling end of pursuit. Concisely summarizes core value propositions while leaving door open for future engagement.",
+        body: "Johnny,\n\nI'll assume now isn't the right time to connect and won't continue to follow up.\n\nThe substance of my outreach was to propose a path to simultaneously:\n\n• Dramatically lower the TCO of Clerkie's data infrastructure as you scale\n• Accelerate the \"Fiber\" product roadmap with best-in-class embedded analytics to drive retention\n\nIf and when these become a priority, please feel free to get in touch. Wishing you and the Clerkie team all the best for continued growth.\n\nBest,\nDataGOL",
+        timing: "4-5 business days after third email"
+      }
+    },
+    
+    objectionHandling: [
+      {
+        objection: "We have an engineering team; we're building this in-house",
+        rebuttal: "That's the case with many of our partners. The value isn't in replacing your world-class engineers, but in liberating them. Our platform handles the data plumbing—the warehousing, ETL, and visualization framework—allowing your team to focus 100% of their time on your core IP: the proprietary debt-negotiation and financial automation algorithms that differentiate Clerkie.",
+        strategicAngle: "We can deliver in 3-4 weeks what might take your team 9+ months to build, which is a massive speed-to-market advantage"
+      },
+      {
+        objection: "We're too busy with scaling right now to consider a new platform",
+        rebuttal: "I understand completely, and that's precisely why this is timely. Our platform is designed to reduce the chaos of scaling, not add to it. By unifying your data sources early in the growth curve, you prevent the creation of data silos and technical debt that become exponentially harder to fix later.",
+        strategicAngle: "The implementation is fast—typically 3-4 weeks—and the goal is to give you and your team better visibility and control during your busiest time"
+      },
+      {
+        objection: "It sounds expensive",
+        rebuttal: "It's significantly less expensive than the alternative. When you calculate the total cost of ownership of a self-built stack—including licensing for multiple tools like Fivetran and Tableau, cloud warehouse costs, and the salaries for a full data team which can exceed $1.1M annually—our unified platform typically represents a 95% cost reduction.",
+        strategicAngle: "We provide a predictable, scalable cost model that eliminates surprise infrastructure bills and reduces headcount dependency"
+      }
+    ],
+    
+    engagementProtocols: {
+      discoveryQuestions: [
+        "As you begin to deploy the $33 million in new capital, what are your top one or two operational priorities for ensuring that capital is used as efficiently as possible?",
+        "Could you walk me through the current process for how your executive team and the board get visibility into key business metrics? What is the timeline and level of effort required for that reporting today?",
+        "Looking at the 'Fiber' platform roadmap, what are your current plans and timelines for providing data and analytics back to your lender clients? What challenges do you anticipate there?",
+        "When you think about the total cost of your data infrastructure over the next 18-24 months—including engineering headcount, tooling, and cloud spend—what is your back-of-the-envelope estimate for that investment?"
+      ],
+      pivotStrategies: [
+        "If no response to Johnny Krueger: Begin technically-focused outreach to CTO Sebastian Wigstrom",
+        "Maintain visibility through professional network engagement on posted content",
+        "Pause direct outreach for one quarter to avoid fatigue"
+      ],
+      nextSteps: [
+        "Secure discovery meeting focused on operational priorities and capital efficiency",
+        "Present TCO model with specific assumptions for Clerkie's situation",
+        "Demonstrate embedded analytics capability with Fiber platform parallel"
+      ]
+    }
+  }
+];
+
+// Mock AI Insights Data  
+export const mockAIInsights: AIInsights[] = [
+  {
+    accountId: "1",
+    lastUpdated: "2024-01-15",
+    
+    readinessScoring: {
+      overall: 87,
+      fundingStage: {
+        score: 92,
+        analysis: "Optimal timing: Post-Series A company with $33M fresh capital and pressure to scale efficiently. Board includes data-centric fintech leaders creating urgency for infrastructure decisions.",
+        indicators: [
+          "Recent $33M Series A funding creates operational scaling pressure",
+          "Board includes data-focused fintech veterans (David Velez, Tom Proulx)",
+          "Q1 2024 infrastructure decision timeline aligns with outreach",
+          "Aggressive growth targets require operational efficiency gains"
+        ]
+      },
+      techStackFit: {
+        score: 85,
+        analysis: "Strong technical compatibility with modern microservices architecture. Current Node.js/AWS/MongoDB stack is well-suited for DataGOL integration with minimal disruption.",
+        compatibilityFactors: [
+          "Modern tech stack (Node.js, AWS, MongoDB) enables easy integration",
+          "Microservices architecture creates natural data unification need",
+          "Existing SQL knowledge in team reduces learning curve",
+          "Cloud-first infrastructure aligns with DataGOL deployment model"
+        ]
+      },
+      buyingSignals: {
+        score: 88,
+        analysis: "Multiple strong buying signals indicate high purchase intent. B2B platform development dependent on analytics capabilities creates urgency.",
+        signals: [
+          "Building B2B CRM 'Fiber' platform requiring customer-facing analytics",
+          "Mentioned data silos and reporting delays in recent interviews",
+          "Engineering team hiring indicates capacity constraints for in-house build",
+          "COO background suggests focus on operational efficiency and TCO"
+        ]
+      },
+      timingIndicators: {
+        score: 90,
+        analysis: "Exceptional timing window due to funding cycle and infrastructure planning phase. Decision-making authority concentrated with COO creates clear engagement path.",
+        optimalWindow: "Next 3-6 months during Q1 2024 infrastructure planning cycle"
+      }
+    },
+    
+    personaIntelligence: {
+      communicationOptimization: {
+        preferredStyle: "Data-driven, ROI-focused, process-oriented communication with quantified benefits",
+        keyLanguage: [
+          "Financial modeling and TCO analysis",
+          "Risk mitigation and operational efficiency", 
+          "Capital efficiency and burn rate optimization",
+          "Quantified metrics and proof points"
+        ],
+        avoidanceFactors: [
+          "Avoid vague benefits without metrics",
+          "Don't lead with technology features over business outcomes",
+          "Minimize jargon, focus on financial and operational impact"
+        ]
+      },
+      influenceMapping: {
+        primaryInfluencers: [
+          "Johnny Krueger (COO) - Budget authority and operational decisions",
+          "Guy Assad (CEO) - Strategic direction and vendor approvals >$500K",
+          "Sebastian Wigstrom (CTO) - Technical evaluation and implementation"
+        ],
+        decisionProcess: "COO-led evaluation with CEO approval for significant investments. CTO consulted for technical fit assessment.",
+        keyStakeholders: [
+          "Board members with data expertise (David Velez, Tom Proulx)",
+          "VP Engineering for implementation planning",
+          "Head of Product for Fiber platform integration"
+        ]
+      },
+      engagementTiming: {
+        bestDays: ["Tuesday", "Wednesday", "Thursday"],
+        bestTimes: ["9:00-11:00 AM", "2:00-4:00 PM EST"],
+        cadenceRecommendation: "Multi-touch sequence over 2-3 weeks with value-add content between touchpoints"
+      }
+    },
+    
+    strategicRecommendations: {
+      messagingPriority: [
+        "Lead with operational efficiency and cost savings (60% efficiency, 40% cost reduction)",
+        "Emphasize risk mitigation and capital efficiency for post-Series A scaling",
+        "Highlight Fiber platform acceleration and customer retention benefits",
+        "Include concrete TCO model showing $1M+ infrastructure cost avoidance"
+      ],
+      competitiveAngles: [
+        "Unified platform vs fragmented point solutions requiring integration",
+        "Speed-to-market advantage (weeks vs months) for customer-facing analytics",
+        "Predictable cost model vs unpredictable infrastructure scaling costs",
+        "Purpose-built for fintech with compliance and security requirements"
+      ],
+      roiModelCustomization: {
+        primaryMetrics: [
+          "Infrastructure TCO reduction (40-86%)",
+          "Operational efficiency improvement (60%)",
+          "Time-to-market acceleration (9 months to 8-10 weeks)",
+          "Customer retention uplift (43%)"
+        ],
+        customizationFactors: [
+          "Factor in Clerkie's current AWS spend trajectory",
+          "Include engineering headcount cost avoidance",
+          "Model Fiber platform revenue acceleration",
+          "Calculate board reporting time savings"
+        ]
+      },
+      riskMitigationTalking: [
+        "Prevent data silos that become exponentially expensive to fix later",
+        "Eliminate unpredictable infrastructure cost spikes during growth",
+        "Reduce dependency on hard-to-find data engineering talent",
+        "Mitigate technical debt accumulation in core product development"
+      ]
+    },
+    
+    engagementOptimization: {
+      bestApproach: "email-sequence",
+      stakeholderPrioritization: [
+        {
+          contact: "Johnny Krueger (COO)",
+          priority: 1,
+          rationale: "Primary decision maker with budget authority and operational pain points alignment"
+        },
+        {
+          contact: "Sebastian Wigstrom (CTO)", 
+          priority: 2,
+          rationale: "Technical validation required, potential secondary entry point if COO outreach stalls"
+        },
+        {
+          contact: "Guy Assad (CEO)",
+          priority: 3,
+          rationale: "Final approval authority for significant investments, strategic alignment needed"
+        }
+      ],
+      contentPersonalization: [
+        "Reference specific Clerkie metrics and funding details for credibility",
+        "Use healthcare and Remo case studies as direct parallels",
+        "Include Boston College connection if appropriate for rapport building",
+        "Mention GE Capital and Microsoft experience to establish credibility"
+      ],
+      followUpOptimization: {
+        cadence: "4-touch sequence over 2-3 weeks with strategic pauses",
+        channelMix: ["Email primary", "LinkedIn connection", "Phone follow-up"],
+        contentProgression: [
+          "Operational efficiency hook with healthcare case study",
+          "Revenue acceleration angle with Remo parallel",
+          "TCO model as valuable asset provision",
+          "Professional closure with value summary"
+        ]
+      }
+    }
+  }
+];
 
 // Mock Strategic Data
 export const mockStrategicAccounts: StrategicAccount[] = [
