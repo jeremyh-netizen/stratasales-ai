@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { 
   LayoutDashboard, 
   Users, 
@@ -36,7 +37,7 @@ const navigationItems = [
     title: "Accounts",
     icon: Building2,
     path: "/accounts",
-    wip: true,
+    badge: "2",
   },
   {
     title: "Contacts",
@@ -83,63 +84,85 @@ export function Navigation({ className }: NavigationProps) {
   const activeItem = location.pathname;
 
   return (
-    <div className={cn("flex flex-col h-screen w-64 bg-card border-r border-border shadow-soft", className)}>
-      {/* Header */}
-      <div className="p-6 border-b border-border">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-            <BarChart3 className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-foreground">DATASales AI</h1>
-            <p className="text-xs text-muted-foreground">Sales Intelligence</p>
+    <TooltipProvider>
+      <div className={cn("flex flex-col h-screen w-64 bg-card border-r border-border shadow-soft", className)}>
+        {/* Header */}
+        <div className="p-6 border-b border-border">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-foreground">DATASales AI</h1>
+              <p className="text-xs text-muted-foreground">Sales Intelligence</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
-        {navigationItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeItem === item.path;
-          
-          return (
-            <Button
-              key={item.path}
-              variant={isActive ? "secondary" : "ghost"}
-              className={cn(
-                "w-full justify-start space-x-3 h-10 px-3",
-                isActive && "bg-primary/10 text-primary border-primary/20",
-                item.wip && "opacity-50"
-              )}
-              onClick={() => navigate(item.path)}
-            >
-              <Icon className="w-4 h-4" />
-              <span className="flex-1 text-left">{item.title}</span>
-              {item.badge && (
-                <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                  {item.badge}
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-1">
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeItem === item.path;
+            
+            const buttonContent = (
+              <Button
+                key={item.path}
+                variant={isActive ? "secondary" : "ghost"}
+                className={cn(
+                  "w-full justify-start space-x-3 h-10 px-3",
+                  isActive && "bg-primary/10 text-primary border-primary/20",
+                  item.wip && "opacity-50"
+                )}
+                onClick={() => navigate(item.path)}
+              >
+                <Icon className="w-4 h-4" />
+                <span className={cn(
+                  "flex-1 text-left",
+                  item.title === "Accounts" && "text-black font-semibold"
+                )}>
+                  {item.title}
                 </span>
-              )}
-            </Button>
-          );
-        })}
-      </nav>
+                {item.badge && (
+                  <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                    {item.badge}
+                  </span>
+                )}
+              </Button>
+            );
 
-      {/* Bottom Actions */}
-      <div className="p-4 border-t border-border space-y-2">
-        <Button variant="ghost" size="sm" className="w-full justify-start space-x-3">
-          <Bell className="w-4 h-4" />
-          <span>Notifications</span>
-          <span className="bg-destructive text-destructive-foreground text-xs px-2 py-0.5 rounded-full ml-auto">
-            3
-          </span>
-        </Button>
-        <Button variant="ghost" size="sm" className="w-full justify-start space-x-3">
-          <Settings className="w-4 h-4" />
-          <span>Settings</span>
-        </Button>
+            if (item.title === "Accounts") {
+              return (
+                <Tooltip key={item.path}>
+                  <TooltipTrigger asChild>
+                    {buttonContent}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>2</p>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            }
+
+            return buttonContent;
+          })}
+        </nav>
+
+        {/* Bottom Actions */}
+        <div className="p-4 border-t border-border space-y-2">
+          <Button variant="ghost" size="sm" className="w-full justify-start space-x-3">
+            <Bell className="w-4 h-4" />
+            <span>Notifications</span>
+            <span className="bg-destructive text-destructive-foreground text-xs px-2 py-0.5 rounded-full ml-auto">
+              3
+            </span>
+          </Button>
+          <Button variant="ghost" size="sm" className="w-full justify-start space-x-3">
+            <Settings className="w-4 h-4" />
+            <span>Settings</span>
+          </Button>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
