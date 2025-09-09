@@ -11,6 +11,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { 
   Mail, 
   Phone, 
@@ -19,7 +28,8 @@ import {
   Building2,
   TrendingUp,
   Eye,
-  MessageSquare
+  MessageSquare,
+  Edit3
 } from "lucide-react";
 import { Lead } from "@/pages/Leads";
 
@@ -141,6 +151,28 @@ const mockLeads: Lead[] = [
 export function LeadsTable({ filters, selectedLead, onSelectLead }: LeadsTableProps) {
   const [sortBy, setSortBy] = useState<keyof Lead>("score");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [editingLead, setEditingLead] = useState<Lead | null>(null);
+  const [editNextAction, setEditNextAction] = useState("");
+
+  const handleEditNextAction = (lead: Lead) => {
+    setEditingLead(lead);
+    setEditNextAction(lead.nextAction);
+  };
+
+  const handleSaveNextAction = () => {
+    if (editingLead) {
+      // In a real app, this would update the lead via API
+      const updatedLead = { ...editingLead, nextAction: editNextAction };
+      console.log("Saving next action:", updatedLead);
+    }
+    setEditingLead(null);
+    setEditNextAction("");
+  };
+
+  const handleCancelEdit = () => {
+    setEditingLead(null);
+    setEditNextAction("");
+  };
 
   // Filter and sort leads
   const filteredLeads = mockLeads.filter(lead => {
@@ -294,8 +326,21 @@ export function LeadsTable({ filters, selectedLead, onSelectLead }: LeadsTablePr
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>
                   </div>
-                  <div className="text-xs text-accent text-left max-w-[120px]">
-                    {lead.nextAction}
+                  <div className="group relative text-xs text-accent text-left max-w-[120px]">
+                    <div className="pr-6">
+                      {lead.nextAction}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-4 w-4 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditNextAction(lead);
+                      }}
+                    >
+                      <Edit3 className="w-3 h-3" />
+                    </Button>
                   </div>
                 </div>
               </TableCell>
@@ -310,6 +355,35 @@ export function LeadsTable({ filters, selectedLead, onSelectLead }: LeadsTablePr
           <p>No leads match your current filters</p>
         </div>
       )}
+
+      {/* Edit Next Action Modal */}
+      <Dialog open={!!editingLead} onOpenChange={() => handleCancelEdit()}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Next Action</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="nextAction">Next Action</Label>
+              <Textarea
+                id="nextAction"
+                value={editNextAction}
+                onChange={(e) => setEditNextAction(e.target.value)}
+                placeholder="Enter the next action for this lead..."
+                className="min-h-[100px]"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={handleCancelEdit}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveNextAction}>
+              Save Changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }
