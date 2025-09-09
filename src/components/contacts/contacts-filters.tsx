@@ -24,12 +24,12 @@ export function ContactsFilters({ filters, onFiltersChange }: ContactsFiltersPro
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
         <Select 
           value={filters.company} 
           onValueChange={(value) => onFiltersChange({ ...filters, company: value })}
         >
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder="All Companies" />
           </SelectTrigger>
           <SelectContent>
@@ -43,7 +43,7 @@ export function ContactsFilters({ filters, onFiltersChange }: ContactsFiltersPro
           value={filters.department} 
           onValueChange={(value) => onFiltersChange({ ...filters, department: value })}
         >
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder="All Departments" />
           </SelectTrigger>
           <SelectContent>
@@ -60,7 +60,7 @@ export function ContactsFilters({ filters, onFiltersChange }: ContactsFiltersPro
           value={filters.authority} 
           onValueChange={(value) => onFiltersChange({ ...filters, authority: value })}
         >
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder="All Authority Levels" />
           </SelectTrigger>
           <SelectContent>
@@ -73,7 +73,7 @@ export function ContactsFilters({ filters, onFiltersChange }: ContactsFiltersPro
         {activeFilters.length > 0 && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-muted-foreground hover:text-foreground"
+            className="text-sm text-muted-foreground hover:text-foreground mt-2 sm:mt-0"
           >
             Clear all
           </button>

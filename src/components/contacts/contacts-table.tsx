@@ -148,87 +148,89 @@ export function ContactsTable({
   const getAuthorityColor = (authority: string) => {
     switch (authority) {
       case 'High':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-destructive/10 text-destructive border-destructive/20';
       case 'Medium':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-warning/10 text-warning border-warning/20';
       case 'Low':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return 'bg-success/10 text-success border-success/20';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Contact</TableHead>
-            <TableHead>Title & Company</TableHead>
-            <TableHead>Contact Info</TableHead>
-            <TableHead>Authority</TableHead>
-            <TableHead>Department</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredContacts.map((contact) => (
-            <TableRow
-              key={contact.id}
-              className={`cursor-pointer hover:bg-muted/50 ${
-                selectedContact?.id === contact.id ? 'bg-muted' : ''
-              }`}
-              onClick={() => onContactSelect(contact)}
-            >
-              <TableCell>
-                <div className="flex items-center space-x-3">
-                  <Avatar>
-                    <AvatarFallback>
-                      {contact.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">{contact.name}</div>
-                    <div className="text-sm text-muted-foreground">{contact.location}</div>
-                  </div>
-                </div>
-              </TableCell>
-              
-              <TableCell>
-                <div>
-                  <div className="font-medium">{contact.title}</div>
-                  <div className="text-sm text-muted-foreground flex items-center">
-                    <Building2 className="w-3 h-3 mr-1" />
-                    {contact.company}
-                  </div>
-                </div>
-              </TableCell>
-              
-              <TableCell>
-                <div className="space-y-1">
-                  <div className="text-sm flex items-center">
-                    <Mail className="w-3 h-3 mr-1" />
-                    {contact.email}
-                  </div>
-                  <div className="text-sm flex items-center">
-                    <Phone className="w-3 h-3 mr-1" />
-                    {contact.phone}
-                  </div>
-                </div>
-              </TableCell>
-              
-              <TableCell>
-                <Badge variant="outline" className={getAuthorityColor(contact.authority)}>
-                  {contact.authority}
-                </Badge>
-              </TableCell>
-              
-              <TableCell>
-                <span className="text-sm">{contact.department}</span>
-              </TableCell>
+    <div className="rounded-md border overflow-hidden">
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="min-w-[200px]">Contact</TableHead>
+              <TableHead className="min-w-[200px]">Title & Company</TableHead>
+              <TableHead className="min-w-[250px]">Contact Info</TableHead>
+              <TableHead className="min-w-[120px]">Authority</TableHead>
+              <TableHead className="min-w-[120px]">Department</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {filteredContacts.map((contact) => (
+              <TableRow
+                key={contact.id}
+                className={`cursor-pointer hover:bg-muted/50 transition-colors ${
+                  selectedContact?.id === contact.id ? 'bg-muted' : ''
+                }`}
+                onClick={() => onContactSelect(contact)}
+              >
+                <TableCell>
+                  <div className="flex items-center space-x-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {contact.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0">
+                      <div className="font-medium truncate">{contact.name}</div>
+                      <div className="text-sm text-muted-foreground truncate">{contact.location}</div>
+                    </div>
+                  </div>
+                </TableCell>
+                
+                <TableCell>
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{contact.title}</div>
+                    <div className="text-sm text-muted-foreground flex items-center">
+                      <Building2 className="w-3 h-3 mr-1 flex-shrink-0" />
+                      <span className="truncate">{contact.company}</span>
+                    </div>
+                  </div>
+                </TableCell>
+                
+                <TableCell>
+                  <div className="space-y-1">
+                    <div className="text-sm flex items-center">
+                      <Mail className="w-3 h-3 mr-1 flex-shrink-0 text-muted-foreground" />
+                      <span className="truncate">{contact.email}</span>
+                    </div>
+                    <div className="text-sm flex items-center">
+                      <Phone className="w-3 h-3 mr-1 flex-shrink-0 text-muted-foreground" />
+                      <span className="truncate">{contact.phone}</span>
+                    </div>
+                  </div>
+                </TableCell>
+                
+                <TableCell>
+                  <Badge variant="outline" className={getAuthorityColor(contact.authority)}>
+                    {contact.authority}
+                  </Badge>
+                </TableCell>
+                
+                <TableCell>
+                  <span className="text-sm">{contact.department}</span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
       
       {filteredContacts.length === 0 && (
         <div className="text-center py-8 text-muted-foreground">

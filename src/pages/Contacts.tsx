@@ -38,7 +38,7 @@ const Contacts = () => {
       
       <main className="ml-64 p-6">
         <div className={`transition-all duration-300 ${
-          selectedContact ? 'grid grid-cols-2 gap-6' : ''
+          selectedContact ? 'lg:grid lg:grid-cols-2 lg:gap-6' : ''
         }`}>
           <div className="space-y-6">
             <ContactsHeader 
@@ -60,7 +60,7 @@ const Contacts = () => {
           </div>
           
           {selectedContact && (
-            <div className="space-y-6">
+            <div className={`space-y-6 ${selectedContact ? 'mt-6 lg:mt-0' : ''}`}>
               <ContactDetails 
                 contact={selectedContact}
                 onClose={() => setSelectedContact(null)}
