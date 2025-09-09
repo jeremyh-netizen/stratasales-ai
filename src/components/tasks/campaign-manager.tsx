@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { TemplateSelectionDialog } from "@/components/tasks/template-selection-dialog";
 import { 
   Mail, 
   Linkedin, 
@@ -19,7 +20,8 @@ import {
   TrendingUp,
   Eye,
   MousePointer,
-  Reply
+  Reply,
+  Phone
 } from "lucide-react";
 import type { FilterState } from "@/pages/Tasks";
 
@@ -89,6 +91,14 @@ const campaignTemplates = [
     emails: 6,
     linkedin: 3,
     aiFeatures: ["Content personalization", "Industry insights", "Behavioral triggers"]
+  },
+  {
+    name: "Engage with Prospects who open email",
+    description: "Multi-channel sequence triggered by email opens with intelligent follow-up timing",
+    emails: 4,
+    linkedin: 3,
+    phone: 3,
+    aiFeatures: ["Email open tracking", "Behavioral triggers", "Smart timing optimization", "Multi-channel orchestration"]
   }
 ];
 
@@ -101,6 +111,8 @@ interface CampaignManagerProps {
 
 export function CampaignManager({ organizationType, filters }: CampaignManagerProps) {
   const [selectedCampaign, setSelectedCampaign] = useState(mockCampaigns[0]);
+  const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
+  const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false);
 
   const getStatusColor = (status: Campaign["status"]) => {
     switch (status) {
@@ -338,6 +350,12 @@ export function CampaignManager({ organizationType, filters }: CampaignManagerPr
                         <Linkedin className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">{template.linkedin} LinkedIn</span>
                       </div>
+                      {template.phone && (
+                        <div className="flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm text-muted-foreground">{template.phone} phone calls</span>
+                        </div>
+                      )}
                     </div>
                     
                     <div className="flex flex-wrap gap-2">
@@ -350,13 +368,26 @@ export function CampaignManager({ organizationType, filters }: CampaignManagerPr
                     </div>
                   </div>
                   
-                  <Button>Use Template</Button>
+                  <Button 
+                    onClick={() => {
+                      setSelectedTemplate(template);
+                      setIsTemplateDialogOpen(true);
+                    }}
+                  >
+                    Use Template
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           ))}
         </TabsContent>
       </Tabs>
+
+      <TemplateSelectionDialog
+        template={selectedTemplate}
+        open={isTemplateDialogOpen}
+        onOpenChange={setIsTemplateDialogOpen}
+      />
     </div>
   );
 }
