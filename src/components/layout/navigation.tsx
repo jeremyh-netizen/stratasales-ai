@@ -43,7 +43,7 @@ const navigationItems = [
     title: "Contacts",
     icon: Users,
     path: "/contacts",
-    wip: true,
+    badge: "6",
   },
   {
     title: "Leads",

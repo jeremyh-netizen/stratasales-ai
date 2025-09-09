@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Leads from "./pages/Leads";
 import Tasks from "./pages/Tasks";
 import Accounts from "./pages/Accounts";
+import Contacts from "./pages/Contacts";
 import Campaigns from "./pages/Campaigns";
 import Meetings from "./pages/Meetings";
 import BattleCards from "./pages/BattleCards";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/leads" element={<Leads />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/accounts" element={<Accounts />} />
+          <Route path="/contacts" element={<Contacts />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/meetings" element={<Meetings />} />
           <Route path="/battle-cards" element={<BattleCards />} />
